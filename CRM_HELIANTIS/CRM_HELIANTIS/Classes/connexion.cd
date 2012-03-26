@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CRM_HELIANTIS.Areas.Utilisateur.Controllers.ConnexionController">
+    <Position X="2.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAgAQAAAAAAAAAAEAAAACAAA=</HashCode>
+      <FileName>Areas\Utilisateur\Controllers\ConnexionController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Classes.BaseController">
+    <Position X="4.5" Y="0.75" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAgAEAJQIQAAEAAAAAAAAAAAAAQAAAAAAAAAAEA=</HashCode>
+      <FileName>Classes\BaseController.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="cnx" />
+      <Property Name="RulesManager" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Classes.RulesManager">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAAAAAAAAAAAAAAQAAIAAAQAiAAAAAAAgAAAAA=</HashCode>
+      <FileName>Classes\RulesManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Areas.Utilisateur.Controllers.IndexController">
+    <Position X="4.5" Y="3.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAEAAAAAAAAQAAAAGAAAAgEAA=</HashCode>
+      <FileName>Areas\Utilisateur\Controllers\IndexController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Areas.Utilisateur.Controllers.RoleController">
+    <Position X="6.5" Y="3.5" Width="1.5" />
+    <NestedTypes>
+      <Class Name="CRM_HELIANTIS.Areas.Utilisateur.Controllers.RoleController.checkBox" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Areas\Utilisateur\Controllers\RoleController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Areas\Utilisateur\Controllers\RoleController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Models.HeliantisEntities">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_client" Hidden="true" />
+      <Field Name="_employe" Hidden="true" />
+      <Field Name="_favori" Hidden="true" />
+      <Field Name="_frais" Hidden="true" />
+      <Field Name="_groupe" Hidden="true" />
+      <Field Name="_materiel" Hidden="true" />
+      <Field Name="_projet" Hidden="true" />
+      <Field Name="_recurrence" Hidden="true" />
+      <Field Name="_reservation" Hidden="true" />
+      <Field Name="_role" Hidden="true" />
+      <Field Name="_rule" Hidden="true" />
+      <Field Name="_rule_role" Hidden="true" />
+      <Field Name="_sysdiagrams" Hidden="true" />
+      <Field Name="_tache" Hidden="true" />
+      <Field Name="_temps" Hidden="true" />
+      <Field Name="_type_temps" Hidden="true" />
+      <Field Name="_utilisateur" Hidden="true" />
+      <Field Name="_VuePlanningGlobal" Hidden="true" />
+      <Method Name="AddToclient" Hidden="true" />
+      <Method Name="AddToemploye" Hidden="true" />
+      <Method Name="AddTofavori" Hidden="true" />
+      <Method Name="AddTofrais" Hidden="true" />
+      <Method Name="AddTogroupe" Hidden="true" />
+      <Method Name="AddTomateriel" Hidden="true" />
+      <Method Name="AddToprojet" Hidden="true" />
+      <Method Name="AddTorecurrence" Hidden="true" />
+      <Method Name="AddToreservation" Hidden="true" />
+      <Method Name="AddTorole" Hidden="true" />
+      <Method Name="AddTorule" Hidden="true" />
+      <Method Name="AddTorule_role" Hidden="true" />
+      <Method Name="AddTosysdiagrams" Hidden="true" />
+      <Method Name="AddTotache" Hidden="true" />
+      <Method Name="AddTotemps" Hidden="true" />
+      <Method Name="AddTotype_temps" Hidden="true" />
+      <Method Name="AddToutilisateur" Hidden="true" />
+      <Method Name="AddToVuePlanningGlobal" Hidden="true" />
+      <Method Name="HeliantisEntities" Hidden="true" />
+      <Method Name="OnContextCreated" Hidden="true" />
+      <Method Name="spVuePlanningGlobal" Hidden="true" />
+      <Property Name="sysdiagrams" Hidden="true" />
+      <Property Name="VuePlanningGlobal" Hidden="true" />
+    </Members>
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>wAAAQAFYABMTBFBABQAEMBBoAIUCyAiAFCIjFACEACE=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Classes.RulesManagerExtensions">
+    <Position X="10" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAIAAAAAiAAAAAAAgAAAAA=</HashCode>
+      <FileName>Classes\RulesManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Classes.RulesManagerHelpers">
+    <Position X="10" Y="2.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAQAAIAAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\RulesManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Classes.RulesManagerAttribute">
+    <Position X="9" Y="4.75" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAQAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Classes\RulesManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

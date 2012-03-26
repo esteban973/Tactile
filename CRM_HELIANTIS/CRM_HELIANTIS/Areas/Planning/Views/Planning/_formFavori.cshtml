@@ -1,0 +1,157 @@
+﻿@model CRM_HELIANTIS.Areas.Planning.Models.FavoriFormView
+<div  class="titreFav"  ><span id="btnFav">
+<span id="addFavori">Ajouter un favori</span> <span id="supprFavori">Supprimer le favori</span></span><span class="titreOnlyFav">
+    > Favoris</span>
+    </div>
+<div id="formFavori">
+    <form id="formulaireFav">
+    <div>
+<label>Projet</label> @Html.DropDownList("id_projetFav", "Choisissez le projet")
+    </div>
+    <div>
+       <label>Tâche</label> @Html.DropDownList("id_tacheFav", "Choisissez la tâche")
+    </div>
+    <div>
+       <label>Type</label> @Html.DropDownList("id_type_tempsFav", "Choisissez le type")
+        <span id="enregFavori">Enregistrer</span>
+        <span id="fermerFormFavori">Fermer</span>
+    </div>
+    @Html.HiddenFor(Model => Model.id_employeFav)
+    </form>
+</div>
+<div id="favoris">
+</div>
+<script type="text/javascript">
+    //-------------------------------------------------------------------------------------------------------
+    //-----------------------initialisation des combobox et des boutons--------------------------------------
+    //---------------------------------------------------------------------------------------------------------
+
+    $('#id_projetFav').combobox();
+    $('#id_tacheFav').combobox();
+    $('#id_type_tempsFav').combobox();
+    $('#enregFavori').button({
+        text: false,
+        icons: { primary: 'ui-icon-check' }
+    });
+    $('#fermerFormFavori').button({
+        text: false,
+        icons: { primary: 'ui-icon-closethick' }
+    });
+    $('#addFavori').button({
+        text: false,
+        icons: { primary: 'ui-icon-plusthick' }
+    });
+    $('#supprFavori').button({
+        text: false,
+        icons: { primary: 'ui-icon-trash' }
+    });
+
+    $('#formFavori').hide();
+
+    $('#supprFavori').droppable({
+        accept: ".favoriItem",
+        tolerance: 'pointer',
+        drop: function (event, ui) {
+            ui.draggable.hide();
+            id = ui.draggable.data('idfavori');
+            supprimerFavori(id);
+        }
+    });
+    //-------------------------------------------------------------------------------------------------------
+    //-----------------------initialisation des événements --------------------------------------
+    //---------------------------------------------------------------------------------------------------------
+
+    $('#enregFavori').on('click', enregistrerFavori);
+
+    $('#fermerFormFavori').on('click', reinitialiserFormFavori);
+
+    $('#addFavori').on('click', function () {
+        if ($.browser.msie) $('#formFavori').show();
+        else $('#formFavori').slideDown("slow");
+
+    });
+
+    validationFormFav()
+
+    //-------------------------------------------------------------------------------------------------------
+    //----------------------------------chargement des favoris de l'employe ---------------------------------
+    //---------------------------------------------------------------------------------------------------------
+
+    //cette fonction est appelée dans planning.cshtml au chargement
+    function chargerFavoris() {
+        $.ajax({
+            url: 'Planning/ListeFavori/' + employeSelect,
+            type: "POST",
+            success: function (data) {
+                $("#favoris").html(data);
+            }
+        });
+    }
+
+    //-------------------------------------------------------------------------------------------------------
+    //----------------------------------reinitialisation du formulaire de favori --------------------------- ---------------
+    //---------------------------------------------------------------------------------------------------------
+    function reinitialiserFormFavori() {
+        $("#formulaireFav").validationEngine('hideAll');
+        if ($.browser.msie) $('#formFavori').hide();
+        else $('#formFavori').slideUp("slow");
+        $('#id_projetFavAuto').val('');
+        $('#id_tacheFavAuto').val('');
+        $('#id_type_tempsFavAuto').val('');
+    }
+
+    //-------------------------------------------------------------------------------------------------------
+    //----------------------------------application des contraintes du formulaire de favori ------------------
+    //---------------------------------------------------------------------------------------------------------
+    function validationFormFav() {
+        $('#id_projetFavAuto').addClass("validate[required]");
+        $('#id_tacheFavAuto').addClass("validate[required]");
+        $('#id_type_tempsFavAuto').addClass("validate[required]");
+        $("#formulaireFav").validationEngine({ promptPosition: "topRight", scroll: false, validationEventTrigger: "" });
+    }
+
+
+    //-------------------------------------------------------------------------------------------------------
+    //----------------------------------enregistrement d'un favori --------------------------- ---------------
+    //---------------------------------------------------------------------------------------------------------
+    function enregistrerFavori() {
+        if ($("#formulaireFav").validationEngine('validate')) {
+            $('#id_employeFav').val(employeSelect);
+            $.ajax({
+                url: 'Planning/EnregistrerFavori',
+                type: 'POST',
+                data: $('#formFavori > form').serialize(),
+                success: function (data) {
+                    if (data.succes == 1) {
+                        chargerFavoris();
+                        $.sticky('Votre favori a bien été ajouté');
+                        reinitialiserFormFavori();
+                    } else {
+                        $.sticky(data.message);
+                        reinitialiserFormFavori();
+                    }
+                }
+            });
+        }
+    }
+
+    //-------------------------------------------------------------------------------------------------------
+    //----------------------------------suppression  d'un favori --------------------------- ---------------
+    //---------------------------------------------------------------------------------------------------------
+    function supprimerFavori(id) {
+        $.ajax({
+            url: 'Planning/SupprimerFavori/' + id,
+            type: 'POST',
+            success: function (data) {
+                if (data.succes == 1) {
+                    chargerFavoris();
+                    $.sticky('Votre favori a bien été supprimé');
+                } else {
+                    $.sticky(data.message);
+                }
+            }
+        });
+    }
+
+
+</script>

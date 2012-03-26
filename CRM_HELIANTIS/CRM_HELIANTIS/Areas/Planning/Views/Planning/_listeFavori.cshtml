@@ -1,0 +1,16 @@
+﻿
+
+@foreach (var fav in ViewBag.favoris)
+{
+     <div class="deplacable favoriItem" data-idfavori="@fav.id_favori" data-idtache="@fav.id_tacheFav" data-idtypetemps="@fav.id_type_tempsFav" data-idprojet="@fav.id_projetFav" ><span class="couleur" style="background-color:@fav.couleur;"></span><strong>@fav.nomProjet</strong> / @fav.nomTache</div>
+}
+
+<script>
+    $('.deplacable').each(function () {
+        $(this).draggable({
+            zIndex: 999,
+            revert: true,
+            revertDuration: 0
+        });
+    });
+</script>

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<CRM_HELIANTIS.Areas.Report.Models.TempsProjetEmploye>
+@{
+    double total = 0;
+    double totalTache = 0;
+}
+<div id="projetGlobalEmp">
+
+<table class="global" >
+    <tr>
+        <th>
+            Employé
+        </th>
+        <th>
+            Service
+        </th>
+        <th>
+            Temps
+        </th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td>
+            @Html.DisplayFor(modelItem => item.nomComplet)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.nomService)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.temps)
+        </td>
+        
+    </tr>
+    total += item.temps;
+}
+<tr>
+        
+        <th>
+            
+        </th>
+        <th>
+            Total
+        </th>
+        <th>
+            @total
+        </th>
+    </tr>
+</table>
+</div>
+<div id="projetGlobalTache">
+<table class="global" >
+    <tr>
+        <th>
+            Tâche
+        </th>
+        <th>
+            Temps
+        </th>
+    </tr>
+
+@foreach (var item in ViewBag.listeTache) {
+    <tr>
+        
+        <td>
+            @item.nomTache
+        </td>
+        <td>
+            @item.temps
+        </td>
+        
+    </tr>
+    totalTache += item.temps;
+}
+<tr>      
+        <th>
+            Total
+        </th>
+        <th>
+            @totalTache
+        </th>
+    </tr>
+</table>
+</div>

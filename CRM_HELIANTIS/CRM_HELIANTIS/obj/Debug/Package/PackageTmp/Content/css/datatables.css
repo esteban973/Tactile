@@ -1,0 +1,40 @@
+﻿/* datatable et affichage tableau*/
+
+
+#dataTableau_wrapper .ui-helper-clearfix:after
+{ content: "."; 
+  display: block; 
+  height: 0; 
+  clear: none;
+  visibility: hidden; 
+}
+
+#dataTableau_length{
+    float:left;
+    margin:10px;
+
+}
+
+.dataTables_wrapper table{
+border-left: 1px solid #BBB;
+border-right: 1px solid #BBB;
+}
+
+.dataTables_wrapper tr{
+background-color:#EEE;
+}
+
+.dataTables_filter{
+    margin:10px;
+}
+
+.row_selected {
+    font-weight: bold;
+    color:#3383BB;
+    background-color: #CCC;
+}
+
+
+#barreOutils{
+  margin-bottom:  20px; 
+}

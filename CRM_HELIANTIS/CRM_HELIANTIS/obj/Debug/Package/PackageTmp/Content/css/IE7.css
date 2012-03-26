@@ -1,0 +1,29 @@
+﻿.header > span
+{ 
+    margin-bottom:10px;
+    display:inline-block;
+}
+
+.onecolumn .header {
+
+  height:40px;
+}
+
+.header select
+{ 
+    margin-bottom:10px;
+    padding:5px 0;
+    
+}
+
+.header input
+{ 
+
+    margin-bottom:5px;
+    
+}
+.header button
+{
+    height:30px;
+    margin-bottom:5px;
+}

@@ -1,0 +1,192 @@
+﻿@model IEnumerable<CRM_HELIANTIS.Areas.Report.Models.FraisDetail>
+           @using CRM_HELIANTIS.Utils;
+ @{
+           decimal totalparking=0;
+            decimal totalfraiskm=0;
+           decimal totalkm=0;
+           decimal totalresto=0;
+          decimal totaldivers=0;
+         decimal total=0;
+     }
+     @using CRM_HELIANTIS.Global;
+
+@if (Model.Count() == 0)
+{
+    <p>
+        Vous n'avez aucun frais pour ce mois-ci.</p>
+}
+else
+{
+   
+    <table class="global" width="100%" >
+        <tr>
+            <th >
+                Date du Frais
+            </th>
+            <th>
+               Type de temps
+            </th>
+            <th >
+                Projet
+            </th>
+            <th>
+                Libellé
+            </th>
+            <th >
+                Parking / Péage
+            </th>
+            <th>
+                Kilomètrages
+            </th>
+            <th>
+                Hôtel restaurant
+            </th>
+            <th>
+                Divers
+            </th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td >
+                   @Html.ConvertToFrench(item.datefrais.DayOfWeek.ToString()) @item.datefrais.Day
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.type_temps)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.projet)
+                </td>
+                <td>
+                    <span class="editLibelle" id="@item.id_frais">@Html.DisplayFor(modelItem => item.libelle)</span> 
+                </td>
+                <td>
+                    <span class="editable parking" data-frais="parking" id="@item.id_frais">@Html.DisplayFor(modelItem => item.parking)</span>
+                </td>
+                <td>
+                    <span class="editable km" data-frais="km" id="@item.id_frais">@Html.DisplayFor(modelItem => item.km)</span>
+                </td>
+                <td>
+                    <span class="editable resto" data-frais="resto" id="@item.id_frais">@Html.DisplayFor(modelItem => item.resto)</span>
+                </td>
+                <td>
+                   <span class="editable divers" data-frais="divers" id="@item.id_frais">@Html.DisplayFor(modelItem => item.divers)</span>
+                </td>
+            </tr>
+            if (item.parking != null)
+            {
+                totalparking += (decimal)item.parking;
+            }
+            if (item.km != null)
+            {
+                totalfraiskm += (decimal)item.km * ViewBag.basefrais;
+                totalkm += (decimal)item.km;
+            }
+            if (item.resto != null) { totalresto += (decimal)item.resto; }
+            if (item.divers != null) { totaldivers += (decimal)item.divers; }
+
+        }
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+                Total
+            </th>
+            <th>
+            <span id="totalParking">@Math.Round(totalparking, 2)</span>
+                
+            </th>
+            <th>
+                <span id="totalFraisKm">@Math.Round(totalfraiskm, 2)</span> (<span id="totalKm">@Math.Round(totalkm, 2)</span> km)
+            </th>
+            <th>
+               <span id="totalHotel">@Math.Round(totalresto, 2)</span>
+            </th>
+            <th>
+               <span id="totalDivers">@Math.Round(totaldivers, 2)</span>
+            </th>
+        </tr>
+        <tr>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+            </th>
+            <th>
+                Total
+            </th>
+            <th>@{
+                total= totalparking + totalfraiskm + totalresto +totaldivers;
+}
+                <span id="total">@Math.Round(total,2)</span>
+            </th>
+        </tr>
+    </table>
+    
+    
+    <script type="text/javascript">
+        $('.editable').editable(function (value, settings) {
+            $.ajax({
+                type: 'POST',
+                url: 'modifierFrais',
+                data: {
+                    value: value,
+                    frais: $(this).data('frais'),
+                    id: $(this).attr('id')
+                },
+                success: function (data) {
+                    actualiserTableau()
+                }
+            });
+            return (value);
+        }, {
+            indicator: 'Enregistrement...',
+            event: "dblclick",
+            tooltip: "Double cliquer pour éditer...",
+            submit: 'OK',
+            id: "id",
+            name: "value",
+            style: "display: inline",
+            placeholder: '',
+            width: '50px'
+        });
+
+
+        $('.editLibelle').editable(function (value, settings) {
+            $.ajax({
+                type: 'POST',
+                url: 'modifierLibelleFrais',
+                data: {
+                    value: value,
+                    id: $(this).attr('id')
+                },
+                success: function (data) {
+                    actualiserTableau()
+                }
+            });
+            return (value);
+        }, {
+            indicator: 'Enregistrement...',
+            event: "dblclick",
+            tooltip: "Double cliquer pour éditer...",
+            submit: 'OK',
+            id: "id",
+            name: "value",
+            style: "display: inline",
+            placeholder: '',
+            width: '90px'
+        });
+
+    </script>
+}

@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head> 
+
+<meta http-equiv="X-UA-Compatible" content="IE=7" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+@using CRM_HELIANTIS.Global;
+<!-- Website Title --> 
+<title>@ViewBag.Title</title>
+
+<script type="text/javascript">
+   var WEBSITEROOT  = "@Constants.WEBSITEROOT";
+</script>
+
+
+
+
+<!-- Template stylesheet -->
+<link rel="stylesheet" href="@Url.Content("~/Content/css/screen.css")" type="text/css" media="all"/>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/tipsy.css")" type="text/css" media="all"/>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/fullcalendar.css")" type="text/css" media="all"/>
+
+<link rel="stylesheet" href="@Url.Content("~/Content/css/jquery-ui-1.8.17.custom.css")" type="text/css" media="all"/>
+
+<!--[if IE 7]>
+	<link href="@Url.Content("~/Content/css/IE7.css")" rel="stylesheet" type="text/css" media="all">
+<![endif]-->
+<link href="@Url.Content("~/Content/css/datatables.css")" rel="stylesheet" type="text/css" media="all"/>
+<link href="@Url.Content("~/Content/css/sticky.min.css")" rel="stylesheet" type="text/css" media="all"/>
+<link href="@Url.Content("~/Content/css/chosen.css")" rel="stylesheet" type="text/css" media="all"/>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/validationEngine.jquery.css")" type="text/css"/>
+<link rel="stylesheet" href="@Url.Content("~/Content/css/gantt.css")" type="text/css"/>
+
+<!--[if IE]>
+	<script type="text/javascript" src="js/excanvas.js"></script>
+<![endif]-->
+
+<!-- Jquery and plugins -->
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-ui.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.img.preload.js")"></script>
+
+<script type="text/javascript" src="@Url.Content("~/Scripts/hint.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.tipsy.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/browser.js")"></script> 
+<script type="text/javascript" src="@Url.Content("~/Scripts/custom.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/fullcalendar.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/sticky.min.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/date.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.contextMenu.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/timepicker.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/chosen.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validationEngine-fr.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.validationEngine.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/combobox.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jeditable.js")"></script>
+</head>
+<body>
+	@using CRM_HELIANTIS.Classes
+
+
+	<!-- Begin control panel wrapper -->
+	<div id="wrapper">
+    	@if (Html.isConnected())
+             {
+		<!-- Begin main menu -->
+		<div id="menu_wrapper">
+		    <!-- Begin logo -->
+            
+			<div class="logo">
+				<img src="@Url.Content("~/Content/css/images/tactilev2_grand.png")" height="25px" alt="logo" />
+			</div>
+
+			<!-- End logo -->
+            <!-- Begin account menu -->
+
+			<div class="account">
+				<div class="detail">
+					<div>Bonjour <span id="identifiantUtilisateur"><strong>@Html.getCurrentUtilisateur().prenom @Html.getCurrentUtilisateur().nom  </strong></span>
+                    <div class="popup" id="popupUtilisateur">
+						
+						<div class="content">
+							<ul class="submenu">
+                                <li><a id="changeMotPasse" href="#">Changer de mot de passe</a></li>
+                                <li><a id="changeFavori" href="#">Changer de tâche favorite</a></li>
+                                <li><a id="deconnexion" href="@Url.Action("seDeconnecter", "Connexion", new { area = "Utilisateur" })">Se déconnecter</a></li>
+                            </ul>
+                            <br class="clear"/>
+						
+						
+                         </div>
+                    </div>
+                    <div id="changePassword">
+								</div>
+                    <div id="changePreferred">
+								</div>
+                                </div>
+				</div>
+				<ul class="icon">
+					<li>
+						<a href="@Url.Action("seDeconnecter", "Connexion", new { area = "Utilisateur" })" title="Se déconnecter">
+							<img src="@Url.Content("~/Content/images/icon_logout.png")" alt="" class="middle"/>
+						</a>
+					</li>
+				</ul>
+			</div>
+
+			<!-- End account menu -->
+
+			<ul class="nav">
+				<li>
+					<a href="@Url.Action("index", "Planning", new { area = "Planning" })" > Mon agenda</a>
+				</li>
+				<li>
+					<a href="@Url.Action("index", "PlanningGlobal", new { area = "Planning" })">Planning global</a>
+				</li>
+               <li>
+				 <a href="@Url.Action("index", "Reservation", new { area = "Materiel" })">Ressources matérielles</a>
+				</li>
+                <li>
+				 <a href="#">Recapitulatifs</a>
+                  <div class="popup">
+						<div class="top"></div>
+						<div class="content">
+							<ul class="submenu">
+                                <li>
+									<a href="@Url.Action("voirTemps", "Index", new { area = "Report" })">
+										Mes temps
+									</a>
+								</li>
+                                <li>
+									<a href="@Url.Action("TempsProjet", "Index", new { area = "Report" })">
+										Mes temps par projet
+									</a>
+								</li>
+								<li>
+									<a href="@Url.Action("CalculFrais", "Index", new { area = "Report" })">
+										Mes notes de frais
+									</a>
+								</li>
+                                @if (Html.isAuthorized("can_print_time_employe"))
+                                {
+                                <li>
+									<a href="@Url.Action("voirTempsEmployes", "Index", new { area = "Report" })">
+										Temps des Employes
+									</a>
+								</li>
+                                }
+                                @if (Html.isAuthorized("can_print_time_projet"))
+                                {
+                                <li>
+									<a href="@Url.Action("TempsProjetAdministrateur", "Index", new { area = "Report" })">
+										Temps par Projet
+									</a>
+								</li>
+                                }
+						    </ul>
+							<br class="clear"/>
+						</div>
+						<div class="footer"></div>
+					</div>
+				</li>
+                
+                @if (Html.isAuthorized("can_acces_CRM"))
+                {
+                <li>
+				 <a href="#">Administration</a>
+                 <div class="popup">
+						<div class="top"></div>
+						<div class="content">
+							<ul class="submenu">
+                            @if (Html.isAuthorized("can_manage_clients"))
+                            {
+								<li>
+									<a href="@Url.Action("index", "Client", new { area = "Projet" })">
+										Clients
+									</a>
+								</li>
+                            }
+                                 @if (Html.isAuthorized("can_manage_projets"))
+                                 {
+								<li>
+									<a href="@Url.Action("index", "Projet", new { area = "Projet" })">
+										Projets
+									</a>
+								</li>
+                                 }
+                                @if (Html.isAuthorized("can_manage_employes"))
+                                {
+								<li>
+									<a href="@Url.Action("index", "Index", new { area = "Utilisateur" })">
+										Utilisateur
+									</a>
+								</li>
+                                }
+                                @if (Html.isAuthorized("can_manage_roles"))
+                                {
+                                <li>
+									<a href="@Url.Action("index", "Role", new { area = "Utilisateur" })">
+										Rôle
+									</a>
+								</li>
+                                }
+                                 @if (Html.isAuthorized("can_manage_materiels"))
+                                 {
+                                <li>
+									<a href="@Url.Action("index", "Materiel", new { area = "Materiel" })">
+										Matériel
+									</a>
+								</li>
+                                 }
+							</ul>
+							<br class="clear"/>
+						</div>
+						<div class="footer"></div>
+					</div>
+				</li>
+                }
+				
+			</ul>
+		</div>
+		<!-- End main menu -->
+	
+             }	
+		
+		
+		<!-- Begin content -->
+		<div id="content_wrapper">
+		
+			<!-- Begin one column box -->
+			<div class="onecolumn">
+				@RenderBody()
+			</div>
+			<div class="clear"></div>		
+		</div>
+		<!-- End content -->
+		
+		<div class="clear"></div>
+		<div id="footer">
+			&copy; Héliantis 2012
+		</div>
+	
+	</div>
+	<!-- End control panel wrapper -->
+
+<!--- popup à remplir au gré des changements ------------>
+<div id="popup">
+    <div id="erreurs">
+        <ul>
+        </ul>
+    </div>
+    <div id="formpopup">
+    </div>
+</div>
+<!-- -------------------------------------->
+<div id="chargement">
+    <div id="textloading">Chargement </div>
+<div id="loading">
+<span id="circleG">
+<div id="circleG_1" class="circleG">
+</div>
+<div id="circleG_2" class="circleG">
+</div>
+<div id="circleG_3" class="circleG">
+</div>
+</span>
+</div>
+</div>
+
+@if(Html.isConnected()){
+    <script type="text/javascript">
+	    
+	        $("#changeMotPasse").click(function () {
+                $.ajax({
+                   url:"@Url.Action("ChangerMotPasse", "Index", new {area="Utilisateur"})",
+                   cache: false,
+                   type: 'GET',
+                   success: function (data) {
+                 $('#changePassword').html(data);
+                 $('#changePassword').slideDown();
+               }
+       });
+
+       });
+
+    	    
+	        $("#changeFavori").click(function () {
+                $.ajax({
+                   url:"@Url.Action("ChangerTacheFavori", "Index", new {area="Utilisateur"})",
+                   cache: false,
+                   type: 'GET',
+                   success: function (data) {
+                 $('#changePreferred').html(data);
+                 $('#changePreferred').slideDown();
+               }
+       });
+
+       });    
+
+      
+        function reussitePassword(){
+                $('#changePassword').empty();
+                $('#changePassword').slideUp();
+        }
+    </script>
+ }
+    
+    <script type="text/javascript">
+
+        $(document).ajaxSend(function () {
+            $("#chargement").slideDown("slow");
+        }).ajaxStop(function () {
+            $("#chargement").slideUp("slow");
+        });
+
+
+
+        //------------------------------------------------------------------------------------------------------------------------------------
+        //-----------------------------------------------------Popup----------------------------------------------------------------------------
+        //------------------------------------------------------------------------------------------------------------------------------------
+
+        // fait apparaitre la popup et l'initialise
+
+
+        function apparaitreFormulaire(titre, data, taille) {
+            viderErreurs();
+            $('#formpopup').html(data);
+            $('#popup').dialog({
+                modal: true,
+                resizable: false,
+                width: taille,
+                draggable: false
+            });
+            $('#popup').dialog("option", "title", titre);
+            $('#popup').show();
+            $("#popup").bind("dialogclose", function (event, ui) {
+                $('form', '#formpopup').validationEngine('hideAll');
+                viderErreurs();
+            });
+        }
+
+
+        // ferme la popup
+        function fermerPopup() {
+            $('#popup').dialog("close");
+        };
+
+
+
+
+        //ajouter des erreurs dans la popup
+        function ajouterErreurs(erreurs) {
+            for (var err in erreurs) {
+                $('#erreurs > ul').append("<li>" + erreurs[err] + "</li>");
+            }
+        }
+
+        //vider des erreurs
+        function viderErreurs() {
+            $('#erreurs > ul').empty();
+        }
+
+
+    
+    </script>
+</body>
+</html>
+

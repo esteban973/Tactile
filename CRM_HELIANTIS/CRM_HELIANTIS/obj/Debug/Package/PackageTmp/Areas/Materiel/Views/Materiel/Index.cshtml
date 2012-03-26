@@ -1,0 +1,218 @@
+﻿@{
+    ViewBag.Title = "Gestion des ressources matérielles";
+    Layout = "~/Views/Shared/_Layout.cshtml"; 
+}
+@using CRM_HELIANTIS.Classes;
+<script src="@Url.Content("~/Scripts/dataTables.js")"></script>
+<script src="@Url.Content("~/Scripts/timepicker.js")"></script>
+<div class="header">
+    <h2>Gestion des ressources matérielles</h2></div>
+<div class="content">
+<span class='add'>Ajouter une ressource</span>
+    <table id="dataTableau" width="100%">
+        <thead>
+            <tr>
+                <th width="40px">
+                    Id
+                </th>
+                <th width="500px">
+                    Nom
+                </th>
+                <th width="70px">
+                </th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script type="text/javascript">
+
+    //------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------Initialisation Variable---------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------
+
+    $(document).ready(function () {
+        var tab;
+
+        tableau();
+        $(".add").each(function () {
+            $(this).css('margin', '10px');
+            $(this).button({
+                icons: { primary: 'ui-icon-plus' }
+
+            });
+            $(this).click(function () {
+                voirFormulaireAjout()
+            })
+        })
+    });
+
+    //------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------------------Initialistaion DataTable---------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------
+
+    //affichage du tableau et chargement en Json
+    function tableau() {
+
+        tab = $('#dataTableau').dataTable({
+            "oLanguage": {
+                "oPaginate": {
+                    "sFirst": "Première page",
+                    "sLast": "Dernière page",
+                    "sPrevious": "Précédente",
+                    "sFirst": "Suivante"
+                },
+                "sInfo": "Affichage de _TOTAL_  enregistrements (_START_ à _END_)",
+                "sProcessing": "Veuillez patienter",
+                "sLoadingRecords": "Veuillez patienter - Chargement...",
+                "sSearch": "Rechercher :",
+                "sLengthMenu": 'Affichage de <select>' +
+                                        '<option value="25">25</option>' +
+                                        '<option value="50">50</option>' +
+                                        '<option value="-1">Toutes</option>' +
+                                        '</select>  enregistrements',
+                "sZeroRecords": "Aucun enregistrement",
+                "sEmptyTable": "Aucun enregistrement"
+            },
+
+            // "bProcessing": true,
+            "bJQueryUI": true,
+            "bLengthChange": false,
+            "bPaginate": false,
+            "sAjaxSource": 'Materiel/listeMateriel',
+            "sAjaxDataProp": "",
+            "aoColumns": [
+            { "mDataProp": "id" }, { "mDataProp": "nom" }, { "mDataProp": "bouton", "bSortable": false }
+        ],
+            "fnInitComplete": function (oSettings, json) {
+                constructBouton();
+            }
+        });
+
+    }
+
+
+    // destruction du tableau et recréation du tableau
+    function refreshTableau() {
+        tab.fnDestroy();
+        tableau();
+    };
+
+    // construction des boutons du tableau en Jquery
+    function constructBouton() {
+
+
+
+        $(".edit").each(function () {
+            $(this).button({
+                icons: { primary: 'ui-icon-pencil' },
+                text: false
+            });
+            $(this).click(function () {
+                voirFormulaireEdition($(this).data('id'))
+            })
+        })
+
+        $(".suppr").each(function () {
+            $(this).button({
+                icons: { primary: 'ui-icon-close' },
+                text: false
+            });
+            $(this).click(function () {
+                voirFormulaireSuppression($(this).data('id'), $(this).data('identite'))
+            })
+        })
+
+
+    }
+
+
+    //-------------------------------------------------------------------------------------------------------------------------------------
+    //-----------------------------------------------Formulaire-------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------
+
+    // requete ajax pour faire apparaitre soit un formulaire d'ajout
+    function voirFormulaireAjout() {
+        $.ajax({
+            url: "Materiel/Creer",
+            type: 'GET',
+            cache: false,
+            success: function (data) {
+                apparaitreFormulaire("Ajouter", data, 400);
+            }
+        })
+    }
+
+    // requete ajax pour faire apparaitre soit un formulaire d'édition
+    function voirFormulaireEdition(id) {
+
+        $.ajax({
+            url: "Materiel/Editer/" + id,
+            type: 'GET',
+            cache: false,
+            success: function (data) {
+                apparaitreFormulaire("Editer", data, 400);
+            }
+        })
+    }
+
+    //Confirmation de suppression d'un élément
+    function voirFormulaireSuppression(id, identite) {
+        data = "<div>Confirmez vous la suppression de la fiche de " + identite + " ?</div><div class='bouton'><span id='fermer'>Non</span><span id='envoyer'>Oui</span></div>";
+        apparaitreFormulaire("Supprimer", data, 250);
+        $("#envoyer").button();
+        $("#fermer").button();
+        $("#bouton").css('margin', '10px 0 0 100px');
+        $("#envoyer").click(function () {
+            supprimer(id);
+        });
+        $("#fermer").click(function () {
+            fermerPopup();
+        });
+
+    }
+
+
+    //------------------------------------------------------------------------------------------------------------------------------------
+    //-------------------------------------------Enregistrement des requetes formulaires-------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------------------------------
+
+
+    // requete ajax vers le serveur pour l'enregistrement de l'objet avec envoi de l'id s'il existe et de la serialisation du formulaire
+    function editer(id) {
+        viderErreurs();
+        var path = (id == null) ? "Materiel/Editer" : "Materiel/Editer/" + id;
+        $.ajax({
+            url: path,
+            cache: false,
+            data: $('#formulaire > form').serialize(),
+            type: 'POST',
+            success: function (data) {
+                if (data.succes == 1) {
+                    fermerPopup();
+                    refreshTableau();
+                    $.sticky("L'enregistrement s'est effectué avec succès");
+                } else {
+                    ajouterErreurs(data.erreurs);
+                }
+            }
+        });
+
+    }
+
+
+    //function de requete ajax pour faire une suppression dans la base
+    function supprimer(id) {
+        fermerPopup();
+        $.ajax({
+            url: "Materiel/Effacer/" + id,
+            type: 'POST',
+            cache: false,
+            success: function (data) {
+                refreshTableau();
+                $.sticky("La suppression s'est effectuée avec succès");
+            }
+        });
+    };
+
+</script>

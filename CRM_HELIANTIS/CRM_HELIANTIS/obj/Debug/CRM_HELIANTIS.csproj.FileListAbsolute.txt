@@ -1,0 +1,30 @@
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\RdlCompile.cache
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\RdlCompile.compiled
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\CRM_HELIANTIS.dll
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\CRM_HELIANTIS.pdb
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\EntityFramework.dll
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\EntityFramework.xml
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\CRM_HELIANTIS.dll
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\CRM_HELIANTIS.pdb
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.dll
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.Mvc.dll
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.pdb
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.xml
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.Mvc.pdb
+C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.Mvc.xml
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\CRM_HELIANTIS.dll
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\CRM_HELIANTIS.pdb
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.dll
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.Mvc.dll
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\EntityFramework.dll
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.pdb
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.xml
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.Mvc.pdb
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.Mvc.xml
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\EntityFramework.xml
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\ResolveAssemblyReference.cache
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\RdlCompile.cache
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\RdlCompile.compiled
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\CRM_HELIANTIS.dll
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\obj\Debug\CRM_HELIANTIS.pdb

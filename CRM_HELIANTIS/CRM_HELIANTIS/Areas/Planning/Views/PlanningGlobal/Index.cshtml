@@ -1,0 +1,96 @@
+﻿@using CRM_HELIANTIS.Classes;
+
+@{
+    ViewBag.Title = "Planning Global";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.fn.gantt.js")"></script>
+<style>
+ @foreach (var typetemps in ViewBag.type_temps)
+ {
+     @(".classe"+typetemps.id_type_temps+"{background-color:"+typetemps.couleur+"}")
+ }
+ .classeMix{
+    background: #1e5799; /* Old browsers */
+background: -moz-linear-gradient(left,  #1e5799 0%, #cff72e 34%, #ed252f 71%, #fc88df 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, right top, color-stop(0%,#1e5799), color-stop(34%,#cff72e), color-stop(71%,#ed252f), color-stop(100%,#fc88df)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(left,  #1e5799 0%,#cff72e 34%,#ed252f 71%,#fc88df 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(left,  #1e5799 0%,#cff72e 34%,#ed252f 71%,#fc88df 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(left,  #1e5799 0%,#cff72e 34%,#ed252f 71%,#fc88df 100%); /* IE10+ */
+background: linear-gradient(left,  #1e5799 0%,#cff72e 34%,#ed252f 71%,#fc88df 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#fc88df',GradientType=1 ); /* IE6-9 */
+
+ }
+
+</style>
+
+<div class="header">
+    <label>
+        Veuillez choisir le service</label>@Html.DropDownList("serviceList", "Tous les services")
+        <input type="text" id="chgtDate"/> <span id="moisPrecedent">Mois Précédent</span> <span id="moisSuivant">Mois Suivant</span>
+ </div>
+ <div class="content">
+ <div>
+ @foreach (var typetemps in ViewBag.type_temps)
+ {
+     <div class="etiquette"><span class='couleur @("classe"+typetemps.id_type_temps)'></span><span class="nomTemps">@typetemps.nom</span></div>
+ }
+ <div class="etiquette">
+ <span class='couleur classeMix'></span><span class="nomTemps">Combiné</span></div>
+ </div>
+ <div class="clear"></div>
+
+<div class="contain">
+
+			<div class="gantt"></div>
+
+		
+</div>
+</div>
+<script type="text/javascript">
+var date = new Date();
+var idCategorie=@Html.getCurrentUtilisateur().id_groupe;
+var timeOut=window.setTimeout(function(){apparaitreGantt(date, categorie)},30000);
+    $(document).ready(function(){
+         $('#chgtDate').datepicker({
+            onSelect: function(inst) { 
+                   date=$(this).datepicker("getDate");
+                   apparaitreGantt(date, idCategorie);
+             }
+        });
+         $('#serviceList').change(actualiser);
+         apparaitreGantt(date, idCategorie);
+         $('#moisSuivant').button();
+         $('#moisPrecedent').button();
+         $('#moisSuivant').click(avancerMois);
+         $('#moisPrecedent').click(reculerMois);
+    });
+
+    function actualiser(){
+        date=($('#chgtDate').val()=="")? new Date() : $('#chgtDate').datepicker( "getDate" );
+        idCategorie=$('#serviceList option:selected').val();
+        apparaitreGantt(date,idCategorie);
+    }
+
+    function avancerMois(){
+        date.setMonth(date.getMonth()+1);
+        apparaitreGantt(date,idCategorie)
+    }
+
+    function reculerMois(){
+        date.setMonth(date.getMonth()-1);
+        apparaitreGantt(date,idCategorie)
+    }
+
+    function apparaitreGantt(date, categorie) {
+        window.clearTimeout(timeOut);
+        timeOut=window.setTimeout(function(){apparaitreGantt(date, categorie)},30000);
+        $(".gantt").gantt({
+            source: "PlanningGlobal/ListeJournees?dateJour="+enISOString(date)+"&cat="+categorie,
+            navigate: 'scroll',
+            scale: 'days',
+            maxScale: 'days',
+            minScale: 'days'
+        });
+    }
+</script>

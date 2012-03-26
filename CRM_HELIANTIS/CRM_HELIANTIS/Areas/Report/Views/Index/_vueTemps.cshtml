@@ -1,0 +1,160 @@
+﻿@model IEnumerable<CRM_HELIANTIS.Areas.Report.Models.LigneReportTempsEmp>
+@{
+    decimal total_nbHeures = 0;
+    decimal total_congepaye = 0;
+    decimal total_rtt = 0;
+    decimal total_tempspartiel = 0;
+    decimal total_maladie = 0;
+    decimal total_autreabsence = 0;
+    decimal total_recup = 0;
+    decimal total_repas_ext = 0;   
+}
+@using CRM_HELIANTIS.Utils;
+<table class="global">
+    <tr>
+        <th width="10%">
+            Jour
+        </th>
+        <th>
+            Description
+        </th>
+        <th width="5%">
+            Heures Travaillées
+        </th>
+        <th width="5%" title="Congés Payés">
+            CP
+        </th>
+        <th width="5%" title="RTT">
+            RTT
+        </th>
+        <th width="5%" title="Temps partiel">
+            TP
+        </th>
+        <th width="5%" title="Maladie">
+            M
+        </th>
+        <th width="5%" title="Autre Absence">
+            AA
+        </th>
+        <th width="5%" title="Récupération">
+            R
+        </th>
+        <th width="5%" title="Repas Extérieur">
+            RP
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.ConvertToFrench(item.jour.DayOfWeek.ToString()) @item.jour.Day
+            </td>
+            <td>
+                @Html.Raw(item.description.Replace("\n", "<br/>"))
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nbHeures)
+            </td>
+            <td>
+                @if (item.congepaye != 0)
+                { @item.congepaye ;
+                }
+            </td>
+            <td>
+                @if (item.rtt != 0)
+                {@item.rtt}
+            </td>
+            <td>
+                @if (item.tempspartiel != 0)
+                {@item.tempspartiel}
+            </td>
+            <td>
+                @if (item.maladie != 0)
+                {@item.maladie}
+            </td>
+            <td>
+                @if (item.autreabsence != 0)
+                {@item.autreabsence}
+            </td>
+            <td>
+                @if (item.recup != 0)
+                {@item.recup}
+            </td>
+            <td>
+                @if (item.repas_ext != 0)
+                {@item.repas_ext}
+            </td>
+        </tr>
+                total_nbHeures += item.nbHeures;
+                total_congepaye += item.congepaye;
+                total_rtt += item.rtt;
+                total_tempspartiel = item.tempspartiel;
+                total_maladie = item.maladie;
+                total_autreabsence = item.autreabsence;
+                total_recup = item.recup;
+                total_repas_ext = item.repas_ext;
+
+
+    }
+    <tr>
+        <th>
+        </th>
+        <th>
+            Total
+        </th>
+        <th>
+            Heures Travaillées
+        </th>
+        <th width="5%" title="Congés Payés">
+            CP
+        </th>
+        <th width="5%" title="RTT">
+            RTT
+        </th>
+        <th width="5%" title="Temps partiel">
+            TP
+        </th>
+        <th width="5%" title="Maladie">
+            M
+        </th>
+        <th width="5%" title="Autre Absence">
+            AA
+        </th>
+        <th width="5%" title="Récupération">
+            R
+        </th>
+        <th width="5%" title="Repas Extérieur">
+            RP
+        </th>
+    </tr>
+    <tr>
+        <th>
+        </th>
+        <th>
+        </th>
+        <td>
+            @Math.Round(total_nbHeures, 2)
+        </td>
+        <td>
+            @Math.Round(total_congepaye, 1)
+        </td>
+        <td>
+            @Math.Round(total_rtt, 1)
+        </td>
+        <td>
+            @Math.Round(total_tempspartiel, 1)
+        </td>
+        <td>
+            @Math.Round(total_maladie, 1)
+        </td>
+        <td>
+            @Math.Round(total_autreabsence, 1)
+        </td>
+        <td>
+            @Math.Round(total_recup, 1)
+        </td>
+        <td>
+            @total_repas_ext
+        </td>
+    </tr>
+</table>

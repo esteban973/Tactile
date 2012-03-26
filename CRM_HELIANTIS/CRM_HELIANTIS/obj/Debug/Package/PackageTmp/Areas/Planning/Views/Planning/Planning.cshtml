@@ -1,0 +1,600 @@
+﻿@using CRM_HELIANTIS.Classes;
+@{
+    ViewBag.Title = "Planning";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using CRM_HELIANTIS.Classes
+
+<div class="content">
+    <div id="toolbox">
+
+    @if (Html.isAuthorized("can_modifier_planning"))
+{
+<div class="titreFav">
+   <span class="titreOnlyFav">> Employé</span> @Html.DropDownList("employeList")</div>
+   }
+
+    <div class="titreFav">
+            <span class="titreOnlyFav">> Aller à la date</span><input type="text" id="allerDate"/>
+    <span id="allerDateBtn">Aller à cette date</span></div>
+
+        @Html.Action("PartieFavori")
+        <div class="clear"></div>
+        <div class="titreFav">
+            <span class="titreOnlyFav">> Travail</span></div>
+        @foreach (var travail in ViewBag.travailList)
+        {
+            <div class="deplacable" data-idtypetemps="@travail.id_type_temps" data-nomtypetemps="@travail.nom" data-absence=false>
+                <span class="couleur" style="background-color:@travail.couleur"></span>@travail.nom</div>
+        }
+        <div class="clear"></div>
+        <div class="titreFav">
+            <span class="titreOnlyFav">> Absences</span></div>
+        @foreach (var absence in ViewBag.absenceList)
+        {
+            <div class="deplacable" data-idtypetemps="@absence.id_type_temps" data-absence=true >
+                <span class="couleur" style="background-color:@absence.couleur;"></span>@absence.nom</div>
+        }
+        <div class="clear"></div>
+    </div>
+</div>
+<div id="planning">
+</div>
+
+<div class="clear">
+</div>
+
+<!--- menu contextuel appliqué à toutes les évenements ------------>
+<div class="contextMenu" id="menuDroite">
+    <ul>
+        <li id="dupliquer">Dupliquer</li>
+        <li id="editer">Editer</li>
+        <li id="supprimer">Supprimer</li>
+     </ul>
+</div>
+<!------------------------------------------------------->
+
+<script type='text/javascript'>
+
+//-------------------------------------------------------------------------------------------------------
+//----------------------------------initialisation des variables------------------------- ---------------
+//---------------------------------------------------------------------------------------------------------
+ //initialisation de l'emplyoé      
+        var employeSelect=@Html.getCurrentUtilisateur().id_employe;
+
+//initialisation de la source du calendrier
+        var source = {
+            url: 'Planning/ListeTemps',
+            type: 'POST',
+            data: {
+                idEmploye: employeSelect
+            }
+        };
+
+/// initialisation du timer
+
+var timeOut=window.setTimeout(function(){reactualiserSource()},30000);
+
+
+    $(document).ready(function () {
+
+//-------------------------------------------------------------------------------------------------------
+//-----------------------------------rendre déplacable les div de la toolbox-------------- ---------------
+//---------------------------------------------------------------------------------------------------------
+       
+       $('div.deplacable').draggable({
+                handle:'div',
+                zIndex: 999,
+                revert: true,
+                revertDuration: 0
+            });
+        
+        
+        chargerFavoris();
+
+//-------------------------------------------------------------------------------------------------------
+//-----------------------------------création et initialisation du calendrier-------------- ---------------
+ //---------------------------------------------------------------------------------------------------------
+ $("#planning").css('width', (window.innerWidth-430)+"px");
+        var calendar = $('#planning').fullCalendar({
+            timeFormat: {
+                agenda: 'HH:mm{ - HH:mm}',
+                '': 'HH:mm{ - HH:mm}'
+            },
+            columnFormat: {
+                week: 'ddd dd/MM'
+            },
+            titleFormat:{
+            week: "d MMM [ yyyy]{ '&#8212;' d  MMM yyyy}"
+            },
+            buttonText: {
+                prev: '&nbsp;&#9668;&nbsp;',  // left triangle
+                next: '&nbsp;&#9658;&nbsp;',  // right triangle
+                prevYear: '&nbsp;&lt;&lt;&nbsp;', // <<
+                nextYear: '&nbsp;&gt;&gt;&nbsp;', // >>
+                today: 'Aujourd\'hui'
+            },
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Jan', 'Fév', 'Mars', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+            allDaySlot: false,
+            axisFormat: 'HH:mm',
+            slotMinutes: 15,
+            defaultEventMinutes: 30,
+            firstHour: 8,
+            minTime: 6,
+            maxTime: 20,
+            
+            height:800,
+            header: {
+                left: 'today',
+                center: 'title',
+                right: 'prev next'
+            },
+            firstDay: 1,
+            theme: true,
+            defaultView: 'agendaWeek',
+            editable: true,
+            selectable: true,
+            
+            selectHelper: true,
+            events: source,
+            select: function (start, end) {
+               formulaireCreation(start, end,null, null)
+            },
+            lazyFetching:false,
+            loading:function(isLoading){
+                if (isLoading==true) $('#planning').fullCalendar('removeEvents');
+            },
+            eventClick: function (event) {
+               formulaireEdition(event.id, event.absence)
+            },
+            eventDrop: function (event) {
+                modifierDates(event.id, event.start, event.end);
+            },
+            eventResize: function (event) {
+               modifierDates(event.id, event.start, event.end);
+            },
+            
+             eventRender: function(event, element) {
+
+               element.contextMenu('menuDroite', {
+                onShowMenu: function(e, menu) {
+                //glisser les fonctions à réaliser
+                if (event.recurrence !=null) $('#dupliquer', menu).remove();
+                return menu;},
+                  bindings: {
+                    'dupliquer': function(t) {
+                      dupliquer(event.id);
+                    },
+                    'supprimer': function(t) {
+                       if (event.recurrence !=null) supprimerTempsOccurenceConfirmation(event.id, event.recurrence)
+                      else supprimerTempsConfirmation(event.id)
+                    },
+                    'editer': function(t) {
+                      formulaireEdition(event.id, event.absence)
+                    }
+                       
+                  }
+
+    });
+                
+    },
+            allDayDefault: false,
+            droppable: true,
+            drop: function (date) {
+                selector=$(this);
+                
+                if (selector.is('span')) selector=selector.parent();
+                if (selector.is('strong')) selector=selector.parent();
+               
+                debut=date;
+                fin=new Date();
+                fin.setTime(date.getTime());
+                fin.setHours(fin.getHours() + 3);
+               if (selector.hasClass('favoriItem')) ajoutFavoriDrop(selector, debut, fin);
+                else {
+                   if(selector.data('absence')==true) ajoutAbsenceDrop(selector.data('idtypetemps'), debut, fin);
+                    else formulaireCreation(debut, fin ,selector.data('idtypetemps'), selector.data('nomtypetemps'))
+                }
+            }
+        });
+
+        
+        coloration();
+    });
+ //-------------------------------------------------------------------------------------------------------
+   //-----------------------------------deplacer le calendrier  -------------------------- ---------------
+   //---------------------------------------------------------------------------------------------------------
+   $('#allerDate').datepicker();
+   $('#allerDateBtn').button({
+    text:false,
+    icons:{primary:'ui-icon-circle-arrow-e' }
+   });
+   $('#allerDateBtn').click(function(){
+        if ($('#allerDate').val()=='') {
+            alert("Veuillez choisir une date");
+            return false;
+        }
+         $("#planning").fullCalendar( 'gotoDate',  $('#allerDate').datepicker("getDate") );
+
+   
+   });
+
+
+   //-----------------------capte les changements de fenetres
+   $(window).resize(function() {
+     $("#planning").css('width', (window.innerWidth-430)+"px");
+     //$('#planning').fullCalendar('option', 'height', (window.innerHeight-150));
+     
+   });
+    
+
+
+     //-------------------------------------------------------------------------------------------------------
+   //-----------------------------------modification de l'employé - conditionné par les droits ---------------
+   //---------------------------------------------------------------------------------------------------------
+   @if (Html.isAuthorized("can_modifier_planning"))
+{
+<text>
+    $('#employeList').change(function () {
+        employeSelect=$(this,'option:selected').val();
+        reactualiserSource();
+        chargerFavoris();
+        coloration();
+    });
+
+    $('#employeList').attr('style', 'width:230px');
+    $('#employeList').chosen({no_results_text:"Pas de résultat"});
+</text>
+}
+     //-------------------------------------------------------------------------------------------------------
+   //-----------------------------------gestion de la coloration -------------------------- ---------------
+   //---------------------------------------------------------------------------------------------------------
+
+   function coloration(){
+    $('.horairesTravail').each(function(){
+        $(this).removeClass('horairesTravail');
+        $(this).css('background-color', '');
+    });
+     $.ajax({
+        url:'Planning/HorairesEmploye/'+employeSelect,
+        success:function(data){
+           mettreCouleur(0,chgtStringDiv(data.debMat));
+           mettreCouleur(chgtStringDiv(data.finMat),chgtStringDiv(data.debAm));
+           mettreCouleur(chgtStringDiv(data.finAm),56);
+           }
+     })
+   }
+
+   function mettreCouleur(i,j){
+         while(i<j){
+               $(".fc-slot"+i+" > td > div").addClass('horairesTravail');
+               $(".fc-slot"+i+" > td > div").css('background-color', '#F1F2F2');
+               i++;
+            }
+   }
+   
+
+   function chgtStringDiv(heure){
+        t= (parseInt(heure.substring(0,2), 10)*4)-24;
+        min=parseInt(heure.substring(3,5), 10);
+        if (min==0) return t;
+        if (min==15) return t+1;
+        if (min==30) return t+2;
+        else return t+3; 
+   }
+   
+    //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------gestion des suppressions----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+
+   function supprimerTempsConfirmation(id){
+        data = "<div>Confirmez vous la suppression ?</div><div class='bouton'><span id='fermer'>Non</span><span id='envoyer'>Oui</span></div>";
+        apparaitreFormulaire("Supprimer", data,350);
+        $('#envoyer').button();
+        $('#fermer').button();
+        $('#envoyer').click(function(){supprimerTemps(id);});
+        $('#fermer').click(function(){fermerPopup();});
+   }
+
+   function supprimerTempsOccurenceConfirmation(id, idReccurence){
+        data = "<div>Voulez-vous supprimer uniquement cet événement, cet événement et tous les événements ultérieurs de la série, ou bien tous les événements de la série ?</div><div id='boutonSupp'><div id='supprEvenement'>Uniquement cet évènement</div><div id='supprUlterieur'>Tous les événements ultérieurs</div><div id='supprReccurence'>Tous les événements de la série</div><div id='fermer'>Annuler la suppression</div></div>";
+        apparaitreFormulaire("Supprimer", data,350);
+        $('div','#boutonSupp').button();
+        $('#supprEvenement').click(function(){supprimerTemps(id);});
+        $('#supprUlterieur').click(function(){supprimerUlterieur(id);});
+        $('#supprReccurence').click(function(){supprimerRecurrence(idReccurence);});
+        $('#fermer').click(function(){fermerPopup();});
+   }
+
+    function supprimerTemps(id){
+        supprimer('Planning/Supprimer/'+id);
+    }
+
+    function supprimerRecurrence(id){
+        supprimer('Planning/SupprimerRecurrence/'+id);
+    }
+
+    function supprimerUlterieur(id){
+        supprimer('Planning/SupprimerUlterieur/'+id)
+    }
+
+    function supprimer(path){
+        fermerPopup();
+        $.ajax({
+        url:path,
+        type:'POST',
+        success:function(data){
+            reactualiserSource();
+            if (data.succes==1){
+            $.sticky("La suppression a bien été effectuée");
+            } else $.sticky("Une erreur est survenue durant la suppression");
+        }
+        });
+    }
+   
+
+
+    //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------gestion des ajouts ----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+
+   //appelle le formulaire de création
+   function formulaireCreation(start, end, idtypetps, nomtypetps){
+        $.ajax({
+        url:'Planning/AjoutFormulaire',
+        type:'POST',
+        data:{
+        debut:enISOString(start),
+        fin:enISOString(end),
+        id_employe:employeSelect
+        },
+        success:function(data){
+            apparaitreFormulaire("Ajout d'un événement", data, 500);
+            if (idtypetps!=null){
+                $('#type_travailAuto').val(nomtypetps);
+                $("#type_travail option[selected]").removeAttr("selected");
+                jQuery("#type_travail option[value='"+idtypetps+"']").attr("selected", "selected");
+            }
+        }
+        });
+   }
+
+   //appelle le formulaire d'édition
+   function formulaireEdition(id, absence){
+       $.ajax({
+        url:'Planning/EditionFormulaire/'+id,
+        type:'POST',
+        data:{
+        absence:absence
+        },
+        success:function(data){
+            apparaitreFormulaire("Edition d'un évènement", data, 500);
+        }
+        });
+   
+   }
+
+     //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------gestion des drops ----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+   
+
+
+   function ajoutAbsenceDrop(idtypetemps, debut, fin){
+     $.ajax({
+        url:'Planning/EnregistrerAbsence',
+        data:{
+            dateAbsence:enISOString(debut),
+            debutAbsence:debut.toTimeString(),
+            finAbsence:fin.toTimeString(),
+            type_absence:idtypetemps,
+            id_employe:employeSelect,
+            commentairesTemps:""
+        },
+        type:'POST',
+        success:function(data){
+           if (data.succes==1){
+                 $.sticky("L'enregistrement a bien été effectué");
+                 $('#planning').fullCalendar('renderEvent',
+						    {
+						        title: data.temps.title,
+						        start: data.temps.start,
+                                color:data.temps.color,
+                                id_projet:data.temps.id_projet,
+						        end: data.temps.end,
+						        id: data.temps.id,
+                                commentaires: data.temps.commentaires,
+                                id_employe: data.temps.id_employe,
+                                absence:data.temps.absence,
+                                recurrence:data.temps.idrecurrence
+						    },  true  );
+                    $('#planning').fullCalendar('unselect');
+                    
+           } else {
+               $.sticky("L'enregistrement n'a pas été réalisé.");
+           }
+        }
+        });
+   }
+
+   function ajoutFavoriDrop(selector, debut, fin){
+     $.ajax({
+        url:'Planning/EnregistrerTravail',
+        data:{
+            id_employe:employeSelect,
+            type_travail:selector.data('idtypetemps'),
+            id_projet:selector.data('idprojet'),
+            id_tache:selector.data('idtache'),
+            dateTravail:enISOString(debut),
+            debutTravail:debut.toTimeString(),
+            finTravail:fin.toTimeString()
+        },
+        type:'POST',
+        success:function(data){
+           if (data.succes==1){
+                 $.sticky("L'enregistrement a bien été effectué");
+                 $('#planning').fullCalendar('renderEvent',
+						    {
+						        title: data.temps.title,
+						        start: data.temps.start,
+                                color:data.temps.color,
+                                id_projet:data.temps.id_projet,
+						        end: data.temps.end,
+						        id: data.temps.id,
+                                commentaires: data.temps.commentaires,
+                                id_employe: data.temps.id_employe,
+                                absence:data.temps.absence,
+                                recurrence:data.temps.idrecurrence
+						    },  true  );
+                    $('#planning').fullCalendar('unselect');
+                    
+           } else {
+                $.sticky("Cet enregistrement ne peut être effectué.");
+           }
+        }
+        });
+}
+   
+    //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------gestion des resizes et glissements ----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+
+   //appelle le formulaire de création
+   function  modifierDates(id, start, end){
+        $.ajax({
+        url:'Planning/ModifierDates/'+id,
+        type:'POST',
+        data:{
+        debut:enISOString(start),
+        fin:enISOString(end)
+             },
+        success:function(data){
+            if (data.succes==1){
+                reactualiserSource();
+                $.sticky("La modification est enregistrée.");
+            } else {
+                $.sticky(data.message);
+                reactualiserSource();
+            }
+        }
+        });
+   }
+
+
+      //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------enregistrement ----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+
+   //enregistre une absence
+   function enregistrerAbsence(id){
+        viderErreurs()
+       var path=(id==null)? 'Planning/EnregistrerAbsence' : 'Planning/EnregistrerAbsence/'+id;
+         $.ajax({
+        url:path,
+        data:$('#formulaireAbsence > form').serialize(),
+        type:'POST',
+        success:function(data){
+           if (data.succes==1){
+                   fermerPopup();
+                 $.sticky("L'enregistrement a bien été effectué");
+                 if(data.creation==1){
+                     $('#planning').fullCalendar('renderEvent',
+						    {
+						        title: data.temps.title,
+						        start: data.temps.start,
+                                color:data.temps.color,
+                                id_projet:data.temps.id_projet,
+						        end: data.temps.end,
+						        id: data.temps.id,
+                                commentaires: data.temps.commentaires,
+                                id_employe: data.temps.id_employe,
+                                absence:data.temps.absence,
+                                recurrence:data.temps.idrecurrence
+						    },  true  );
+                    $('#planning').fullCalendar('unselect');
+                    } else {
+                    reactualiserSource();
+                    }
+           } else {
+               ajouterErreurs(data.erreurs);
+           }
+        }
+        });
+}
+
+   //enregistre un travail
+   function enregistrerTravail(id){
+        viderErreurs()
+        var path=(id==null)? 'Planning/EnregistrerTravail' : 'Planning/EnregistrerTravail/'+id;
+         $.ajax({
+        url:path,
+        data:$('#formulaireTravail > form').serialize(),
+        type:'POST',
+        success:function(data){
+           if (data.succes==1){
+                   fermerPopup();
+                 $.sticky("L'enregistrement a bien été effectué");
+                 if(data.creation==1){
+                     $('#planning').fullCalendar('renderEvent',
+						    {
+						        title: data.temps.title,
+						        start: data.temps.start,
+                                color:data.temps.color,
+                                id_projet:data.temps.id_projet,
+						        end: data.temps.end,
+						        id: data.temps.id,
+                                commentaires: data.temps.commentaires,
+                                id_employe: data.temps.id_employe,
+                                absence:data.temps.absence,
+                                recurrence:data.temps.idrecurrence
+						    },  true  );
+                    $('#planning').fullCalendar('unselect');
+                    } else {
+                    reactualiserSource();
+                    }
+           } else {
+                ajouterErreurs(data.erreurs);
+           }
+        }
+        });
+}
+
+ //--------------------------------------------------------------------------------------------------------
+   //---------------------------------- gestion de la duplication  ----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+   function dupliquer(id){
+         $.ajax({
+        url:'Planning/Dupliquer/'+id,
+        type:'GET',
+        success:function(data){
+            apparaitreFormulaire("Duplication de l'événement", data, 400);
+        }
+        });
+   }
+
+
+ //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------recharge le calendrier ----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+    function reactualiserSource(){
+      window.clearTimeout(timeOut);
+        timeOut=window.setTimeout(function(){reactualiserSource()},30000);
+            $('#planning').fullCalendar('removeEventSource', source);
+            $('#planning').fullCalendar( 'removeEvents');
+            
+        source = {
+            url: 'Planning/ListeTemps',
+            type: 'POST',
+            data: {
+                idEmploye: employeSelect
+            }
+        };
+        $('#planning').fullCalendar('addEventSource', source);
+    }
+
+
+
+</script>

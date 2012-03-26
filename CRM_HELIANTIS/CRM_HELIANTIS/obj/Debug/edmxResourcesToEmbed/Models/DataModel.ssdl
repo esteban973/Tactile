@@ -1,0 +1,581 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="crm_heliantisModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+  <EntityContainer Name="crm_heliantisModelStoreContainer">
+    <EntitySet Name="client" EntityType="crm_heliantisModel.Store.client" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="employe" EntityType="crm_heliantisModel.Store.employe" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="favori" EntityType="crm_heliantisModel.Store.favori" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="frais" EntityType="crm_heliantisModel.Store.frais" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="groupe" EntityType="crm_heliantisModel.Store.groupe" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="materiel" EntityType="crm_heliantisModel.Store.materiel" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="projet" EntityType="crm_heliantisModel.Store.projet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="recurrence" EntityType="crm_heliantisModel.Store.recurrence" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="reservation" EntityType="crm_heliantisModel.Store.reservation" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="role" EntityType="crm_heliantisModel.Store.role" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="rule" EntityType="crm_heliantisModel.Store.rule" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="rule_role" EntityType="crm_heliantisModel.Store.rule_role" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="crm_heliantisModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="tache" EntityType="crm_heliantisModel.Store.tache" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="temps" EntityType="crm_heliantisModel.Store.temps" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="type_temps" EntityType="crm_heliantisModel.Store.type_temps" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="utilisateur" EntityType="crm_heliantisModel.Store.utilisateur" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="VuePlanningGlobal" EntityType="crm_heliantisModel.Store.VuePlanningGlobal" store:Type="Views" store:Schema="dbo" store:Name="VuePlanningGlobal">
+      <DefiningQuery>SELECT 
+      [VuePlanningGlobal].[date_debut] AS [date_debut], 
+      [VuePlanningGlobal].[date_fin] AS [date_fin], 
+      [VuePlanningGlobal].[commentaires] AS [commentaires], 
+      [VuePlanningGlobal].[nomprojet] AS [nomprojet], 
+      [VuePlanningGlobal].[nomclient] AS [nomclient], 
+      [VuePlanningGlobal].[reference] AS [reference], 
+      [VuePlanningGlobal].[idemploye] AS [idemploye], 
+      [VuePlanningGlobal].[id_type_temps] AS [id_type_temps], 
+      [VuePlanningGlobal].[typetemps] AS [typetemps]
+      FROM [dbo].[VuePlanningGlobal] AS [VuePlanningGlobal]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK_client_projet" Association="crm_heliantisModel.Store.FK_client_projet">
+      <End Role="client" EntitySet="client" />
+      <End Role="projet" EntitySet="projet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_groupe" Association="crm_heliantisModel.Store.FK_employe_groupe">
+      <End Role="groupe" EntitySet="groupe" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_role" Association="crm_heliantisModel.Store.FK_employe_role">
+      <End Role="role" EntitySet="role" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_tache" Association="crm_heliantisModel.Store.FK_employe_tache">
+      <End Role="tache" EntitySet="tache" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_utilisateur" Association="crm_heliantisModel.Store.FK_employe_utilisateur">
+      <End Role="utilisateur" EntitySet="utilisateur" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_employe" Association="crm_heliantisModel.Store.FK_favori_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_projet" Association="crm_heliantisModel.Store.FK_favori_projet">
+      <End Role="projet" EntitySet="projet" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_tache" Association="crm_heliantisModel.Store.FK_favori_tache">
+      <End Role="tache" EntitySet="tache" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_type_temps" Association="crm_heliantisModel.Store.FK_favori_type_temps">
+      <End Role="type_temps" EntitySet="type_temps" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reservation_employe" Association="crm_heliantisModel.Store.FK_reservation_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reservation_materiel" Association="crm_heliantisModel.Store.FK_reservation_materiel">
+      <End Role="materiel" EntitySet="materiel" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reservation_recurrence" Association="crm_heliantisModel.Store.FK_reservation_recurrence">
+      <End Role="recurrence" EntitySet="recurrence" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_role_role" Association="crm_heliantisModel.Store.FK_rule_role_role">
+      <End Role="role" EntitySet="role" />
+      <End Role="rule_role" EntitySet="rule_role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_role_rule" Association="crm_heliantisModel.Store.FK_rule_role_rule">
+      <End Role="rule" EntitySet="rule" />
+      <End Role="rule_role" EntitySet="rule_role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_employe" Association="crm_heliantisModel.Store.FK_temps_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_frais" Association="crm_heliantisModel.Store.FK_temps_frais">
+      <End Role="frais" EntitySet="frais" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_projet" Association="crm_heliantisModel.Store.FK_temps_projet">
+      <End Role="projet" EntitySet="projet" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_recurence" Association="crm_heliantisModel.Store.FK_temps_recurence">
+      <End Role="recurrence" EntitySet="recurrence" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_tache" Association="crm_heliantisModel.Store.FK_temps_tache">
+      <End Role="tache" EntitySet="tache" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_type_temps" Association="crm_heliantisModel.Store.FK_temps_type_temps">
+      <End Role="type_temps" EntitySet="type_temps" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id_client" />
+    </Key>
+    <Property Name="id_client" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="reference" Type="varchar" MaxLength="50" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="z_actif" Type="bit" />
+  </EntityType>
+  <EntityType Name="employe">
+    <Key>
+      <PropertyRef Name="id_employe" />
+    </Key>
+    <Property Name="id_employe" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id_groupe" Type="int" />
+    <Property Name="id_utilisateur" Type="int" />
+    <Property Name="id_role" Type="int" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="prenom" Type="varchar" MaxLength="50" />
+    <Property Name="email" Type="varchar" MaxLength="100" />
+    <Property Name="horaires_matin" Type="varchar" MaxLength="10" />
+    <Property Name="horaires_apresmidi" Type="varchar" MaxLength="10" />
+    <Property Name="horaires_matin_fin" Type="varchar" MaxLength="10" />
+    <Property Name="horaires_apresmidi_fin" Type="varchar" MaxLength="10" />
+    <Property Name="id_tache" Type="int" />
+    <Property Name="z_actif" Type="bit" />
+  </EntityType>
+  <EntityType Name="favori">
+    <Key>
+      <PropertyRef Name="id_favori" />
+    </Key>
+    <Property Name="id_favori" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id_type_temps" Type="int" Nullable="false" />
+    <Property Name="id_tache" Type="int" Nullable="false" />
+    <Property Name="id_projet" Type="int" Nullable="false" />
+    <Property Name="id_employe" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="frais">
+    <Key>
+      <PropertyRef Name="id_frais" />
+    </Key>
+    <Property Name="id_frais" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="kilometres" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="hotel_resto" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="divers" Type="decimal" Precision="8" Scale="2" />
+    <Property Name="commentaires" Type="varchar" MaxLength="50" />
+    <Property Name="peage" Type="decimal" Precision="8" Scale="2" />
+  </EntityType>
+  <EntityType Name="groupe">
+    <Key>
+      <PropertyRef Name="id_groupe" />
+    </Key>
+    <Property Name="id_groupe" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="materiel">
+    <Key>
+      <PropertyRef Name="id_materiel" />
+    </Key>
+    <Property Name="id_materiel" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="projet">
+    <Key>
+      <PropertyRef Name="id_projet" />
+    </Key>
+    <Property Name="id_projet" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="reference" Type="varchar" MaxLength="50" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="id_client" Type="int" Nullable="false" />
+    <Property Name="z_actif" Type="bit" />
+  </EntityType>
+  <EntityType Name="recurrence">
+    <Key>
+      <PropertyRef Name="id_recurrence" />
+    </Key>
+    <Property Name="id_recurrence" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="comments" Type="nchar" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="reservation">
+    <Key>
+      <PropertyRef Name="id_reservation" />
+    </Key>
+    <Property Name="id_reservation" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="date_debut" Type="datetime2" Nullable="false" />
+    <Property Name="date_fin" Type="datetime2" Nullable="false" />
+    <Property Name="commentaires" Type="varchar" MaxLength="100" />
+    <Property Name="id_employe" Type="int" Nullable="false" />
+    <Property Name="id_materiel" Type="int" Nullable="false" />
+    <Property Name="id_recurrence" Type="int" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="id_role" />
+    </Key>
+    <Property Name="id_role" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="role_name" Type="varchar" MaxLength="50" />
+    <Property Name="role_description" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="rule">
+    <Key>
+      <PropertyRef Name="id_rule" />
+    </Key>
+    <Property Name="id_rule" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="rulename" Type="varchar" MaxLength="50" />
+    <Property Name="ruledescription" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="rule_role">
+    <Key>
+      <PropertyRef Name="id_roles_rules" />
+    </Key>
+    <Property Name="id_roles_rules" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id_rule" Type="int" />
+    <Property Name="id_role" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="tache">
+    <Key>
+      <PropertyRef Name="id_tache" />
+    </Key>
+    <Property Name="id_tache" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="nom_tache" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="temps">
+    <Key>
+      <PropertyRef Name="id_temps" />
+    </Key>
+    <Property Name="id_temps" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="id_employe" Type="int" Nullable="false" />
+    <Property Name="id_frais" Type="int" />
+    <Property Name="id_type_temps" Type="int" Nullable="false" />
+    <Property Name="id_projet" Type="int" />
+    <Property Name="date_debut" Type="datetime2" Nullable="false" />
+    <Property Name="date_fin" Type="datetime2" Nullable="false" />
+    <Property Name="commentaires" Type="varchar" MaxLength="50" />
+    <Property Name="id_tache" Type="int" />
+    <Property Name="id_recurrence" Type="int" />
+    <Property Name="repas_ext" Type="bit" />
+  </EntityType>
+  <EntityType Name="type_temps">
+    <Key>
+      <PropertyRef Name="id_type_temps" />
+    </Key>
+    <Property Name="id_type_temps" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="varchar" MaxLength="50" />
+    <Property Name="couleur" Type="varchar" MaxLength="10" />
+    <Property Name="absence" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="utilisateur">
+    <Key>
+      <PropertyRef Name="id_utilisateur" />
+    </Key>
+    <Property Name="id_utilisateur" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="identifiant" Type="varchar" MaxLength="50" />
+    <Property Name="mot_passe" Type="varchar" MaxLength="15" />
+  </EntityType>
+  <!--Errors Found During Generation:
+      warning 6002: The table/view 'crm_heliantis.dbo.VuePlanningGlobal' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+  <EntityType Name="VuePlanningGlobal">
+    <Key>
+      <PropertyRef Name="date_debut" />
+      <PropertyRef Name="date_fin" />
+      <PropertyRef Name="idemploye" />
+      <PropertyRef Name="id_type_temps" />
+    </Key>
+    <Property Name="date_debut" Type="datetime2" Nullable="false" />
+    <Property Name="date_fin" Type="datetime2" Nullable="false" />
+    <Property Name="commentaires" Type="varchar" MaxLength="50" />
+    <Property Name="nomprojet" Type="varchar" MaxLength="50" />
+    <Property Name="nomclient" Type="varchar" MaxLength="50" />
+    <Property Name="reference" Type="varchar" MaxLength="50" />
+    <Property Name="idemploye" Type="int" Nullable="false" />
+    <Property Name="id_type_temps" Type="int" Nullable="false" />
+    <Property Name="typetemps" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_client_projet">
+    <End Role="client" Type="crm_heliantisModel.Store.client" Multiplicity="1" />
+    <End Role="projet" Type="crm_heliantisModel.Store.projet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="id_client" />
+      </Principal>
+      <Dependent Role="projet">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_groupe">
+    <End Role="groupe" Type="crm_heliantisModel.Store.groupe" Multiplicity="0..1" />
+    <End Role="employe" Type="crm_heliantisModel.Store.employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="groupe">
+        <PropertyRef Name="id_groupe" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_groupe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_role">
+    <End Role="role" Type="crm_heliantisModel.Store.role" Multiplicity="0..1" />
+    <End Role="employe" Type="crm_heliantisModel.Store.employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="role">
+        <PropertyRef Name="id_role" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_tache">
+    <End Role="tache" Type="crm_heliantisModel.Store.tache" Multiplicity="0..1" />
+    <End Role="employe" Type="crm_heliantisModel.Store.employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tache">
+        <PropertyRef Name="id_tache" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_tache" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_utilisateur">
+    <End Role="utilisateur" Type="crm_heliantisModel.Store.utilisateur" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="employe" Type="crm_heliantisModel.Store.employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="utilisateur">
+        <PropertyRef Name="id_utilisateur" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_utilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_employe">
+    <End Role="employe" Type="crm_heliantisModel.Store.employe" Multiplicity="1" />
+    <End Role="favori" Type="crm_heliantisModel.Store.favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_projet">
+    <End Role="projet" Type="crm_heliantisModel.Store.projet" Multiplicity="1" />
+    <End Role="favori" Type="crm_heliantisModel.Store.favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projet">
+        <PropertyRef Name="id_projet" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_projet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_tache">
+    <End Role="tache" Type="crm_heliantisModel.Store.tache" Multiplicity="1" />
+    <End Role="favori" Type="crm_heliantisModel.Store.favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tache">
+        <PropertyRef Name="id_tache" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_tache" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_type_temps">
+    <End Role="type_temps" Type="crm_heliantisModel.Store.type_temps" Multiplicity="1" />
+    <End Role="favori" Type="crm_heliantisModel.Store.favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="type_temps">
+        <PropertyRef Name="id_type_temps" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_type_temps" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reservation_employe">
+    <End Role="employe" Type="crm_heliantisModel.Store.employe" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reservation" Type="crm_heliantisModel.Store.reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reservation_materiel">
+    <End Role="materiel" Type="crm_heliantisModel.Store.materiel" Multiplicity="1" />
+    <End Role="reservation" Type="crm_heliantisModel.Store.reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="materiel">
+        <PropertyRef Name="id_materiel" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_materiel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reservation_recurrence">
+    <End Role="recurrence" Type="crm_heliantisModel.Store.recurrence" Multiplicity="0..1" />
+    <End Role="reservation" Type="crm_heliantisModel.Store.reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="recurrence">
+        <PropertyRef Name="id_recurrence" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_recurrence" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rule_role_role">
+    <End Role="role" Type="crm_heliantisModel.Store.role" Multiplicity="0..1" />
+    <End Role="rule_role" Type="crm_heliantisModel.Store.rule_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="role">
+        <PropertyRef Name="id_role" />
+      </Principal>
+      <Dependent Role="rule_role">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rule_role_rule">
+    <End Role="rule" Type="crm_heliantisModel.Store.rule" Multiplicity="0..1" />
+    <End Role="rule_role" Type="crm_heliantisModel.Store.rule_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rule">
+        <PropertyRef Name="id_rule" />
+      </Principal>
+      <Dependent Role="rule_role">
+        <PropertyRef Name="id_rule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_employe">
+    <End Role="employe" Type="crm_heliantisModel.Store.employe" Multiplicity="1" />
+    <End Role="temps" Type="crm_heliantisModel.Store.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_frais">
+    <End Role="frais" Type="crm_heliantisModel.Store.frais" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="temps" Type="crm_heliantisModel.Store.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="frais">
+        <PropertyRef Name="id_frais" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_frais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_projet">
+    <End Role="projet" Type="crm_heliantisModel.Store.projet" Multiplicity="0..1" />
+    <End Role="temps" Type="crm_heliantisModel.Store.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projet">
+        <PropertyRef Name="id_projet" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_projet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_recurence">
+    <End Role="recurrence" Type="crm_heliantisModel.Store.recurrence" Multiplicity="0..1" />
+    <End Role="temps" Type="crm_heliantisModel.Store.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="recurrence">
+        <PropertyRef Name="id_recurrence" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_recurrence" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_tache">
+    <End Role="tache" Type="crm_heliantisModel.Store.tache" Multiplicity="0..1" />
+    <End Role="temps" Type="crm_heliantisModel.Store.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tache">
+        <PropertyRef Name="id_tache" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_tache" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_type_temps">
+    <End Role="type_temps" Type="crm_heliantisModel.Store.type_temps" Multiplicity="1" />
+    <End Role="temps" Type="crm_heliantisModel.Store.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="type_temps">
+        <PropertyRef Name="id_type_temps" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_type_temps" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" ReturnType="int" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <Function Name="spVuePlanningGlobal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="datedebut" Type="date" Mode="In" />
+    <Parameter Name="datefin" Type="date" Mode="In" />
+  </Function>
+</Schema>

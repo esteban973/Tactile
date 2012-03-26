@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ModelsStoreContainer" CdmEntityContainer="Entities">
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="Models.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+          <ScalarProperty Name="reference" ColumnName="reference" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="publie" ColumnName="publie" />
+          <ScalarProperty Name="z_actif" ColumnName="z_actif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employe">
+      <EntityTypeMapping TypeName="Models.employe">
+        <MappingFragment StoreEntitySet="employe">
+          <ScalarProperty Name="id_employe" ColumnName="id_employe" />
+          <ScalarProperty Name="id_groupe" ColumnName="id_groupe" />
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="horaires_matin" ColumnName="horaires_matin" />
+          <ScalarProperty Name="horaires_apresmidi" ColumnName="horaires_apresmidi" />
+          <ScalarProperty Name="horaires_matin_fin" ColumnName="horaires_matin_fin" />
+          <ScalarProperty Name="horaires_apresmidi_fin" ColumnName="horaires_apresmidi_fin" />
+          <ScalarProperty Name="id_tache" ColumnName="id_tache" />
+          <ScalarProperty Name="z_actif" ColumnName="z_actif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="favori">
+      <EntityTypeMapping TypeName="Models.favori">
+        <MappingFragment StoreEntitySet="favori">
+          <ScalarProperty Name="id_favori" ColumnName="id_favori" />
+          <ScalarProperty Name="id_type_temps" ColumnName="id_type_temps" />
+          <ScalarProperty Name="id_tache" ColumnName="id_tache" />
+          <ScalarProperty Name="id_projet" ColumnName="id_projet" />
+          <ScalarProperty Name="id_employe" ColumnName="id_employe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="frais">
+      <EntityTypeMapping TypeName="Models.frais">
+        <MappingFragment StoreEntitySet="frais">
+          <ScalarProperty Name="id_frais" ColumnName="id_frais" />
+          <ScalarProperty Name="kilometres" ColumnName="kilometres" />
+          <ScalarProperty Name="hotel_resto" ColumnName="hotel_resto" />
+          <ScalarProperty Name="divers" ColumnName="divers" />
+          <ScalarProperty Name="commentaires" ColumnName="commentaires" />
+          <ScalarProperty Name="peage" ColumnName="peage" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="groupe">
+      <EntityTypeMapping TypeName="Models.groupe">
+        <MappingFragment StoreEntitySet="groupe">
+          <ScalarProperty Name="id_groupe" ColumnName="id_groupe" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="materiel">
+      <EntityTypeMapping TypeName="Models.materiel">
+        <MappingFragment StoreEntitySet="materiel">
+          <ScalarProperty Name="id_materiel" ColumnName="id_materiel" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="projet">
+      <EntityTypeMapping TypeName="Models.projet">
+        <MappingFragment StoreEntitySet="projet">
+          <ScalarProperty Name="id_projet" ColumnName="id_projet" />
+          <ScalarProperty Name="reference" ColumnName="reference" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+          <ScalarProperty Name="publie" ColumnName="publie" />
+          <ScalarProperty Name="ref_projet" ColumnName="ref_projet" />
+          <ScalarProperty Name="z_actif" ColumnName="z_actif" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="recurrence">
+      <EntityTypeMapping TypeName="Models.recurrence">
+        <MappingFragment StoreEntitySet="recurrence">
+          <ScalarProperty Name="id_recurrence" ColumnName="id_recurrence" />
+          <ScalarProperty Name="comments" ColumnName="comments" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reservation">
+      <EntityTypeMapping TypeName="Models.reservation">
+        <MappingFragment StoreEntitySet="reservation">
+          <ScalarProperty Name="id_reservation" ColumnName="id_reservation" />
+          <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+          <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+          <ScalarProperty Name="commentaires" ColumnName="commentaires" />
+          <ScalarProperty Name="id_employe" ColumnName="id_employe" />
+          <ScalarProperty Name="id_materiel" ColumnName="id_materiel" />
+          <ScalarProperty Name="id_recurrence" ColumnName="id_recurrence" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="role">
+      <EntityTypeMapping TypeName="Models.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="role_name" ColumnName="role_name" />
+          <ScalarProperty Name="role_description" ColumnName="role_description" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rule">
+      <EntityTypeMapping TypeName="Models.rule">
+        <MappingFragment StoreEntitySet="rule">
+          <ScalarProperty Name="id_rule" ColumnName="id_rule" />
+          <ScalarProperty Name="rulename" ColumnName="rulename" />
+          <ScalarProperty Name="ruledescription" ColumnName="ruledescription" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rule_role">
+      <EntityTypeMapping TypeName="Models.rule_role">
+        <MappingFragment StoreEntitySet="rule_role">
+          <ScalarProperty Name="id_roles_rules" ColumnName="id_roles_rules" />
+          <ScalarProperty Name="id_rule" ColumnName="id_rule" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="Models.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tache">
+      <EntityTypeMapping TypeName="Models.tache">
+        <MappingFragment StoreEntitySet="tache">
+          <ScalarProperty Name="id_tache" ColumnName="id_tache" />
+          <ScalarProperty Name="nom_tache" ColumnName="nom_tache" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="temps">
+      <EntityTypeMapping TypeName="Models.temps">
+        <MappingFragment StoreEntitySet="temps">
+          <ScalarProperty Name="id_temps" ColumnName="id_temps" />
+          <ScalarProperty Name="id_employe" ColumnName="id_employe" />
+          <ScalarProperty Name="id_frais" ColumnName="id_frais" />
+          <ScalarProperty Name="id_type_temps" ColumnName="id_type_temps" />
+          <ScalarProperty Name="id_projet" ColumnName="id_projet" />
+          <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+          <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+          <ScalarProperty Name="commentaires" ColumnName="commentaires" />
+          <ScalarProperty Name="id_tache" ColumnName="id_tache" />
+          <ScalarProperty Name="id_recurrence" ColumnName="id_recurrence" />
+          <ScalarProperty Name="repas_ext" ColumnName="repas_ext" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="type_temps">
+      <EntityTypeMapping TypeName="Models.type_temps">
+        <MappingFragment StoreEntitySet="type_temps">
+          <ScalarProperty Name="id_type_temps" ColumnName="id_type_temps" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="couleur" ColumnName="couleur" />
+          <ScalarProperty Name="absence" ColumnName="absence" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="utilisateur">
+      <EntityTypeMapping TypeName="Models.utilisateur">
+        <MappingFragment StoreEntitySet="utilisateur">
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="identifiant" ColumnName="identifiant" />
+          <ScalarProperty Name="mot_passe" ColumnName="mot_passe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VuePlanningGlobal">
+      <EntityTypeMapping TypeName="Models.VuePlanningGlobal">
+        <MappingFragment StoreEntitySet="VuePlanningGlobal">
+          <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+          <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+          <ScalarProperty Name="commentaires" ColumnName="commentaires" />
+          <ScalarProperty Name="nomprojet" ColumnName="nomprojet" />
+          <ScalarProperty Name="nomclient" ColumnName="nomclient" />
+          <ScalarProperty Name="reference" ColumnName="reference" />
+          <ScalarProperty Name="idemploye" ColumnName="idemploye" />
+          <ScalarProperty Name="id_type_temps" ColumnName="id_type_temps" />
+          <ScalarProperty Name="typetemps" ColumnName="typetemps" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spVuePlanningGlobal" FunctionName="Models.Store.spVuePlanningGlobal" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,37 @@
+﻿<div id="formulaireTache">
+@using (Html.BeginForm())
+{
+    <div>
+        <div><label>Sélectionnez la tâche</label></div>
+        
+        <div>@Html.DropDownList("listeTache")</div>
+</div>
+    
+<div id="btnChangePassword">
+    <input id="btnValidTache" type="button" value="Enregistrer" />
+    <input id="btnFermerTache" type="button" value="Annuler" />
+</div>
+
+}
+</div>
+<script type="text/javascript">
+    $("#btnValidTache").button();
+    $("#btnFermerTache").button();
+    $("#btnFermerTache").click(function () {
+        $("#formulaireTache").parent().hide();
+    });
+    
+   $("#btnValidTache").click(function () {
+       $.ajax({
+           url:"@Url.Action("ChangerTacheFavori", "Index", new {area="Utilisateur"})",
+           cache: false,
+           data: $("#formulaireTache>form").serialize(),
+           type: 'POST',
+           success: function (data) {
+                 $("#formulaireTache").parent().hide();
+                 $.sticky("L'enregistrement s'est effectué avec succès");
+           }
+       });
+    });
+
+</script>

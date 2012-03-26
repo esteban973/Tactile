@@ -1,0 +1,80 @@
+﻿@model CRM_HELIANTIS.Areas.Utilisateur.Models.ChangerMotPasse
+<div id="formulairePassword">
+@using (Html.BeginForm())
+{
+    <div>
+        <div id="erreurMotPasse"><ul></ul></div>
+        <div><label>Ancien mot de passe :</label></div>
+        
+        <div>@Html.EditorFor(model => model.ancienMotPasse)</div>
+</div>
+    <div>
+        <div><label>Nouveau mot de passe :</label></div>
+         
+        <div>@Html.EditorFor(model => model.nouveauMotPasse)</div>
+</div>
+        <div>
+        <div><label>Confirmez le mot de passe :</label></div>
+         
+        <div>@Html.EditorFor(model => model.copieNouveauMotPasse)</div>
+</div>
+
+
+<div id="btnChangePassword">
+    <input id="btnValidPass" type="button" value="Enregistrer" />
+    <input id="btnFermerPass" type="button" value="Annuler" />
+</div>
+
+}
+</div>
+<script type="text/javascript">
+    $("#btnValidPass").button();
+    $("#btnFermerPass").button();
+    $("#btnFermerPass").click(function () {
+        $('#formulairePassword > form').validationEngine('hideAll');
+        $("#formulairePassword").parent().hide();
+        viderErreursPasse();
+    });
+    
+   $("#btnValidPass").click(function (event) {
+       viderErreursPasse();
+       if ($("#formulairePassword > form").validationEngine('validate')){
+       $.ajax({
+           url:"@Url.Action("ChangerMotPasse", "Index", new {area="Utilisateur"})",
+           cache: false,
+           data: $("#formulairePassword > form").serialize(),
+           type: 'POST',
+           success: function (data) {
+               if (data.succes == 1) {
+                 reussitePassword();
+                 $.sticky("L'enregistrement s'est effectué avec succès");
+               } else {
+                  montreErreursPasse(data.erreurs)
+               }
+           }
+       });
+       }
+    });
+
+
+     //-------------------------------------------------------------------------------------------------------
+//----------------------------------application des contraintes du formulaire       ------------------
+//---------------------------------------------------------------------------------------------------------
+$('#ancienMotPasse').addClass("validate[required]"); 
+$('#nouveauMotPasse').addClass("validate[required]");
+$('#copieNouveauMotPasse').addClass("validate[required, equals[nouveauMotPasse]]");
+
+
+$("#formulairePassword > form").validationEngine({promptPosition : "topLeft", scroll: false, validationEventTrigger:""});
+    
+        //vider des erreurs
+    function viderErreursPasse() {
+            $('#erreurMotPasse > ul').empty();
+        }
+
+    function montreErreursPasse(erreurs){
+        for (var err in erreurs) {
+                $('#erreurMotPasse > ul').append("<li>" + erreurs[err] + "</li>");
+        }
+    }
+</script>

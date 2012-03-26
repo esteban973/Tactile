@@ -1,0 +1,149 @@
+﻿@model CRM_HELIANTIS.Areas.Projet.Models.ProjetView
+
+<h2>
+    @if (ViewBag.type == "editer")
+    { 
+        <text>Edition</text>
+    }
+    else
+    {<text>Création</text> }
+    d'une fiche Projet</h2>
+<div id="formulaire">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+          <div>
+                <label>
+                    Nom</label>@Html.EditorFor(model => model.nom)
+               
+            </div>
+            <div>
+                <label>
+                    Référence</label>@Html.EditorFor(model => model.reference)
+               </div>
+            
+        <div >
+                <label>
+                    Client</label><span id="clientListe">@Html.DropDownList("id_client", String.Empty)</span> <span id="addClient">Ajouter un client</span>
+</div>
+        }
+</div>    
+<div id="clientForm">
+<form>
+   <label>Nouveau Client</label><input type="text" name="nom" id="nomClient"/>
+   <label>Référence Client</label><input type="text" name="reference" id="refClient"/>
+   <span id="validateClient">Enregistrer</span><span  id="fermerClient">Fermer</span>
+</form>
+</div>
+        <div class="bouton">
+        <span  id="fermer">Fermer</span>
+            <span id="validate">Enregistrer</span>
+            
+        </div>
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+    $('span','.bouton').button();
+   $('#nom').addClass('validate[required]');
+   $('#reference').addClass('validate[required]');
+   $('#id_client').combobox();
+    $('#id_clientAuto').css("max-height", "200px");
+$('#id_client').css("overflow-y", "auto");
+   $('#id_clientAuto').addClass('validate[required]');
+  $("#formulaire > form").validationEngine({promptPosition : "topLeft", scroll: false, validationEventTrigger:""});
+
+    $("#validate").click(function (event) {
+      if ( $("#formulaire > form").validationEngine('validate')){
+   @if (ViewBag.type == "editer")
+   { 
+            <text>editer(</text>@Model.id<text>);</text>;
+   }
+   else
+   {
+        <text>
+          editer();
+          </text>
+   }
+      }
+    });
+
+    $("#fermer").click(function () {
+        fermerPopup();
+    });
+
+
+    //-----------------------------gestion des clients -----------------------------
+     $("#validateClient").button({
+        text:false,
+        icons: {
+            primary:'ui-icon-check'
+        }
+     });
+
+      $("#fermerClient").button({
+        text:false,
+        icons: {
+            primary:'ui-icon-closethick'
+        }
+     });
+
+     $("#fermerClient").click(function(){
+         $("#clientForm").slideUp();
+         $('#nomClient').val("");
+         $('#refClient').val("");
+     });
+
+      $("#addClient").button({
+    text:false,
+    icons:{
+        primary:'ui-icon-plusthick'
+    }
+    });
+    //va permettre de créer un nouveau client
+    $("#addClient").click(function(){
+        $("#clientForm").slideDown();
+    });
+
+
+    $("#clientForm").hide();
+
+   $('#nomClient').addClass('validate[required]');
+   $('#refClient').addClass('validate[required]');
+  $("#clientForm > form").validationEngine({promptPosition : "topLeft", scroll: false, validationEventTrigger:""});
+
+    $("#validateClient").click(function () {
+      if ( $("#clientForm > form").validationEngine('validate')){
+          $.ajax({
+            url: "Client/NouveauViaProjet",
+            cache: false,
+            data: $('#clientForm > form').serialize(),
+            type: 'POST',
+            success: function (data) {
+                if (data.succes == 1) {
+                    
+                     $("#clientForm").slideUp();
+                    $('#nomClient').val("");
+                     $('#refClient').val("");
+                     $('#clientListe').empty();
+                     $('#clientListe').html(data.vue);
+                      $('#id_client').combobox();
+                    $('#id_clientAuto').addClass('validate[required]');
+                } else {
+                    $.sticky("Une erreur s'est produite");
+                }
+            }
+        });
+      }
+      });
+
+   
+
+    
+
+</script>

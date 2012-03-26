@@ -1,0 +1,21 @@
+﻿@model CRM_HELIANTIS.Areas.Utilisateur.Models.EmailInfoConnexion
+@using CRM_HELIANTIS.Global;
+@using ActionMailer.Net
+@{
+    Layout = null;
+}
+<p>Votre compte Tactile a bien été créé. Pour vous connecter, rendez vous  @Html.RouteLink("ici","Default", "http",null, null, new {action ="index", controller="Home"},null)</p>
+<p><h4>Vos infos : </h4>
+Nom <strong>@Model.nom_employe</strong><br />
+Prénom <strong>@Model.prenom_employe</strong><br />
+Horaires <strong>@Model.horairesMat - @Model.horairesApres</strong><br />
+Service <strong>@Model.service</strong><br />
+Tâche favorie <strong>@Model.tache</strong><br />
+</p>
+
+<p><h4>Vos infos  de connexion :</h4> 
+Identifiant <strong>@Model.identifiant</strong><br />
+Mot de passe <strong>@Model.password</strong><br />
+</p>
+<p>Si vous notez des informations incorrectes, veuillez nous le signaler.</p>
+<p>Cordialement, la Direction</p>

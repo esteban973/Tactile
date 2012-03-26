@@ -1,0 +1,60 @@
+﻿@model CRM_HELIANTIS.Areas.Projet.Models.ClientView
+
+<h2>
+    @if (ViewBag.type == "editer")
+    { 
+        <text>Edition</text>
+    }
+    else
+    {
+        <text>Création</text> 
+    }
+    d'une fiche Client</h2>
+<div id="formulaire">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+          <div>
+                <label>
+                    Nom</label>@Html.EditorFor(model => model.nom)
+            </div>
+            <div>
+                <label>
+                    Référence</label>@Html.EditorFor(model => model.reference)</div>
+            
+
+        <div class="bouton">
+        <span  id="fermer">Fermer</span>
+            <span id="validate">Enregistrer</span>
+            
+        </div>
+
+    }
+</div>
+<script type="text/javascript">
+    $('span','.bouton').button();
+
+      $('#nom').addClass('validate[required]');
+   $('#reference').addClass('validate[required]');
+  $("#formulaire > form").validationEngine({promptPosition : "topLeft", scroll: false, validationEventTrigger:""});
+
+    $("#validate").click(function (event) {
+      if ( $("#formulaire > form").validationEngine('validate')){
+   @if (ViewBag.type == "editer")
+   { 
+            <text>editer(</text>@Model.id<text>);</text>;
+   }
+   else
+   {
+        <text>
+          editer();
+          </text>
+   }
+      }
+    });
+
+    $("#fermer").click(function () {
+        fermerPopup();
+    });
+
+</script>

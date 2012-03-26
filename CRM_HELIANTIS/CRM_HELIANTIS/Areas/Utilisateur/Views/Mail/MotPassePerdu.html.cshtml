@@ -1,0 +1,15 @@
+﻿@model CRM_HELIANTIS.Areas.Utilisateur.Models.EmailInfoConnexion
+@using CRM_HELIANTIS.Global;
+@using ActionMailer.Net
+@{
+    Layout = null;
+}
+<p>Votre mot de passe a été réinitialisé.</p>
+
+<p>
+<h4>Vos nouvelles infos de connexion :</h4> 
+Identifiant <strong>@Model.identifiant</strong><br />
+Mot de passe <strong>@Model.password</strong><br />
+</p>
+
+<p>Cordialement, la Direction</p>

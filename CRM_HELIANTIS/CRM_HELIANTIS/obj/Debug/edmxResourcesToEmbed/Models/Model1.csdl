@@ -1,0 +1,596 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="client" EntityType="Models.client" />
+    <EntitySet Name="employe" EntityType="Models.employe" />
+    <EntitySet Name="favori" EntityType="Models.favori" />
+    <EntitySet Name="frais" EntityType="Models.frais" />
+    <EntitySet Name="groupe" EntityType="Models.groupe" />
+    <EntitySet Name="materiel" EntityType="Models.materiel" />
+    <EntitySet Name="projet" EntityType="Models.projet" />
+    <EntitySet Name="recurrence" EntityType="Models.recurrence" />
+    <EntitySet Name="reservation" EntityType="Models.reservation" />
+    <EntitySet Name="role" EntityType="Models.role" />
+    <EntitySet Name="rule" EntityType="Models.rule" />
+    <EntitySet Name="rule_role" EntityType="Models.rule_role" />
+    <EntitySet Name="sysdiagrams" EntityType="Models.sysdiagrams" />
+    <EntitySet Name="tache" EntityType="Models.tache" />
+    <EntitySet Name="temps" EntityType="Models.temps" />
+    <EntitySet Name="type_temps" EntityType="Models.type_temps" />
+    <EntitySet Name="utilisateur" EntityType="Models.utilisateur" />
+    <EntitySet Name="VuePlanningGlobal" EntityType="Models.VuePlanningGlobal" />
+    <AssociationSet Name="FK_client_projet" Association="Models.FK_client_projet">
+      <End Role="client" EntitySet="client" />
+      <End Role="projet" EntitySet="projet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_groupe" Association="Models.FK_employe_groupe">
+      <End Role="groupe" EntitySet="groupe" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_role" Association="Models.FK_employe_role">
+      <End Role="role" EntitySet="role" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_tache" Association="Models.FK_employe_tache">
+      <End Role="tache" EntitySet="tache" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_utilisateur" Association="Models.FK_employe_utilisateur">
+      <End Role="utilisateur" EntitySet="utilisateur" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_employe" Association="Models.FK_favori_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_projet_employe" Association="Models.FK_projet_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="projet" EntitySet="projet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reservation_employe" Association="Models.FK_reservation_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_employe" Association="Models.FK_temps_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_projet" Association="Models.FK_favori_projet">
+      <End Role="projet" EntitySet="projet" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_tache" Association="Models.FK_favori_tache">
+      <End Role="tache" EntitySet="tache" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_type_temps" Association="Models.FK_favori_type_temps">
+      <End Role="type_temps" EntitySet="type_temps" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_frais" Association="Models.FK_temps_frais">
+      <End Role="frais" EntitySet="frais" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reservation_materiel" Association="Models.FK_reservation_materiel">
+      <End Role="materiel" EntitySet="materiel" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_projet" Association="Models.FK_temps_projet">
+      <End Role="projet" EntitySet="projet" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reservation_recurrence" Association="Models.FK_reservation_recurrence">
+      <End Role="recurrence" EntitySet="recurrence" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_recurence" Association="Models.FK_temps_recurence">
+      <End Role="recurrence" EntitySet="recurrence" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_role_role" Association="Models.FK_rule_role_role">
+      <End Role="role" EntitySet="role" />
+      <End Role="rule_role" EntitySet="rule_role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_role_rule" Association="Models.FK_rule_role_rule">
+      <End Role="rule" EntitySet="rule" />
+      <End Role="rule_role" EntitySet="rule_role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_tache" Association="Models.FK_temps_tache">
+      <End Role="tache" EntitySet="tache" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_type_temps" Association="Models.FK_temps_type_temps">
+      <End Role="type_temps" EntitySet="type_temps" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <FunctionImport Name="spVuePlanningGlobal" EntitySet="VuePlanningGlobal" ReturnType="Collection(Models.VuePlanningGlobal)">
+      <Parameter Name="datedebut" Mode="In" Type="DateTime" />
+      <Parameter Name="datefin" Mode="In" Type="DateTime" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id_client" />
+    </Key>
+    <Property Name="id_client" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="reference" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="nom" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="publie" Type="Boolean" Nullable="false" />
+    <Property Name="z_actif" Type="Boolean" />
+    <NavigationProperty Name="projet" Relationship="Models.FK_client_projet" FromRole="client" ToRole="projet" />
+  </EntityType>
+  <EntityType Name="employe">
+    <Key>
+      <PropertyRef Name="id_employe" />
+    </Key>
+    <Property Name="id_employe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_groupe" Type="Int32" />
+    <Property Name="id_utilisateur" Type="Int32" />
+    <Property Name="id_role" Type="Int32" />
+    <Property Name="nom" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="prenom" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="horaires_matin" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="horaires_apresmidi" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="horaires_matin_fin" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="horaires_apresmidi_fin" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="id_tache" Type="Int32" />
+    <Property Name="z_actif" Type="Boolean" />
+    <NavigationProperty Name="groupe" Relationship="Models.FK_employe_groupe" FromRole="employe" ToRole="groupe" />
+    <NavigationProperty Name="role" Relationship="Models.FK_employe_role" FromRole="employe" ToRole="role" />
+    <NavigationProperty Name="tache" Relationship="Models.FK_employe_tache" FromRole="employe" ToRole="tache" />
+    <NavigationProperty Name="utilisateur" Relationship="Models.FK_employe_utilisateur" FromRole="employe" ToRole="utilisateur" />
+    <NavigationProperty Name="favori" Relationship="Models.FK_favori_employe" FromRole="employe" ToRole="favori" />
+    <NavigationProperty Name="projet" Relationship="Models.FK_projet_employe" FromRole="employe" ToRole="projet" />
+    <NavigationProperty Name="reservation" Relationship="Models.FK_reservation_employe" FromRole="employe" ToRole="reservation" />
+    <NavigationProperty Name="temps" Relationship="Models.FK_temps_employe" FromRole="employe" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="favori">
+    <Key>
+      <PropertyRef Name="id_favori" />
+    </Key>
+    <Property Name="id_favori" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_type_temps" Type="Int32" Nullable="false" />
+    <Property Name="id_tache" Type="Int32" Nullable="false" />
+    <Property Name="id_projet" Type="Int32" Nullable="false" />
+    <Property Name="id_employe" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="employe" Relationship="Models.FK_favori_employe" FromRole="favori" ToRole="employe" />
+    <NavigationProperty Name="projet" Relationship="Models.FK_favori_projet" FromRole="favori" ToRole="projet" />
+    <NavigationProperty Name="tache" Relationship="Models.FK_favori_tache" FromRole="favori" ToRole="tache" />
+    <NavigationProperty Name="type_temps" Relationship="Models.FK_favori_type_temps" FromRole="favori" ToRole="type_temps" />
+  </EntityType>
+  <EntityType Name="frais">
+    <Key>
+      <PropertyRef Name="id_frais" />
+    </Key>
+    <Property Name="id_frais" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kilometres" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="hotel_resto" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="divers" Type="Decimal" Precision="8" Scale="2" />
+    <Property Name="commentaires" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="peage" Type="Decimal" Precision="8" Scale="2" />
+    <NavigationProperty Name="temps" Relationship="Models.FK_temps_frais" FromRole="frais" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="groupe">
+    <Key>
+      <PropertyRef Name="id_groupe" />
+    </Key>
+    <Property Name="id_groupe" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="employe" Relationship="Models.FK_employe_groupe" FromRole="groupe" ToRole="employe" />
+  </EntityType>
+  <EntityType Name="materiel">
+    <Key>
+      <PropertyRef Name="id_materiel" />
+    </Key>
+    <Property Name="id_materiel" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="reservation" Relationship="Models.FK_reservation_materiel" FromRole="materiel" ToRole="reservation" />
+  </EntityType>
+  <EntityType Name="projet">
+    <Key>
+      <PropertyRef Name="id_projet" />
+    </Key>
+    <Property Name="id_projet" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="reference" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="nom" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="id_client" Type="Int32" Nullable="false" />
+    <Property Name="publie" Type="Boolean" Nullable="false" />
+    <Property Name="ref_projet" Type="Int32" Nullable="false" />
+    <Property Name="z_actif" Type="Boolean" />
+    <NavigationProperty Name="client" Relationship="Models.FK_client_projet" FromRole="projet" ToRole="client" />
+    <NavigationProperty Name="employe" Relationship="Models.FK_projet_employe" FromRole="projet" ToRole="employe" />
+    <NavigationProperty Name="favori" Relationship="Models.FK_favori_projet" FromRole="projet" ToRole="favori" />
+    <NavigationProperty Name="temps" Relationship="Models.FK_temps_projet" FromRole="projet" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="recurrence">
+    <Key>
+      <PropertyRef Name="id_recurrence" />
+    </Key>
+    <Property Name="id_recurrence" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="comments" Type="String" MaxLength="10" Unicode="true" FixedLength="true" />
+    <NavigationProperty Name="reservation" Relationship="Models.FK_reservation_recurrence" FromRole="recurrence" ToRole="reservation" />
+    <NavigationProperty Name="temps" Relationship="Models.FK_temps_recurence" FromRole="recurrence" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="reservation">
+    <Key>
+      <PropertyRef Name="id_reservation" />
+    </Key>
+    <Property Name="id_reservation" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="date_debut" Type="DateTime" Nullable="false" />
+    <Property Name="date_fin" Type="DateTime" Nullable="false" />
+    <Property Name="commentaires" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="id_employe" Type="Int32" Nullable="false" />
+    <Property Name="id_materiel" Type="Int32" Nullable="false" />
+    <Property Name="id_recurrence" Type="Int32" />
+    <NavigationProperty Name="employe" Relationship="Models.FK_reservation_employe" FromRole="reservation" ToRole="employe" />
+    <NavigationProperty Name="materiel" Relationship="Models.FK_reservation_materiel" FromRole="reservation" ToRole="materiel" />
+    <NavigationProperty Name="recurrence" Relationship="Models.FK_reservation_recurrence" FromRole="reservation" ToRole="recurrence" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="id_role" />
+    </Key>
+    <Property Name="id_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="role_name" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="role_description" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="employe" Relationship="Models.FK_employe_role" FromRole="role" ToRole="employe" />
+    <NavigationProperty Name="rule_role" Relationship="Models.FK_rule_role_role" FromRole="role" ToRole="rule_role" />
+  </EntityType>
+  <EntityType Name="rule">
+    <Key>
+      <PropertyRef Name="id_rule" />
+    </Key>
+    <Property Name="id_rule" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="rulename" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="ruledescription" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="rule_role" Relationship="Models.FK_rule_role_rule" FromRole="rule" ToRole="rule_role" />
+  </EntityType>
+  <EntityType Name="rule_role">
+    <Key>
+      <PropertyRef Name="id_roles_rules" />
+    </Key>
+    <Property Name="id_roles_rules" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_rule" Type="Int32" />
+    <Property Name="id_role" Type="Int32" />
+    <NavigationProperty Name="role" Relationship="Models.FK_rule_role_role" FromRole="rule_role" ToRole="role" />
+    <NavigationProperty Name="rule" Relationship="Models.FK_rule_role_rule" FromRole="rule_role" ToRole="rule" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tache">
+    <Key>
+      <PropertyRef Name="id_tache" />
+    </Key>
+    <Property Name="id_tache" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom_tache" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="employe" Relationship="Models.FK_employe_tache" FromRole="tache" ToRole="employe" />
+    <NavigationProperty Name="favori" Relationship="Models.FK_favori_tache" FromRole="tache" ToRole="favori" />
+    <NavigationProperty Name="temps" Relationship="Models.FK_temps_tache" FromRole="tache" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="temps">
+    <Key>
+      <PropertyRef Name="id_temps" />
+    </Key>
+    <Property Name="id_temps" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="id_employe" Type="Int32" Nullable="false" />
+    <Property Name="id_frais" Type="Int32" />
+    <Property Name="id_type_temps" Type="Int32" Nullable="false" />
+    <Property Name="id_projet" Type="Int32" />
+    <Property Name="date_debut" Type="DateTime" Nullable="false" />
+    <Property Name="date_fin" Type="DateTime" Nullable="false" />
+    <Property Name="commentaires" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="id_tache" Type="Int32" />
+    <Property Name="id_recurrence" Type="Int32" />
+    <Property Name="repas_ext" Type="Boolean" />
+    <NavigationProperty Name="employe" Relationship="Models.FK_temps_employe" FromRole="temps" ToRole="employe" />
+    <NavigationProperty Name="frais" Relationship="Models.FK_temps_frais" FromRole="temps" ToRole="frais" />
+    <NavigationProperty Name="projet" Relationship="Models.FK_temps_projet" FromRole="temps" ToRole="projet" />
+    <NavigationProperty Name="recurrence" Relationship="Models.FK_temps_recurence" FromRole="temps" ToRole="recurrence" />
+    <NavigationProperty Name="tache" Relationship="Models.FK_temps_tache" FromRole="temps" ToRole="tache" />
+    <NavigationProperty Name="type_temps" Relationship="Models.FK_temps_type_temps" FromRole="temps" ToRole="type_temps" />
+  </EntityType>
+  <EntityType Name="type_temps">
+    <Key>
+      <PropertyRef Name="id_type_temps" />
+    </Key>
+    <Property Name="id_type_temps" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nom" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="couleur" Type="String" MaxLength="10" Unicode="false" FixedLength="false" />
+    <Property Name="absence" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="favori" Relationship="Models.FK_favori_type_temps" FromRole="type_temps" ToRole="favori" />
+    <NavigationProperty Name="temps" Relationship="Models.FK_temps_type_temps" FromRole="type_temps" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="utilisateur">
+    <Key>
+      <PropertyRef Name="id_utilisateur" />
+    </Key>
+    <Property Name="id_utilisateur" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="identifiant" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="mot_passe" Type="String" MaxLength="15" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="employe" Relationship="Models.FK_employe_utilisateur" FromRole="utilisateur" ToRole="employe" />
+  </EntityType>
+  <EntityType Name="VuePlanningGlobal">
+    <Key>
+      <PropertyRef Name="date_debut" />
+      <PropertyRef Name="date_fin" />
+      <PropertyRef Name="idemploye" />
+      <PropertyRef Name="id_type_temps" />
+    </Key>
+    <Property Name="date_debut" Type="DateTime" Nullable="false" />
+    <Property Name="date_fin" Type="DateTime" Nullable="false" />
+    <Property Name="commentaires" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="nomprojet" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="nomclient" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="reference" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="idemploye" Type="Int32" Nullable="false" />
+    <Property Name="id_type_temps" Type="Int32" Nullable="false" />
+    <Property Name="typetemps" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_client_projet">
+    <End Role="client" Type="Models.client" Multiplicity="1" />
+    <End Role="projet" Type="Models.projet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="id_client" />
+      </Principal>
+      <Dependent Role="projet">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_groupe">
+    <End Role="groupe" Type="Models.groupe" Multiplicity="0..1" />
+    <End Role="employe" Type="Models.employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="groupe">
+        <PropertyRef Name="id_groupe" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_groupe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_role">
+    <End Role="role" Type="Models.role" Multiplicity="0..1" />
+    <End Role="employe" Type="Models.employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="role">
+        <PropertyRef Name="id_role" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_tache">
+    <End Role="tache" Type="Models.tache" Multiplicity="0..1" />
+    <End Role="employe" Type="Models.employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tache">
+        <PropertyRef Name="id_tache" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_tache" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_utilisateur">
+    <End Role="utilisateur" Type="Models.utilisateur" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="employe" Type="Models.employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="utilisateur">
+        <PropertyRef Name="id_utilisateur" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_utilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_employe">
+    <End Role="employe" Type="Models.employe" Multiplicity="1" />
+    <End Role="favori" Type="Models.favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_projet_employe">
+    <End Role="employe" Type="Models.employe" Multiplicity="1" />
+    <End Role="projet" Type="Models.projet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="projet">
+        <PropertyRef Name="ref_projet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reservation_employe">
+    <End Role="employe" Type="Models.employe" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="reservation" Type="Models.reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_employe">
+    <End Role="employe" Type="Models.employe" Multiplicity="1" />
+    <End Role="temps" Type="Models.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_projet">
+    <End Role="projet" Type="Models.projet" Multiplicity="1" />
+    <End Role="favori" Type="Models.favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projet">
+        <PropertyRef Name="id_projet" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_projet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_tache">
+    <End Role="tache" Type="Models.tache" Multiplicity="1" />
+    <End Role="favori" Type="Models.favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tache">
+        <PropertyRef Name="id_tache" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_tache" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_type_temps">
+    <End Role="type_temps" Type="Models.type_temps" Multiplicity="1" />
+    <End Role="favori" Type="Models.favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="type_temps">
+        <PropertyRef Name="id_type_temps" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_type_temps" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_frais">
+    <End Role="frais" Type="Models.frais" Multiplicity="0..1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="temps" Type="Models.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="frais">
+        <PropertyRef Name="id_frais" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_frais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reservation_materiel">
+    <End Role="materiel" Type="Models.materiel" Multiplicity="1" />
+    <End Role="reservation" Type="Models.reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="materiel">
+        <PropertyRef Name="id_materiel" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_materiel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_projet">
+    <End Role="projet" Type="Models.projet" Multiplicity="0..1" />
+    <End Role="temps" Type="Models.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projet">
+        <PropertyRef Name="id_projet" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_projet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reservation_recurrence">
+    <End Role="recurrence" Type="Models.recurrence" Multiplicity="0..1" />
+    <End Role="reservation" Type="Models.reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="recurrence">
+        <PropertyRef Name="id_recurrence" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_recurrence" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_recurence">
+    <End Role="recurrence" Type="Models.recurrence" Multiplicity="0..1" />
+    <End Role="temps" Type="Models.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="recurrence">
+        <PropertyRef Name="id_recurrence" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_recurrence" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rule_role_role">
+    <End Role="role" Type="Models.role" Multiplicity="0..1" />
+    <End Role="rule_role" Type="Models.rule_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="role">
+        <PropertyRef Name="id_role" />
+      </Principal>
+      <Dependent Role="rule_role">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rule_role_rule">
+    <End Role="rule" Type="Models.rule" Multiplicity="0..1" />
+    <End Role="rule_role" Type="Models.rule_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rule">
+        <PropertyRef Name="id_rule" />
+      </Principal>
+      <Dependent Role="rule_role">
+        <PropertyRef Name="id_rule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_tache">
+    <End Role="tache" Type="Models.tache" Multiplicity="0..1" />
+    <End Role="temps" Type="Models.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tache">
+        <PropertyRef Name="id_tache" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_tache" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_type_temps">
+    <End Role="type_temps" Type="Models.type_temps" Multiplicity="1" />
+    <End Role="temps" Type="Models.temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="type_temps">
+        <PropertyRef Name="id_type_temps" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_type_temps" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

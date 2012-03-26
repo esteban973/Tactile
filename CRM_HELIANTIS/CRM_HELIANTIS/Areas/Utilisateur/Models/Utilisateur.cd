@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="CRM_HELIANTIS.Areas.Utilisateur.Controllers.IndexController">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAEAAAAAAAAQAAAAEAAAAgEAA=</HashCode>
+      <FileName>Areas\Utilisateur\Controllers\IndexController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Areas.Utilisateur.Models.UtilisateurView">
+    <Position X="6.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAQCgAAQAIAAAAAAgIoAAAEAAAAAAAgA=</HashCode>
+      <FileName>Areas\Utilisateur\Models\UtilisateurView.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Models.employe">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_email" Hidden="true" />
+      <Field Name="_horaires_apresmidi" Hidden="true" />
+      <Field Name="_horaires_apresmidi_fin" Hidden="true" />
+      <Field Name="_horaires_matin" Hidden="true" />
+      <Field Name="_horaires_matin_fin" Hidden="true" />
+      <Field Name="_id_employe" Hidden="true" />
+      <Field Name="_id_groupe" Hidden="true" />
+      <Field Name="_id_role" Hidden="true" />
+      <Field Name="_id_tache" Hidden="true" />
+      <Field Name="_id_utilisateur" Hidden="true" />
+      <Field Name="_nom" Hidden="true" />
+      <Field Name="_prenom" Hidden="true" />
+      <Method Name="Createemploye" Hidden="true" />
+      <Method Name="OnemailChanged" Hidden="true" />
+      <Method Name="OnemailChanging" Hidden="true" />
+      <Method Name="Onhoraires_apresmidi_finChanged" Hidden="true" />
+      <Method Name="Onhoraires_apresmidi_finChanging" Hidden="true" />
+      <Method Name="Onhoraires_apresmidiChanged" Hidden="true" />
+      <Method Name="Onhoraires_apresmidiChanging" Hidden="true" />
+      <Method Name="Onhoraires_matin_finChanged" Hidden="true" />
+      <Method Name="Onhoraires_matin_finChanging" Hidden="true" />
+      <Method Name="Onhoraires_matinChanged" Hidden="true" />
+      <Method Name="Onhoraires_matinChanging" Hidden="true" />
+      <Method Name="Onid_employeChanged" Hidden="true" />
+      <Method Name="Onid_employeChanging" Hidden="true" />
+      <Method Name="Onid_groupeChanged" Hidden="true" />
+      <Method Name="Onid_groupeChanging" Hidden="true" />
+      <Method Name="Onid_roleChanged" Hidden="true" />
+      <Method Name="Onid_roleChanging" Hidden="true" />
+      <Method Name="Onid_tacheChanged" Hidden="true" />
+      <Method Name="Onid_tacheChanging" Hidden="true" />
+      <Method Name="Onid_utilisateurChanged" Hidden="true" />
+      <Method Name="Onid_utilisateurChanging" Hidden="true" />
+      <Method Name="OnnomChanged" Hidden="true" />
+      <Method Name="OnnomChanging" Hidden="true" />
+      <Method Name="OnprenomChanged" Hidden="true" />
+      <Method Name="OnprenomChanging" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>4AQFgANAcBCAUwTgJAQRKJAgBQSgooCgQBEIIqAgIEs=</HashCode>
+      <FileName>Models\employe.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CRM_HELIANTIS.Models.utilisateur">
+    <Position X="6.75" Y="0.5" Width="1.5" />
+    <Members>
+      <Field Name="_id_utilisateur" Hidden="true" />
+      <Field Name="_identifiant" Hidden="true" />
+      <Field Name="_mot_passe" Hidden="true" />
+      <Method Name="Createutilisateur" Hidden="true" />
+      <Method Name="Onid_utilisateurChanged" Hidden="true" />
+      <Method Name="Onid_utilisateurChanging" Hidden="true" />
+      <Method Name="OnidentifiantChanged" Hidden="true" />
+      <Method Name="OnidentifiantChanging" Hidden="true" />
+      <Method Name="Onmot_passeChanged" Hidden="true" />
+      <Method Name="Onmot_passeChanging" Hidden="true" />
+    </Members>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAQAAEAAAAAIAAAAAQAAAAAwADgAEIAAIAACBg=</HashCode>
+      <FileName>Models\utilisateur.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

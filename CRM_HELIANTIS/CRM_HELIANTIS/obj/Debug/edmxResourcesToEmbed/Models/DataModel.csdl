@@ -1,0 +1,569 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="crm_heliantisModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="HeliantisEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="client" EntityType="crm_heliantisModel.client" />
+    <EntitySet Name="employe" EntityType="crm_heliantisModel.employe" />
+    <EntitySet Name="favori" EntityType="crm_heliantisModel.favori" />
+    <EntitySet Name="frais" EntityType="crm_heliantisModel.frais" />
+    <EntitySet Name="groupe" EntityType="crm_heliantisModel.groupe" />
+    <EntitySet Name="materiel" EntityType="crm_heliantisModel.materiel" />
+    <EntitySet Name="projet" EntityType="crm_heliantisModel.projet" />
+    <EntitySet Name="recurrence" EntityType="crm_heliantisModel.recurrence" />
+    <EntitySet Name="reservation" EntityType="crm_heliantisModel.reservation" />
+    <EntitySet Name="role" EntityType="crm_heliantisModel.role" />
+    <EntitySet Name="rule" EntityType="crm_heliantisModel.rule" />
+    <EntitySet Name="rule_role" EntityType="crm_heliantisModel.rule_role" />
+    <EntitySet Name="sysdiagrams" EntityType="crm_heliantisModel.sysdiagrams" />
+    <EntitySet Name="tache" EntityType="crm_heliantisModel.tache" />
+    <EntitySet Name="temps" EntityType="crm_heliantisModel.temps" />
+    <EntitySet Name="type_temps" EntityType="crm_heliantisModel.type_temps" />
+    <EntitySet Name="utilisateur" EntityType="crm_heliantisModel.utilisateur" />
+    <EntitySet Name="VuePlanningGlobal" EntityType="crm_heliantisModel.VuePlanningGlobal" />
+    <AssociationSet Name="FK_client_projet" Association="crm_heliantisModel.FK_client_projet">
+      <End Role="client" EntitySet="client" />
+      <End Role="projet" EntitySet="projet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_groupe" Association="crm_heliantisModel.FK_employe_groupe">
+      <End Role="groupe" EntitySet="groupe" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_role" Association="crm_heliantisModel.FK_employe_role">
+      <End Role="role" EntitySet="role" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_tache" Association="crm_heliantisModel.FK_employe_tache">
+      <End Role="tache" EntitySet="tache" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_employe_utilisateur" Association="crm_heliantisModel.FK_employe_utilisateur">
+      <End Role="utilisateur" EntitySet="utilisateur" />
+      <End Role="employe" EntitySet="employe" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_employe" Association="crm_heliantisModel.FK_favori_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reservation_employe" Association="crm_heliantisModel.FK_reservation_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_employe" Association="crm_heliantisModel.FK_temps_employe">
+      <End Role="employe" EntitySet="employe" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_projet" Association="crm_heliantisModel.FK_favori_projet">
+      <End Role="projet" EntitySet="projet" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_tache" Association="crm_heliantisModel.FK_favori_tache">
+      <End Role="tache" EntitySet="tache" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_favori_type_temps" Association="crm_heliantisModel.FK_favori_type_temps">
+      <End Role="type_temps" EntitySet="type_temps" />
+      <End Role="favori" EntitySet="favori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_frais" Association="crm_heliantisModel.FK_temps_frais">
+      <End Role="frais" EntitySet="frais" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reservation_materiel" Association="crm_heliantisModel.FK_reservation_materiel">
+      <End Role="materiel" EntitySet="materiel" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_projet" Association="crm_heliantisModel.FK_temps_projet">
+      <End Role="projet" EntitySet="projet" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_reservation_recurrence" Association="crm_heliantisModel.FK_reservation_recurrence">
+      <End Role="recurrence" EntitySet="recurrence" />
+      <End Role="reservation" EntitySet="reservation" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_recurence" Association="crm_heliantisModel.FK_temps_recurence">
+      <End Role="recurrence" EntitySet="recurrence" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_role_role" Association="crm_heliantisModel.FK_rule_role_role">
+      <End Role="role" EntitySet="role" />
+      <End Role="rule_role" EntitySet="rule_role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rule_role_rule" Association="crm_heliantisModel.FK_rule_role_rule">
+      <End Role="rule" EntitySet="rule" />
+      <End Role="rule_role" EntitySet="rule_role" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_tache" Association="crm_heliantisModel.FK_temps_tache">
+      <End Role="tache" EntitySet="tache" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <AssociationSet Name="FK_temps_type_temps" Association="crm_heliantisModel.FK_temps_type_temps">
+      <End Role="type_temps" EntitySet="type_temps" />
+      <End Role="temps" EntitySet="temps" />
+    </AssociationSet>
+    <FunctionImport Name="spVuePlanningGlobal" EntitySet="VuePlanningGlobal" ReturnType="Collection(crm_heliantisModel.VuePlanningGlobal)">
+      <Parameter Name="datedebut" Mode="In" Type="DateTime" />
+      <Parameter Name="datefin" Mode="In" Type="DateTime" />
+    </FunctionImport>
+  </EntityContainer>
+  <EntityType Name="client">
+    <Key>
+      <PropertyRef Name="id_client" />
+    </Key>
+    <Property Type="Int32" Name="id_client" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="reference" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nom" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="z_actif" />
+    <NavigationProperty Name="projet" Relationship="crm_heliantisModel.FK_client_projet" FromRole="client" ToRole="projet" />
+  </EntityType>
+  <EntityType Name="employe">
+    <Key>
+      <PropertyRef Name="id_employe" />
+    </Key>
+    <Property Type="Int32" Name="id_employe" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="id_groupe" />
+    <Property Type="Int32" Name="id_utilisateur" />
+    <Property Type="Int32" Name="id_role" />
+    <Property Type="String" Name="nom" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="prenom" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="email" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="horaires_matin" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="horaires_apresmidi" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="horaires_matin_fin" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="horaires_apresmidi_fin" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="id_tache" />
+    <Property Type="Boolean" Name="z_actif" />
+    <NavigationProperty Name="groupe" Relationship="crm_heliantisModel.FK_employe_groupe" FromRole="employe" ToRole="groupe" />
+    <NavigationProperty Name="role" Relationship="crm_heliantisModel.FK_employe_role" FromRole="employe" ToRole="role" />
+    <NavigationProperty Name="tache" Relationship="crm_heliantisModel.FK_employe_tache" FromRole="employe" ToRole="tache" />
+    <NavigationProperty Name="utilisateur" Relationship="crm_heliantisModel.FK_employe_utilisateur" FromRole="employe" ToRole="utilisateur" />
+    <NavigationProperty Name="favori" Relationship="crm_heliantisModel.FK_favori_employe" FromRole="employe" ToRole="favori" />
+    <NavigationProperty Name="reservation" Relationship="crm_heliantisModel.FK_reservation_employe" FromRole="employe" ToRole="reservation" />
+    <NavigationProperty Name="temps" Relationship="crm_heliantisModel.FK_temps_employe" FromRole="employe" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="favori">
+    <Key>
+      <PropertyRef Name="id_favori" />
+    </Key>
+    <Property Type="Int32" Name="id_favori" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="id_type_temps" Nullable="false" />
+    <Property Type="Int32" Name="id_tache" Nullable="false" />
+    <Property Type="Int32" Name="id_projet" Nullable="false" />
+    <Property Type="Int32" Name="id_employe" Nullable="false" />
+    <NavigationProperty Name="employe" Relationship="crm_heliantisModel.FK_favori_employe" FromRole="favori" ToRole="employe" />
+    <NavigationProperty Name="projet" Relationship="crm_heliantisModel.FK_favori_projet" FromRole="favori" ToRole="projet" />
+    <NavigationProperty Name="tache" Relationship="crm_heliantisModel.FK_favori_tache" FromRole="favori" ToRole="tache" />
+    <NavigationProperty Name="type_temps" Relationship="crm_heliantisModel.FK_favori_type_temps" FromRole="favori" ToRole="type_temps" />
+  </EntityType>
+  <EntityType Name="frais">
+    <Key>
+      <PropertyRef Name="id_frais" />
+    </Key>
+    <Property Type="Int32" Name="id_frais" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Decimal" Name="kilometres" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="hotel_resto" Precision="8" Scale="2" />
+    <Property Type="Decimal" Name="divers" Precision="8" Scale="2" />
+    <Property Type="String" Name="commentaires" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Decimal" Name="peage" Precision="8" Scale="2" />
+    <NavigationProperty Name="temps" Relationship="crm_heliantisModel.FK_temps_frais" FromRole="frais" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="groupe">
+    <Key>
+      <PropertyRef Name="id_groupe" />
+    </Key>
+    <Property Type="Int32" Name="id_groupe" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="nom" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="employe" Relationship="crm_heliantisModel.FK_employe_groupe" FromRole="groupe" ToRole="employe" />
+  </EntityType>
+  <EntityType Name="materiel">
+    <Key>
+      <PropertyRef Name="id_materiel" />
+    </Key>
+    <Property Type="Int32" Name="id_materiel" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="nom" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="reservation" Relationship="crm_heliantisModel.FK_reservation_materiel" FromRole="materiel" ToRole="reservation" />
+  </EntityType>
+  <EntityType Name="projet">
+    <Key>
+      <PropertyRef Name="id_projet" />
+    </Key>
+    <Property Type="Int32" Name="id_projet" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="reference" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nom" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="id_client" Nullable="false" />
+    <Property Type="Boolean" Name="z_actif" />
+    <NavigationProperty Name="client" Relationship="crm_heliantisModel.FK_client_projet" FromRole="projet" ToRole="client" />
+    <NavigationProperty Name="favori" Relationship="crm_heliantisModel.FK_favori_projet" FromRole="projet" ToRole="favori" />
+    <NavigationProperty Name="temps" Relationship="crm_heliantisModel.FK_temps_projet" FromRole="projet" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="recurrence">
+    <Key>
+      <PropertyRef Name="id_recurrence" />
+    </Key>
+    <Property Type="Int32" Name="id_recurrence" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="comments" MaxLength="10" FixedLength="true" Unicode="true" />
+    <NavigationProperty Name="reservation" Relationship="crm_heliantisModel.FK_reservation_recurrence" FromRole="recurrence" ToRole="reservation" />
+    <NavigationProperty Name="temps" Relationship="crm_heliantisModel.FK_temps_recurence" FromRole="recurrence" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="reservation">
+    <Key>
+      <PropertyRef Name="id_reservation" />
+    </Key>
+    <Property Type="Int32" Name="id_reservation" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="DateTime" Name="date_debut" Nullable="false" />
+    <Property Type="DateTime" Name="date_fin" Nullable="false" />
+    <Property Type="String" Name="commentaires" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="id_employe" Nullable="false" />
+    <Property Type="Int32" Name="id_materiel" Nullable="false" />
+    <Property Type="Int32" Name="id_recurrence" />
+    <NavigationProperty Name="employe" Relationship="crm_heliantisModel.FK_reservation_employe" FromRole="reservation" ToRole="employe" />
+    <NavigationProperty Name="materiel" Relationship="crm_heliantisModel.FK_reservation_materiel" FromRole="reservation" ToRole="materiel" />
+    <NavigationProperty Name="recurrence" Relationship="crm_heliantisModel.FK_reservation_recurrence" FromRole="reservation" ToRole="recurrence" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="id_role" />
+    </Key>
+    <Property Type="Int32" Name="id_role" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="role_name" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="role_description" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="employe" Relationship="crm_heliantisModel.FK_employe_role" FromRole="role" ToRole="employe" />
+    <NavigationProperty Name="rule_role" Relationship="crm_heliantisModel.FK_rule_role_role" FromRole="role" ToRole="rule_role" />
+  </EntityType>
+  <EntityType Name="rule">
+    <Key>
+      <PropertyRef Name="id_rule" />
+    </Key>
+    <Property Type="Int32" Name="id_rule" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="rulename" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="ruledescription" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="rule_role" Relationship="crm_heliantisModel.FK_rule_role_rule" FromRole="rule" ToRole="rule_role" />
+  </EntityType>
+  <EntityType Name="rule_role">
+    <Key>
+      <PropertyRef Name="id_roles_rules" />
+    </Key>
+    <Property Type="Int32" Name="id_roles_rules" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="id_rule" />
+    <Property Type="Int32" Name="id_role" />
+    <NavigationProperty Name="role" Relationship="crm_heliantisModel.FK_rule_role_role" FromRole="rule_role" ToRole="role" />
+    <NavigationProperty Name="rule" Relationship="crm_heliantisModel.FK_rule_role_rule" FromRole="rule_role" ToRole="rule" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Type="String" Name="name" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Type="Int32" Name="principal_id" Nullable="false" />
+    <Property Type="Int32" Name="diagram_id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="version" />
+    <Property Type="Binary" Name="definition" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tache">
+    <Key>
+      <PropertyRef Name="id_tache" />
+    </Key>
+    <Property Type="Int32" Name="id_tache" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="nom_tache" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="employe" Relationship="crm_heliantisModel.FK_employe_tache" FromRole="tache" ToRole="employe" />
+    <NavigationProperty Name="favori" Relationship="crm_heliantisModel.FK_favori_tache" FromRole="tache" ToRole="favori" />
+    <NavigationProperty Name="temps" Relationship="crm_heliantisModel.FK_temps_tache" FromRole="tache" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="temps">
+    <Key>
+      <PropertyRef Name="id_temps" />
+    </Key>
+    <Property Type="Int32" Name="id_temps" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="Int32" Name="id_employe" Nullable="false" />
+    <Property Type="Int32" Name="id_frais" />
+    <Property Type="Int32" Name="id_type_temps" Nullable="false" />
+    <Property Type="Int32" Name="id_projet" />
+    <Property Type="DateTime" Name="date_debut" Nullable="false" />
+    <Property Type="DateTime" Name="date_fin" Nullable="false" />
+    <Property Type="String" Name="commentaires" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="id_tache" />
+    <Property Type="Int32" Name="id_recurrence" />
+    <Property Type="Boolean" Name="repas_ext" />
+    <NavigationProperty Name="employe" Relationship="crm_heliantisModel.FK_temps_employe" FromRole="temps" ToRole="employe" />
+    <NavigationProperty Name="frais" Relationship="crm_heliantisModel.FK_temps_frais" FromRole="temps" ToRole="frais" />
+    <NavigationProperty Name="projet" Relationship="crm_heliantisModel.FK_temps_projet" FromRole="temps" ToRole="projet" />
+    <NavigationProperty Name="recurrence" Relationship="crm_heliantisModel.FK_temps_recurence" FromRole="temps" ToRole="recurrence" />
+    <NavigationProperty Name="tache" Relationship="crm_heliantisModel.FK_temps_tache" FromRole="temps" ToRole="tache" />
+    <NavigationProperty Name="type_temps" Relationship="crm_heliantisModel.FK_temps_type_temps" FromRole="temps" ToRole="type_temps" />
+  </EntityType>
+  <EntityType Name="type_temps">
+    <Key>
+      <PropertyRef Name="id_type_temps" />
+    </Key>
+    <Property Type="Int32" Name="id_type_temps" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="nom" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="couleur" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Type="Boolean" Name="absence" Nullable="false" />
+    <NavigationProperty Name="favori" Relationship="crm_heliantisModel.FK_favori_type_temps" FromRole="type_temps" ToRole="favori" />
+    <NavigationProperty Name="temps" Relationship="crm_heliantisModel.FK_temps_type_temps" FromRole="type_temps" ToRole="temps" />
+  </EntityType>
+  <EntityType Name="utilisateur">
+    <Key>
+      <PropertyRef Name="id_utilisateur" />
+    </Key>
+    <Property Type="Int32" Name="id_utilisateur" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="identifiant" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="mot_passe" MaxLength="15" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="employe" Relationship="crm_heliantisModel.FK_employe_utilisateur" FromRole="utilisateur" ToRole="employe" />
+  </EntityType>
+  <EntityType Name="VuePlanningGlobal">
+    <Key>
+      <PropertyRef Name="date_debut" />
+      <PropertyRef Name="date_fin" />
+      <PropertyRef Name="idemploye" />
+      <PropertyRef Name="id_type_temps" />
+    </Key>
+    <Property Type="DateTime" Name="date_debut" Nullable="false" />
+    <Property Type="DateTime" Name="date_fin" Nullable="false" />
+    <Property Type="String" Name="commentaires" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nomprojet" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="nomclient" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="String" Name="reference" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Type="Int32" Name="idemploye" Nullable="false" />
+    <Property Type="Int32" Name="id_type_temps" Nullable="false" />
+    <Property Type="String" Name="typetemps" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_client_projet">
+    <End Type="crm_heliantisModel.client" Role="client" Multiplicity="1" />
+    <End Type="crm_heliantisModel.projet" Role="projet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="client">
+        <PropertyRef Name="id_client" />
+      </Principal>
+      <Dependent Role="projet">
+        <PropertyRef Name="id_client" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_groupe">
+    <End Type="crm_heliantisModel.groupe" Role="groupe" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.employe" Role="employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="groupe">
+        <PropertyRef Name="id_groupe" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_groupe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_role">
+    <End Type="crm_heliantisModel.role" Role="role" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.employe" Role="employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="role">
+        <PropertyRef Name="id_role" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_tache">
+    <End Type="crm_heliantisModel.tache" Role="tache" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.employe" Role="employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tache">
+        <PropertyRef Name="id_tache" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_tache" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_employe_utilisateur">
+    <End Type="crm_heliantisModel.utilisateur" Role="utilisateur" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.employe" Role="employe" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="utilisateur">
+        <PropertyRef Name="id_utilisateur" />
+      </Principal>
+      <Dependent Role="employe">
+        <PropertyRef Name="id_utilisateur" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_employe">
+    <End Type="crm_heliantisModel.employe" Role="employe" Multiplicity="1" />
+    <End Type="crm_heliantisModel.favori" Role="favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reservation_employe">
+    <End Type="crm_heliantisModel.employe" Role="employe" Multiplicity="1" />
+    <End Type="crm_heliantisModel.reservation" Role="reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_employe">
+    <End Type="crm_heliantisModel.employe" Role="employe" Multiplicity="1" />
+    <End Type="crm_heliantisModel.temps" Role="temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="employe">
+        <PropertyRef Name="id_employe" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_employe" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_projet">
+    <End Type="crm_heliantisModel.projet" Role="projet" Multiplicity="1" />
+    <End Type="crm_heliantisModel.favori" Role="favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projet">
+        <PropertyRef Name="id_projet" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_projet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_tache">
+    <End Type="crm_heliantisModel.tache" Role="tache" Multiplicity="1" />
+    <End Type="crm_heliantisModel.favori" Role="favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tache">
+        <PropertyRef Name="id_tache" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_tache" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_favori_type_temps">
+    <End Type="crm_heliantisModel.type_temps" Role="type_temps" Multiplicity="1" />
+    <End Type="crm_heliantisModel.favori" Role="favori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="type_temps">
+        <PropertyRef Name="id_type_temps" />
+      </Principal>
+      <Dependent Role="favori">
+        <PropertyRef Name="id_type_temps" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_frais">
+    <End Type="crm_heliantisModel.frais" Role="frais" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.temps" Role="temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="frais">
+        <PropertyRef Name="id_frais" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_frais" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reservation_materiel">
+    <End Type="crm_heliantisModel.materiel" Role="materiel" Multiplicity="1" />
+    <End Type="crm_heliantisModel.reservation" Role="reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="materiel">
+        <PropertyRef Name="id_materiel" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_materiel" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_projet">
+    <End Type="crm_heliantisModel.projet" Role="projet" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.temps" Role="temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="projet">
+        <PropertyRef Name="id_projet" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_projet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_reservation_recurrence">
+    <End Type="crm_heliantisModel.recurrence" Role="recurrence" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.reservation" Role="reservation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="recurrence">
+        <PropertyRef Name="id_recurrence" />
+      </Principal>
+      <Dependent Role="reservation">
+        <PropertyRef Name="id_recurrence" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_recurence">
+    <End Type="crm_heliantisModel.recurrence" Role="recurrence" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.temps" Role="temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="recurrence">
+        <PropertyRef Name="id_recurrence" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_recurrence" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rule_role_role">
+    <End Type="crm_heliantisModel.role" Role="role" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.rule_role" Role="rule_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="role">
+        <PropertyRef Name="id_role" />
+      </Principal>
+      <Dependent Role="rule_role">
+        <PropertyRef Name="id_role" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rule_role_rule">
+    <End Type="crm_heliantisModel.rule" Role="rule" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.rule_role" Role="rule_role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="rule">
+        <PropertyRef Name="id_rule" />
+      </Principal>
+      <Dependent Role="rule_role">
+        <PropertyRef Name="id_rule" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_tache">
+    <End Type="crm_heliantisModel.tache" Role="tache" Multiplicity="0..1" />
+    <End Type="crm_heliantisModel.temps" Role="temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tache">
+        <PropertyRef Name="id_tache" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_tache" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_temps_type_temps">
+    <End Type="crm_heliantisModel.type_temps" Role="type_temps" Multiplicity="1" />
+    <End Type="crm_heliantisModel.temps" Role="temps" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="type_temps">
+        <PropertyRef Name="id_type_temps" />
+      </Principal>
+      <Dependent Role="temps">
+        <PropertyRef Name="id_type_temps" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

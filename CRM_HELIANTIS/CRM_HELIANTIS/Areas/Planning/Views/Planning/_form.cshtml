@@ -1,0 +1,46 @@
+﻿
+<div id="choixtravail">
+@if (ViewBag.absence == true)
+{
+    <text><input type="radio" id="travailChoix"  name="choix" /> Travail  <input type="radio" name="choix"  id="absenceChoix" checked="checked"/> Absence</text>
+} else {
+     <text><input type="radio" id="travailChoix" checked="checked" name="choix" /> Travail  <input type="radio" name="choix"  id="absenceChoix" /> Absence</text>
+}
+  
+
+</div>
+
+<div id="travail">
+@if (ViewBag.editer == true)
+{
+@Html.Action("EditionFormulaireTravail", new{ id=ViewBag.id_employe})
+} else {
+@Html.Action("AjoutFormulaireTravail", new{ debut=ViewBag.debut, fin=ViewBag.fin, id_employe=ViewBag.id_employe})
+}
+</div>
+<div id="absence">
+@if (ViewBag.editer == true)
+{
+@Html.Action("EditionFormulaireAbsence", new{ id=ViewBag.id_employe})
+} else {
+@Html.Action("AjoutFormulaireAbsence", new{ debut=ViewBag.debut, fin=ViewBag.fin, id_employe=ViewBag.id_employe})
+}
+
+</div>
+
+<script type="text/javascript">
+@if(ViewBag.absence==true){
+    <text>$('#travail').hide();</text>
+} else {
+     <text>$('#absence').hide();</text>
+}
+   $('input[name="choix"]').change(function () {
+       $('#travail').fadeToggle("fast");
+       $('#absence').fadeToggle("fast", function (){
+            $( "#popup" ).dialog( "option", "position", 'center' );
+       });
+       
+   });
+
+    $('span','.bouton').button();
+</script>

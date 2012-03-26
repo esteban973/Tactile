@@ -1,0 +1,81 @@
+﻿@{
+    ViewBag.Title = "Notes de frais";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+<div class="header">
+     <h2>Frais pour </h2>
+        <select id="month" name="month">
+            <option value="1">Janvier</option>
+            <option value="2">Février</option>
+            <option value="3">Mars</option>
+            <option value="4">Avril</option>
+            <option value="5">Mai</option>
+            <option value="6">Juin</option>
+            <option value="7">Juillet</option>
+            <option value="8">Août</option>
+            <option value="9">Septembre</option>
+            <option value="10">Octobre</option>
+            <option value="11">Novembre</option>
+            <option value="12">Décembre</option>
+        </select>
+        <select id="year" name="year">
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+        </select>
+        <span id="validate">Afficher</span>
+        <span id="printPdf">PDF</span>
+        <span id="printXls">Excel</span>
+    </div>
+<div class="content">
+   
+    <div id="tableau">
+        @Html.Action("CalculFraisPartial", new { year = ViewBag.year, month = ViewBag.month, exportation="html" })
+    </div>
+</div>
+<script type="text/javascript">
+    $('select[name="month"] option[value="@ViewBag.month"]').attr('selected', true);
+    $('select[name="year"] option[value="@ViewBag.year"]').attr('selected', true);
+
+    $('#validate').button();
+    $('#printPdf').button({
+        icons: {
+                primary: "ui-icon-print"
+            }
+        });
+        $('#printXls').button({
+            icons: {
+                primary: "ui-icon-calculator"
+            }
+        });
+    $('#validate').click(function () {
+        actualiserTableau()
+    });
+
+    function actualiserTableau() {
+        $.ajax({
+            url: 'CalculFraisPartial',
+            data: {
+                year: $('#year option:selected').val(),
+                month: $('#month option:selected').val(),
+                exportation: "html"
+            },
+            success: function (data) {
+                $('#tableau').html(data);
+
+            }
+
+        });
+    }
+
+    $('#printPdf').click(function () {
+        window.location.href = "CalculFraisPartial?year=" + $('#year option:selected').val() + "&month=" + $('#month option:selected').val() + "&exportation=PDF";
+    });
+
+    $('#printXls').click(function () {
+        window.location.href = "CalculFraisPartial?year=" + $('#year option:selected').val() + "&month=" + $('#month option:selected').val() + "&exportation=XLS";
+    });
+   
+</script>

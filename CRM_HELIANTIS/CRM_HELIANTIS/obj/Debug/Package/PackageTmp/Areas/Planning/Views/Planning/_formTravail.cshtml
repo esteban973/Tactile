@@ -1,0 +1,201 @@
+﻿@model CRM_HELIANTIS.Areas.Planning.Models.TravailView
+</script>
+<div id="formulaireTravail">
+    @using (Html.BeginForm())
+    {
+        @Html.ValidationSummary(true)
+
+        @Html.HiddenFor(model => model.id_employe)
+        <div class="editor-field">
+            <label>
+                Type de travail</label>
+            @Html.DropDownList("type_travail")
+        </div>
+    
+        <div class="editor-field">
+            <label>
+                Type de tâche</label>
+            @Html.DropDownList("id_tache")
+        </div>
+    
+        <div class="editor-field">
+            <label>
+                Projet</label>
+            @Html.DropDownList("id_projet", String.Empty)
+        </div>
+    
+        <div class="editor-field">
+            <label>
+                Date</label>
+            @Html.EditorFor(model => model.dateTravail)
+        </div>
+
+        
+        <div class="time">
+            <label>
+                Horaires </label>
+            de @Html.EditorFor(model => model.debutTravail)        
+                à
+            @Html.EditorFor(model => model.finTravail)
+        </div>
+        <div class="editor-field">
+            <label>
+                Repas extérieur</label>
+            @Html.CheckBoxFor(model => model.repas_ext)
+        </div>
+        <div class="editor-field">
+            <label>
+                Commentaires</label><div>
+            @Html.EditorFor(model => model.commentairesTemps)
+            </div>
+        </div>
+        
+        <div id="frais">
+            <div class="editor-field">
+                    <label>
+                        Kilométrages</label>
+                    @Html.EditorFor(model => model.kilometres)
+                </div>
+                <div class="editor-field">
+                    <label>
+                        Péage / Parking</label>
+                    @Html.EditorFor(model => model.peage)
+                </div>
+                <div class="editor-field">
+                    <label>
+                        Hotel / restaurant</label>
+                    @Html.EditorFor(model => model.hotel_resto)
+                </div>
+                <div class="editor-field">
+                    <label>
+                        Divers</label>
+                    @Html.EditorFor(model => model.divers)
+                </div>
+                <div class="editor-field">
+                    <label>
+                        Libellé du frais</label>
+                    @Html.EditorFor(model => model.commentairesFrais)
+                </div>
+       </div>
+        
+
+
+        <div class="bouton">
+        <span id="fermerTravail">Fermer</span>
+        <span id="addFrais">Ajouter des frais</span>
+            <span id="validateTravail">Enregistrer</span>
+            
+            
+        </div>
+        
+
+    }
+</div>
+<script type="text/javascript">
+//-------------------------------------------------------------------------------------------------------
+//----------------------------------initialisation des combobox et des boutons   ------------------------
+//---------------------------------------------------------------------------------------------------------
+
+//initialisation des select et application du style autocomplete
+$("#type_travail").combobox();
+$("#id_tache").combobox();
+$("#id_projet").combobox();
+
+  
+$("#fermerTravail").click(function () {
+        fermerPopup();
+  });
+
+//-------------------------------------------------------------------------------------------------------
+    //----------------------------------initiliatisation des timepickers    ------------------------
+    //---------------------------------------------------------------------------------------------------------
+
+$('#dateTravail').datepicker();
+$('#dateTravail').val("@Model.dateTravail.ToShortDateString()");
+ $('#finTravail').val("@Model.finTravail"); 
+ $('#debutTravail').timepicker({
+     stepMinute: 15,
+     timeFormat: 'hh:mm'
+ });
+ $('#finTravail').timepicker({
+     stepMinute: 15,
+     timeFormat: 'hh:mm'
+ });
+
+
+//-------------------------------------------------------------------------------------------------------
+//----------------------------------application des contraintes du formulaire       ------------------
+//---------------------------------------------------------------------------------------------------------
+
+ $('#type_travailAuto').addClass("validate[required]");
+ $('#id_tacheAuto').addClass("validate[required]");
+ //$('#id_projetAuto').addClass("validate[required]");
+ $('#dateTravail').addClass("validate[required]");
+ $('#debutTravail').addClass("validate[required]");
+ $('#finTravail').addClass("validate[required, funcCall[verifDates]]");
+ $('#kilometres').addClass("validate[min[0], max[3000], custom[number]]");
+$('#peage').addClass("validate[min[0], max[300],custom[number]] ");
+ $('#divers').addClass("validate[min[0], max[300],custom[number]] ");
+ $('#hotel_resto').addClass("validate[min[0], max[300],custom[number]] ");
+
+$("#formulaireTravail > form").validationEngine({promptPosition : "topRight", scroll: false, validationEventTrigger:""});
+
+
+function verifDates(field, rules, i, options){
+  var debut=$('#debutTravail').val();
+  var fin=$('#finTravail').val();
+      if (debut>=fin) {
+         return options.allrules.datesnonvalides.alertText;
+      }
+}
+
+  
+//-------------------------------------------------------------------------------------------------------
+//----------------------------------faire apparaitre les frais      ------------------
+//---------------------------------------------------------------------------------------------------------
+
+ @if (ViewBag.type == "editer" && Model.hasFrais())
+ { 
+            <text>$("#addFrais").hide();</text>
+ }
+ else
+ {
+        <text>
+        
+        $("#addFrais").on('click', function(){
+            $("#frais").slideDown("slow", function(){
+            $( "#popup" ).dialog( "option", "position", 'center' );
+            });
+            $(this).fadeOut();
+        });
+          $("#frais").hide();
+          </text>
+ }
+
+   
+//-------------------------------------------------------------------------------------------------------
+//----------------------------------envoyer l'enregistrement      ---------------------------------------
+//---------------------------------------------------------------------------------------------------------
+
+
+    $("#validateTravail").click(function () {
+       
+      if ( $("#formulaireTravail > form").validationEngine('validate')){
+         $('input', '#frais').each(function(){
+            val=$(this).val();
+            if (val!="") $(this).val(val.replace(".", ","));
+         });
+   @if (ViewBag.type == "editer")
+   { 
+            <text>enregistrerTravail(</text>@Model.id_temps<text>);</text>;
+   }
+   else
+   {
+        <text>
+          enregistrerTravail();
+          </text>
+   }
+      }
+    });
+
+</script>

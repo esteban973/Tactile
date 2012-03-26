@@ -1,0 +1,106 @@
+﻿@model CRM_HELIANTIS.Areas.Planning.Models.AbsenceView
+
+<div id="formulaireAbsence">
+@using (Html.BeginForm())
+{
+   
+           @Html.HiddenFor(model => model.id_employe)
+           <div class="editor-field">
+        <label>Type d'absence</label>
+            @Html.DropDownList("type_absence")
+        </div>
+    
+        <div class="editor-field">
+        <label>Date</label>
+            @Html.EditorFor(model => model.dateAbsence)
+                  </div>
+
+        
+        <div class="time">
+        <label>Horaires  </label>
+           de @Html.EditorFor(model => model.debutAbsence) à  @Html.EditorFor(model => model.finAbsence)
+        </div>
+
+        <div class="editor-field">
+        <label>Commentaires</label>
+        <div>
+            @Html.EditorFor(model => model.commentairesTemps)
+            </div>
+        </div>
+
+<div class="bouton">
+<span id="fermer">Fermer</span>
+            <span id="validate">Enregistrer</span>
+            
+        </div>
+}
+</div>
+
+<script type="text/javascript">
+//-------------------------------------------------------------------------------------------------------
+//----------------------------------initialisation des combobox et des boutons   ------------------------
+//---------------------------------------------------------------------------------------------------------
+$("#type_absence").combobox();
+
+$("#fermer").click(function () {
+        fermerPopup();
+});
+   
+   
+
+//-------------------------------------------------------------------------------------------------------
+    //----------------------------------initiliatisation des timepickers    ------------------------------
+    //-----------------------------------------------------------------------------------------------------
+$('#debutAbsence').val("@Model.debutAbsence");
+$("#dateAbsence").datepicker();
+$('#dateAbsence').val("@Model.dateAbsence.ToShortDateString()"); 
+ $('#finAbsence').val("@Model.finAbsence"); 
+ $('#debutAbsence').timepicker({
+ stepMinute: 15,
+ timeFormat: 'hh:mm'
+ });
+ $('#finAbsence').timepicker({
+ stepMinute: 15,
+ timeFormat: 'hh:mm'
+ });
+
+ //-------------------------------------------------------------------------------------------------------
+//----------------------------------application des contraintes du formulaire       ---------------------
+//---------------------------------------------------------------------------------------------------------
+ $('#type_absenceAuto').addClass("validate[required]");
+ $('#dateAbsence').addClass("validate[required]");
+ $('#debutAbsence').addClass("validate[required]");
+ $('#finAbsence').addClass("validate[required, funcCall[verifDatesAbsence]]");
+$("#formulaireAbsence > form").validationEngine({promptPosition : "topRight", scroll: false, validationEventTrigger:""});
+
+
+  function verifDatesAbsence(field, rules, i, options){
+  var debut=$('#debutAbsence').val();
+  var fin=$('#finAbsence').val();
+      if (debut>=fin) {
+         return options.allrules.datesnonvalides.alertText;
+      }
+  }
+
+    
+//-------------------------------------------------------------------------------------------------------
+//----------------------------------faire apparaitre les frais      ------------------------------------
+//---------------------------------------------------------------------------------------------------------
+
+    $("#validate").click(function(){
+       if ( $("#formulaireAbsence > form").validationEngine('validate')){
+   @if(ViewBag.type == "editer")
+   { 
+            <text>enregistrerAbsence(</text>@Model.id_temps<text>);</text>;
+   }
+   else
+   {
+        <text>
+          enregistrerAbsence();
+          </text>
+   }
+  }
+      
+    });
+
+</script>

@@ -1,0 +1,313 @@
+﻿@using CRM_HELIANTIS.Classes;
+@{
+    ViewBag.Title = "Temps par projet";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+<div class="header">
+     <h2>Temps pour le projet </h2>
+     
+        
+        @Html.DropDownList("listeProjet",String.Empty)
+    
+    <select id="typeaffichage">
+    <option value="employe">Temps par employé</option>
+    <option value="employeTous">Temps détaillé de tous les employés</option>
+    <option value="employeTousGlobal">Temps global du projet</option>
+    
+    </select>
+    <input type="checkbox" id="dateEnabled"/>
+        <select id="month" name="month" disabled=disabled>
+            <option value="1">Janvier</option>
+            <option value="2">Février</option>
+            <option value="3">Mars</option>
+            <option value="4">Avril</option>
+            <option value="5">Mai</option>
+            <option value="6">Juin</option>
+            <option value="7">Juillet</option>
+            <option value="8">Août</option>
+            <option value="9">Septembre</option>
+            <option value="10">Octobre</option>
+            <option value="11">Novembre</option>
+            <option value="12">Décembre</option>
+        </select>
+
+        <select id="year" name="year" disabled>
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+        </select>
+
+
+    <span id="afficherReq">Actualiser</span>
+    </div>
+<div class="content">
+   <div id="affichageContextuel">
+       <div id="employe">
+            @Html.DropDownList("employeList", String.Empty)
+            <span id="validate">Afficher</span>
+            <span id="printPdf">PDF</span>
+            <span id="printXls">Excel</span>
+        </div>
+        <div id="employeTous">
+            <span id="printTousPdf">Tous en PDF</span>
+            <span id="printTousXls">Tous pour Excel</span>
+        </div> 
+        <div id="employeTousGlobal">
+            <span id="printTousGlobalPdf">PDF</span>
+            <span id="printTousGlobalXls">Excel</span>
+        </div> 
+        
+   </div>
+    <div id="tableau">
+
+    </div>
+</div>
+<script type="text/javascript">
+   
+    $('#listeProjet').combobox()
+    $('#listeProjetAuto').attr('style', 'min-width:150px');
+    $('#afficherReq').button({
+         icons: {
+            primary: "ui-icon-check"
+        }
+    });
+    $('#afficherReq').click(changementAffichage);
+    $("#affichageContextuel > div").hide();
+
+    //-------------------------------------------------------------------------------
+    //--------------------gestion de l'affaichage des select cliquables ou non -------
+    //-------------------------------------------------------------------------------
+    $('select[name="month"] option[value="@DateTime.Now.Month"]').attr('selected', true);
+    $('select[name="year"] option[value="@DateTime.Now.Year"]').attr('selected', true);
+
+    $('#dateEnabled').change(function () {
+        if ($('#dateEnabled').is(':checked')) {
+            $('#month').removeAttr('disabled');
+            $('#year').removeAttr('disabled');
+        } else {
+            $('#month').attr('disabled', true);
+            $('#year').attr('disabled', true);
+        }
+    });
+    //-------------------------------------------------------------------------------
+    //--------------------gestion des changements du select type affichage -----------
+    //-------------------------------------------------------------------------------
+
+    function changementAffichage() {
+        $('#tableau').empty();
+        id = $('#typeaffichage option:selected').val();
+        $("#affichageContextuel > div").hide();
+        $("#" + id).show();
+        switch (id) {
+            case "employeTous": voirTousEmploye();
+                break;
+            case "employeTousGlobal": voirTousEmployeGlobal();
+                break;
+            default: break;
+        }
+    }
+
+
+    //-------------------------------------------------------------------------------
+    //--------------------affichage de la partie Employe---------------------------
+    //-------------------------------------------------------------------------------
+
+    $('#validate').button({
+        icons: {
+            primary: "ui-icon-search"
+        }
+    });
+
+    $('#printPdf').button({
+        icons: {
+            primary: "ui-icon-print"
+        }
+    });
+
+    $('#printXls').button({
+        icons: {
+            primary: "ui-icon-calculator"
+        }
+    });
+
+    $('#employeList').combobox()
+
+    $('#employeListAuto').attr('style', 'min-width:200px');
+
+    $('#printPdf').click(function () {
+       if (($('#listeProjet option:selected').val() != "") && ($('#employeList option:selected').val() != "")) window.location.href=retourneRequete("PDF");
+
+    });
+
+    $('#printXls').click(function () {
+         if (($('#listeProjet option:selected').val() != "") && ($('#employeList option:selected').val() != "")) window.location.href=retourneRequete("XLS");
+    });
+    
+    $('#validate').click(function () {
+        if (($('#listeProjet option:selected').val() != "") && ($('#employeList option:selected').val() != "")){
+            $.ajax({
+                url: 'TempsProjetPartial',
+                data:retourneObjetRequete("html"),
+                success: function (data) {
+                    $('#tableau').html(data);
+                }
+            });}
+    });
+
+    function retourneObjetRequete (exportation){
+        if($('#dateEnabled').is(':checked'))
+            { 
+            data={
+                exportation:exportation,
+                idProjet: $('#listeProjet option:selected').val(),
+                idEmploye:$('#employeList option:selected').val(),
+                year: $('#year option:selected').val(),
+                month: $('#month option:selected').val()
+            }
+            } else {
+                data={
+                    idProjet: $('#listeProjet option:selected').val(),
+                    idEmploye: $('#employeList option:selected').val(),
+                    exportation:exportation
+                }
+            }
+            return data;
+    }
+
+    function retourneRequete(exportation){
+        data=retourneObjetRequete(exportation);
+        requete="TempsProjetPartial?";
+        for( var cle in data){
+            requete=requete+"&"+cle+"="+data[cle];
+        }
+        return requete;
+    }
+
+
+
+       //-------------------------------------------------------------------------------
+       //--------------------affichage de la partie Tous Employes Détaillé-----------------------
+       //-------------------------------------------------------------------------------
+
+     $('#printTousPdf').button({
+            icons: {
+                    primary: "ui-icon-print"
+                }
+            });
+            $('#printTousXls').button({
+                icons: {
+                    primary: "ui-icon-calculator"
+                }
+            });
+
+            $('#printTousPdf').click(function () {
+                if ($('#dateEnabled').is(':checked')) {
+                    window.location.href = "TempsProjetTous?idProjet=" + $('#listeProjet option:selected').val() + "&exportation=PDF&year="+$('#year option:selected').val()+"&month="+$('#month option:selected').val();
+                } else {
+                    window.location.href = "TempsProjetTous?idProjet=" + $('#listeProjet option:selected').val() + "&exportation=PDF";
+                }
+            });
+
+      $('#printTousXls').click(function(){
+          if ($('#dateEnabled').is(':checked')) {
+              window.location.href = "TempsProjetTous?idProjet=" + $('#listeProjet option:selected').val() + "&exportation=XLS&year=" + $('#year option:selected').val() + "&month=" + $('#month option:selected').val();
+          } else {
+              window.location.href = "TempsProjetTous?idProjet=" + $('#listeProjet option:selected').val() + "&exportation=XLS";
+          }
+        });
+
+        function voirTousEmploye() {
+            if ($('#listeProjet option:selected').val() != "") {
+                if ($('#dateEnabled').is(':checked')) {
+                    data = {
+                        idProjet: $('#listeProjet option:selected').val(),
+                        exportation: "html",
+                        year: $('#year option:selected').val(),
+                        month: $('#month option:selected').val()
+                    }
+                } else {
+                    data = {
+                        idProjet: $('#listeProjet option:selected').val(),
+                        exportation: "html"
+                    }
+                
+                }
+                $.ajax({
+                    url: 'TempsProjetTous',
+                    data: data,
+                    success: function (data) {
+                        $('#tableau').html(data);
+                    }
+
+                });
+            }
+        }
+
+
+
+
+        //-------------------------------------------------------------------------------
+        //--------------------affichage de la partie Tous Employes Global -----------------------
+        //-------------------------------------------------------------------------------
+
+        $('#printTousGlobalPdf').button({
+            icons: {
+                primary: "ui-icon-print"
+            }
+        });
+        $('#printTousGlobalXls').button({
+            icons: {
+                primary: "ui-icon-calculator"
+            }
+        });
+
+        $('#printTousGlobalPdf').click(function () {
+            if ($('#dateEnabled').is(':checked')) {
+                window.location.href = "TempsProjetGlobal?idProjet=" + $('#listeProjet option:selected').val() + "&exportation=PDF&year=" + $('#year option:selected').val() + "&month=" + $('#month option:selected').val();
+            } else {
+                window.location.href = "TempsProjetGlobal?idProjet=" + $('#listeProjet option:selected').val() + "&exportation=PDF";
+            }
+         });
+
+        $('#printTousGlobalXls').click(function () {
+            if ($('#dateEnabled').is(':checked')) {
+                window.location.href = "TempsProjetGlobal?idProjet=" + $('#listeProjet option:selected').val() + "&exportation=XLS&year=" + $('#year option:selected').val() + "&month=" + $('#month option:selected').val();
+            } else {
+                window.location.href = "TempsProjetGlobal?idProjet=" + $('#listeProjet option:selected').val() + "&exportation=XLS";
+            }
+        });
+
+        function voirTousEmployeGlobal() {
+            if ($('#listeProjet option:selected').val() != "") {
+                if ($('#dateEnabled').is(':checked')) {
+                    data = {
+                        idProjet: $('#listeProjet option:selected').val(),
+                        exportation: "html",
+                        year: $('#year option:selected').val(),
+                        month: $('#month option:selected').val()
+                    }
+                } else {
+                    data = {
+                        idProjet: $('#listeProjet option:selected').val(),
+                        exportation: "html"
+                    }
+
+                }
+                $.ajax({
+                    url: 'TempsProjetGlobal',
+                    data: data,
+                    success: function (data) {
+                        $('#tableau').html(data);
+                    }
+
+                });
+            }
+        }
+
+     
+
+       
+
+</script>

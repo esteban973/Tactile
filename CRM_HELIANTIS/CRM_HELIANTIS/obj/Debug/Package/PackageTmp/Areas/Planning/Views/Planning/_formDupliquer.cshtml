@@ -1,0 +1,62 @@
+﻿@model CRM_HELIANTIS.Areas.Planning.Models.DupliquerView
+
+
+<form id="formulaireDuplication">
+
+
+
+           
+          <input type="hidden" value="@Model.id_temps" id="id_temps" name="id_temps" />
+           <div class="editor-field">
+        <label>Fréquence</label>
+           <select id="frequenceInt" name="frequenceInt">
+           <option value="1">Quotidienne</option>
+           <option value="7">Hebdomadaire</option>
+            </select>
+        </div>
+    
+        <div class="editor-field">
+        <label>Date de fin</label>
+            <input id="dateFin" name="dateFin" type="text" value="@Model.dateFin.ToString().Substring(0, 10)"/>
+        </div>
+
+        
+
+<div class="bouton">
+<span id="fermer">Fermer</span>
+<span id="validate">Dupliquer</span>
+
+</div>
+
+</form>
+
+
+<script type="text/javascript">
+    $('#dateFin').datepicker({ minDate: "@Model.dateFin.ToString().Substring(0, 10)" });
+    $('span', '.bouton').button();
+    $("#formulaireDuplication").validationEngine({ promptPosition: "topRight", scroll: false, validationEventTrigger: "" });
+    //envoi de la requête en ajax
+    $('#validate').click(function () {
+        viderErreurs();
+        $.ajax({
+            url: 'Planning/Dupliquer',
+            type: 'POST',
+            data: $("#formulaireDuplication").serialize(),
+            success: function (data) {
+                if (data.succes == 1) {
+                    reactualiserSource();
+                    fermerPopup();
+                    $.sticky("L'événement a bien été duppliqué");
+                } else {
+                    ajouterErreurs(data.erreurs)
+                }
+            }
+        });
+    });
+
+    //fermer la popup
+    $('#fermer').on('click', fermerPopup);
+
+
+
+</script>

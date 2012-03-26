@@ -1,0 +1,137 @@
+﻿@model CRM_HELIANTIS.Areas.Utilisateur.Models.UtilisateurView
+
+<h2>
+    @if (ViewBag.type == "editer")
+    { 
+        <text>Edition</text>
+    }
+    else
+    {<text>Création</text> }
+    d'une fiche Utilisateur</h2>
+<div id="formulaire">
+    @using (Html.BeginForm())
+    {
+
+        @Html.ValidationSummary(true)
+        <div class="colonneGauche">
+            <div>
+            @Html.HiddenFor(model=>model.id)
+                <label>
+                    Nom</label>@Html.EditorFor(model => model.nom)
+               
+            </div>
+            <div>
+                <label>
+                    Prénom</label>@Html.EditorFor(model => model.prenom)
+               </div>
+            <div>
+                <label>
+                    Email</label>@Html.EditorFor(model => model.email)
+                </div>
+            <div>
+                <label>
+                    Service</label>@Html.DropDownList("id_groupe")
+                </div>
+            <div>
+                <label>
+                    Tâche favorie</label>@Html.DropDownList("id_tache")
+                </div>
+
+            <div class="time">
+                <label>
+                    Horaires Matin</label>de @Html.EditorFor(model => model.horaires_matin) à @Html.EditorFor(model => model.horaires_matin_fin)</div>
+            
+            <div class="time">
+                <label>
+                    Horaires Après midi</label>de @Html.EditorFor(model => model.horaires_apresmidi) à @Html.EditorFor(model => model.horaires_apresmidi_fin)</div>
+            
+        </div>
+        <div class="colonneDroite">
+            <div>
+                <label>
+                    Identifiant</label>
+                @Html.EditorFor(model => model.identifiant)
+                </div>
+            <div>
+                <label>
+                    Rôle</label>
+                @Html.DropDownList("id_role")
+                </div>
+        </div>
+        <div class="bouton">
+        <span  id="fermer" >Fermer</span>
+            <span id="validate">Enregistrer</span>
+            
+        </div>
+
+    }
+</div>
+<script type="text/javascript">
+    $('span','.bouton').button();
+    $("#validate").click(function (event) {
+        if ($("#formulaire > form").validationEngine('validate')) {
+            editer()
+        }
+    });
+
+    $("#fermer").click(function () {
+        fermerPopup();
+    });
+
+    //-------------------------------------------------------------------------------------------------------
+//----------------------------------création des timepickers -------------------      ------------------
+//---------------------------------------------------------------------------------------------------------
+ $('#horaires_matin').timepicker({
+        hour: 9,
+   	minute: 0,
+    stepMinute:15});
+ $('#horaires_matin_fin').timepicker({
+    hour: 12,
+	minute: 0,
+    stepMinute:15});
+$('#horaires_apresmidi').timepicker({
+    hour: 14,
+	minute: 0,
+    stepMinute:15});
+ $('#horaires_apresmidi_fin').timepicker({
+    hour: 18,
+	minute: 0,
+    stepMinute:15});
+
+    @if (ViewBag.type == "creer")
+    { 
+        <text>
+        $('#horaires_matin').val('09:00');
+         $('#horaires_matin_fin').val('12:00');
+    $('#horaires_apresmidi').val('14:00');
+    $('#horaires_apresmidi_fin').val('18:00');
+   
+        </text>
+    }
+ //-------------------------------------------------------------------------------------------------------
+//----------------------------------application des contraintes du formulaire       ------------------
+//---------------------------------------------------------------------------------------------------------
+$('#horaires_matin').addClass("validate[required]"); 
+$('#horaires_matin_fin').addClass("validate[required, funcCall[verifHeures]]");
+$('#horaires_apresmidi').addClass("validate[required, funcCall[verifHeures]]");
+$('#horaires_apresmidi_fin').addClass("validate[required, funcCall[verifHeures]]");
+$('#nom').addClass("validate[required]");
+$('#prenom').addClass("validate[required]");
+$('#identifiant').addClass("validate[required]");
+$('#email').addClass("validate[required, custom[email]]");
+$("#formulaire > form").validationEngine({promptPosition : "topRight", scroll: false, validationEventTrigger:""});
+
+
+function verifHeures(field, rules, i, options){
+  var fieldDeb=field.prev();
+  if (fieldDeb.is('label')) fieldDeb=$('#horaires_matin_fin');
+  var debut=fieldDeb.val();
+  var fin=field.val();
+      if (debut>fin) {
+         return options.allrules.datesnonvalides.alertText;
+      }
+}
+
+
+
+</script>

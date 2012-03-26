@@ -1,0 +1,53 @@
+﻿
+@{
+    ViewBag.Title = "Affectation des rôles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int i = 0;
+}
+<div class="header">
+    <h2>Gestion des rôles</h2></div>
+    <form action="@Url.Action("roleUpdate")" method="post">
+<div class="content">
+<table>
+<thead>
+<th width="300px"></th>
+@foreach(var role in ViewBag.Role){
+    <th  width="100px">
+    @role.role_description
+    </th>
+}
+</thead>
+<tbody id="tableRole">
+
+    @foreach (var rolerule in ViewBag.rolerule)
+    {
+        <tr @if (i % 2 == 0)
+            { <text>class="even"</text>}
+            else
+            {<text>class="odd" </text>}>
+        <td>@ViewBag.rules[i].ruledescription</td>
+        @{i = i + 1;
+    }
+        @foreach (var rulerole in rolerule)
+        {
+            
+        <td align="center">
+        <input type="checkbox" value="@rulerole.value" @if (rulerole.check == true)
+                                                       {  <text>checked </text>} name="@rulerole.name"/> 
+        </td>
+        }
+        </tr>
+        }
+
+</tbody>
+</table>
+        <input id="validRole" type="submit" value="Valider"/>
+</form>
+</div>
+<script type="text/javascript">
+    $("#validRole").button();
+    @if (ViewBag.ok !=null){
+        <text>$.sticky("L'enregistrement s'est effectué correctement");</text>
+    }
+
+</script>

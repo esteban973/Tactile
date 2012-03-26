@@ -1,0 +1,305 @@
+﻿@{
+    ViewBag.Title = "Planning";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using CRM_HELIANTIS.Classes
+<div class="header">
+     <label>Veuillez choisir la ressource matérielle</label>@Html.DropDownList("materiel", String.Empty)
+</div>
+<div class="content">
+    
+    <div id="calendrierResa">
+    </div>
+</div>
+
+<!--- menu contextuel appliqué à toutes les évenements ------------>
+<div class="contextMenu" id="menuDroite">
+    <ul>
+        <li id="dupliquer">Dupliquer</li>
+        <li id="supprimer">Supprimer</li>
+        <li id="commenter">Commentaires</li>
+    </ul>
+</div>
+<!--------------->
+
+
+<!-- -------------------------------------->
+<script type='text/javascript'>
+ //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------initialisation des variables et du planning---------------------------
+   //----------------------------------------------------------------------------------------------------------
+    $(document).ready(function () {
+        var source;
+        var calendar = $('#calendrierResa').fullCalendar({
+            timeFormat: {
+                agenda: 'HH:mm{ - HH:mm}',
+                '': 'HH:mm{ - HH:mm}'
+            },
+            columnFormat: {
+                week: 'ddd dd/MM'
+            },
+            titleFormat:{
+            week: "d MMM [ yyyy]{ '&#8212;' d  MMM yyyy}"
+            },
+            buttonText: {
+                prev: '&nbsp;&#9668;&nbsp;',  // left triangle
+                next: '&nbsp;&#9658;&nbsp;',  // right triangle
+                prevYear: '&nbsp;&lt;&lt;&nbsp;', // <<
+                nextYear: '&nbsp;&gt;&gt;&nbsp;', // >>
+                today: 'Aujourd\'hui'
+            },
+            monthNames: ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'],
+            monthNamesShort: ['Jan', 'Fév', 'Mars', 'Avr', 'Mai', 'Juin', 'Juil', 'Aoû', 'Sep', 'Oct', 'Nov', 'Déc'],
+            dayNames: ['Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'],
+            dayNamesShort: ['Dim', 'Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam'],
+            allDaySlot: false,
+            axisFormat: 'HH:mm',
+            slotMinutes: 15,
+            defaultEventMinutes: 30,
+            firstHour: 9,
+            minTime: 6,
+            maxTime: 20,
+            height:800,
+            header: {
+                left: 'today',
+                center: 'title',
+                right: 'prev next'
+            },
+            firstDay: 1,
+            theme: true,
+            defaultView: 'agendaWeek',
+            editable: true,
+            lazyFetching:false,
+            loading:function(isLoading){
+                if (isLoading==true) $('#calendrierResa').fullCalendar('removeEvents');
+            },
+            selectable: true,
+            selectHelper: true,
+            select: function (start, end) {
+                idMatos = $('#materiel option:selected').val();
+                if (idMatos == '') {
+                     $('#calendrierResa').fullCalendar('unselect');
+                    alert('Veuillez sélectionner une ressource matérielle');
+                     return false;
+                } else {
+                    if(((end.getTime()-start.getTime())/(1000*60))==15) {
+                    $('#calendrierResa').fullCalendar('unselect');
+                    return false;
+                    }
+                    createEvent(null, idMatos, start, end,@Html.getCurrentUtilisateur().id_employe, null);
+                }
+            },
+            eventClick: function (event) {
+               console.log(event.id, event.id_materiel, event.start, event.end,event.id_employe, event.commentaires);
+            },
+            eventDrop: function (event) {
+                createEvent(event.id, event.id_materiel, event.start, event.end,event.id_employe, event.commentaires);
+            },
+            eventResize: function (event) {
+               createEvent(event.id, event.id_materiel, event.start, event.end,event.id_employe, event.commentaires);
+                
+            },
+            
+             eventRender: function(event, element) {
+               element.contextMenu('menuDroite', {
+                    onShowMenu: function(e, menu) {
+                                    if (event.recurrence !=null) $('#dupliquer', menu).remove();
+                                    return menu;
+                                    },
+                    bindings: {
+                        'dupliquer': function(t) {
+                                dupliquer(event.id)
+                        },
+                        'supprimer': function(t) {
+                           if (event.recurrence !=null) supprimerResaReccurenceConfirmation(event.id, event.recurrence)
+                          else supprimerResaConfirmation(event.id)
+                        },
+                        'commenter': function(t) {
+                          ajouterCommentaireFormulaire(event.id, event.commentaires);
+                        }   
+                    }
+                });
+            },
+            allDayDefault: false,
+            droppable: true,
+            drop: function (date, allDay) {
+                console.log("laisser tomber" + date)
+            }
+        });
+
+    });
+
+    var timeOut=window.setTimeout(function(){reactualiserSource()},30000);
+
+    $('#materiel').change(function () {
+
+        reactualiserSource();
+    });
+
+
+
+
+ //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------gestion des suppressions----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+
+   function supprimerResaConfirmation(id){
+        data = "<div>Confirmez vous la suppression de la réservation ?</div><div class='bouton'><span id='fermer'>Non</span><span id='envoyer'>Oui</span></div>";
+        apparaitreFormulaire("Supprimer", data,350);
+        $('#envoyer').button();
+        $('#fermer').button();
+        $('#envoyer').click(function(){supprimerResa(id);});
+        $('#fermer').click(function(){fermerPopup();});
+   }
+
+   function supprimerResaReccurenceConfirmation(id, idReccurence){
+        data = "<div>Voulez-vous supprimer uniquement cette réservation, cette réservation et toutes les réservations ultérieures de la série, ou bien toutes les réservations de la série ?</div><div id='boutonSupp'><div id='supprEvenement'>Uniquement cette réservation</div><div id='supprUlterieur'>Toutes les réservations ultérieures</div><div id='supprReccurence'>Toutes les réservations de la série</div><div id='fermer'>Annuler la suppression</div></div>";
+        apparaitreFormulaire("Supprimer", data,350);
+        $('div','#boutonSupp').button();
+        $('#supprEvenement').click(function(){supprimerResa(id);});
+        $('#supprUlterieur').click(function(){supprimerUlterieur(id);});
+        $('#supprReccurence').click(function(){supprimerRecurrence(idReccurence);});
+        $('#fermer').click(function(){fermerPopup();});
+   }
+
+    function supprimerResa(id){
+        supprimer('Reservation/Supprimer/'+id);
+    }
+
+    function supprimerRecurrence(id){
+        supprimer('Reservation/SupprimerRecurrence/'+id);
+    }
+
+    function supprimerUlterieur(id){
+        supprimer('Reservation/SupprimerUlterieur/'+id)
+    }
+
+    function supprimer(path){
+        fermerPopup();
+        $.ajax({
+        url:path,
+        type:'POST',
+        success:function(data){
+            reactualiserSource();
+            if (data.succes==1){
+            $.sticky("La suppression a bien été effectuée");
+            } else $.sticky("Une erreur est survenue durant la suppression");
+        }
+        });
+    }
+
+
+ //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------gestion des ajouts de commentaires ----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+
+    function ajouterCommentaireFormulaire(id, commentaires){
+        data = "<div><label>Commentaires</label></div><textarea id='commentaires'>"+commentaires+"</textarea></div><div class='bouton'><span id='fermer'>Fermer</span><span id='envoyer'>Enregistrer</span></div>";
+        apparaitreFormulaire("Commenter", data,400);
+        $('#envoyer').button();
+        $('#fermer').button();
+        $('#envoyer').click(function(){enregistrerCommentaire(id);});
+        $('#fermer').click(function(){fermerPopup();});
+    }
+
+    function enregistrerCommentaire(id){
+    var comments=$('#commentaires').val();
+       fermerPopup();
+        $.ajax({
+        url:'Reservation/Commenter/'+id,
+        data:{
+            commentaires:comments
+        },
+        type:'POST',
+        success:function(data){
+            reactualiserSource();
+            if (data.succes==1){
+            $.sticky("Le commentaire a bien été modifié");
+            } else $.sticky("Une erreur est survenue durant la modification des commentaires");
+        }
+        });
+    }
+
+ //--------------------------------------------------------------------------------------------------------
+   //-----------------------------------modification de l'objet de réservation---------------------------------
+   //----------------------------------------------------------------------------------------------------------
+
+    function reactualiserSource(){
+        window.clearTimeout(timeOut);
+        timeOut=window.setTimeout(function(){reactualiserSource()},30000);
+    var idMatos = $('#materiel option:selected').val();
+        if (typeof(source) != 'undefined') {
+            $('#calendrierResa').fullCalendar('removeEventSource', source);
+            $('#calendrierResa').fullCalendar( 'removeEvents'  )
+        }
+        source = {
+            url: 'Reservation/ListeResa',
+            type: 'POST',
+            data: {
+                idMatos: idMatos
+            }
+        };
+        $('#calendrierResa').fullCalendar('addEventSource', source);
+    }
+
+ //--------------------------------------------------------------------------------------------------------
+ //----------------------------------création d'une réservation -----------------------------------------
+//----------------------------------------------------------------------------------------------------------
+
+    function createEvent(idResa, idMatos, start, end, idEmploye, commentaires) {
+        var path = (idResa == null) ? "Reservation/Editer" : "Reservation/Editer/" + idResa;
+        var comments=(commentaires==null) ? '' : commentaires
+        $.ajax({ 
+        url:path,
+        type: 'POST',
+        data:{
+            id_matos: idMatos,
+            debut:enISOString(start),
+            fin: enISOString(end),
+            id_employe: idEmploye,
+            commentaires: comments
+         },
+        
+        success:function(data){
+            if (data.succes==1){
+                 $.sticky("La réservation a bien été effectuée");
+                 if(data.creation==1){
+                 $('#calendrierResa').fullCalendar('renderEvent',
+						{
+						    title: data.resa.title,
+						    start: data.resa.start,
+						    end: data.resa.end,
+						    id: data.resa.id,
+                            commentaires: data.resa.commentaires,
+                            id_employe: data.resa.id_employe,
+                            id_materiel:data.resa.id_materiel,
+                            recurrence:data.resa.recurrence
+						},
+						true 
+					);
+                    $('#calendrierResa').fullCalendar('unselect');
+                    } 
+                } else {
+               $('#calendrierResa').fullCalendar('unselect');
+                $.sticky(data.message);
+                reactualiserSource();
+            }
+
+        }
+        });
+}
+
+//--------------------------------------------------------------------------------------------------------
+   //---------------------------------- gestion de la duplication  ----------------------------------------------
+   //----------------------------------------------------------------------------------------------------------
+   function dupliquer(id){
+         $.ajax({
+        url:'Reservation/Dupliquer/'+id,
+        type:'GET',
+        success:function(data){
+            apparaitreFormulaire("Duplication de l'événement", data, 400);
+        }
+        });
+   }
+
+</script>

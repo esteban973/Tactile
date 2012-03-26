@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="crm_heliantisModelStoreContainer" CdmEntityContainer="HeliantisEntities">
+    <EntitySetMapping Name="client">
+      <EntityTypeMapping TypeName="crm_heliantisModel.client">
+        <MappingFragment StoreEntitySet="client">
+          <ScalarProperty Name="z_actif" ColumnName="z_actif" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="reference" ColumnName="reference" />
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employe">
+      <EntityTypeMapping TypeName="crm_heliantisModel.employe">
+        <MappingFragment StoreEntitySet="employe">
+          <ScalarProperty Name="z_actif" ColumnName="z_actif" />
+          <ScalarProperty Name="id_tache" ColumnName="id_tache" />
+          <ScalarProperty Name="horaires_apresmidi_fin" ColumnName="horaires_apresmidi_fin" />
+          <ScalarProperty Name="horaires_matin_fin" ColumnName="horaires_matin_fin" />
+          <ScalarProperty Name="horaires_apresmidi" ColumnName="horaires_apresmidi" />
+          <ScalarProperty Name="horaires_matin" ColumnName="horaires_matin" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="prenom" ColumnName="prenom" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+          <ScalarProperty Name="id_groupe" ColumnName="id_groupe" />
+          <ScalarProperty Name="id_employe" ColumnName="id_employe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="favori">
+      <EntityTypeMapping TypeName="crm_heliantisModel.favori">
+        <MappingFragment StoreEntitySet="favori">
+          <ScalarProperty Name="id_employe" ColumnName="id_employe" />
+          <ScalarProperty Name="id_projet" ColumnName="id_projet" />
+          <ScalarProperty Name="id_tache" ColumnName="id_tache" />
+          <ScalarProperty Name="id_type_temps" ColumnName="id_type_temps" />
+          <ScalarProperty Name="id_favori" ColumnName="id_favori" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="frais">
+      <EntityTypeMapping TypeName="crm_heliantisModel.frais">
+        <MappingFragment StoreEntitySet="frais">
+          <ScalarProperty Name="peage" ColumnName="peage" />
+          <ScalarProperty Name="commentaires" ColumnName="commentaires" />
+          <ScalarProperty Name="divers" ColumnName="divers" />
+          <ScalarProperty Name="hotel_resto" ColumnName="hotel_resto" />
+          <ScalarProperty Name="kilometres" ColumnName="kilometres" />
+          <ScalarProperty Name="id_frais" ColumnName="id_frais" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="groupe">
+      <EntityTypeMapping TypeName="crm_heliantisModel.groupe">
+        <MappingFragment StoreEntitySet="groupe">
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="id_groupe" ColumnName="id_groupe" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="materiel">
+      <EntityTypeMapping TypeName="crm_heliantisModel.materiel">
+        <MappingFragment StoreEntitySet="materiel">
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="id_materiel" ColumnName="id_materiel" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="projet">
+      <EntityTypeMapping TypeName="crm_heliantisModel.projet">
+        <MappingFragment StoreEntitySet="projet">
+          <ScalarProperty Name="z_actif" ColumnName="z_actif" />
+          <ScalarProperty Name="id_client" ColumnName="id_client" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="reference" ColumnName="reference" />
+          <ScalarProperty Name="id_projet" ColumnName="id_projet" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="recurrence">
+      <EntityTypeMapping TypeName="crm_heliantisModel.recurrence">
+        <MappingFragment StoreEntitySet="recurrence">
+          <ScalarProperty Name="comments" ColumnName="comments" />
+          <ScalarProperty Name="id_recurrence" ColumnName="id_recurrence" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="reservation">
+      <EntityTypeMapping TypeName="crm_heliantisModel.reservation">
+        <MappingFragment StoreEntitySet="reservation">
+          <ScalarProperty Name="id_recurrence" ColumnName="id_recurrence" />
+          <ScalarProperty Name="id_materiel" ColumnName="id_materiel" />
+          <ScalarProperty Name="id_employe" ColumnName="id_employe" />
+          <ScalarProperty Name="commentaires" ColumnName="commentaires" />
+          <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+          <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+          <ScalarProperty Name="id_reservation" ColumnName="id_reservation" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="role">
+      <EntityTypeMapping TypeName="crm_heliantisModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="role_description" ColumnName="role_description" />
+          <ScalarProperty Name="role_name" ColumnName="role_name" />
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rule">
+      <EntityTypeMapping TypeName="crm_heliantisModel.rule">
+        <MappingFragment StoreEntitySet="rule">
+          <ScalarProperty Name="ruledescription" ColumnName="ruledescription" />
+          <ScalarProperty Name="rulename" ColumnName="rulename" />
+          <ScalarProperty Name="id_rule" ColumnName="id_rule" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rule_role">
+      <EntityTypeMapping TypeName="crm_heliantisModel.rule_role">
+        <MappingFragment StoreEntitySet="rule_role">
+          <ScalarProperty Name="id_role" ColumnName="id_role" />
+          <ScalarProperty Name="id_rule" ColumnName="id_rule" />
+          <ScalarProperty Name="id_roles_rules" ColumnName="id_roles_rules" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="crm_heliantisModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="definition" ColumnName="definition" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tache">
+      <EntityTypeMapping TypeName="crm_heliantisModel.tache">
+        <MappingFragment StoreEntitySet="tache">
+          <ScalarProperty Name="nom_tache" ColumnName="nom_tache" />
+          <ScalarProperty Name="id_tache" ColumnName="id_tache" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="temps">
+      <EntityTypeMapping TypeName="crm_heliantisModel.temps">
+        <MappingFragment StoreEntitySet="temps">
+          <ScalarProperty Name="repas_ext" ColumnName="repas_ext" />
+          <ScalarProperty Name="id_recurrence" ColumnName="id_recurrence" />
+          <ScalarProperty Name="id_tache" ColumnName="id_tache" />
+          <ScalarProperty Name="commentaires" ColumnName="commentaires" />
+          <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+          <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+          <ScalarProperty Name="id_projet" ColumnName="id_projet" />
+          <ScalarProperty Name="id_type_temps" ColumnName="id_type_temps" />
+          <ScalarProperty Name="id_frais" ColumnName="id_frais" />
+          <ScalarProperty Name="id_employe" ColumnName="id_employe" />
+          <ScalarProperty Name="id_temps" ColumnName="id_temps" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="type_temps">
+      <EntityTypeMapping TypeName="crm_heliantisModel.type_temps">
+        <MappingFragment StoreEntitySet="type_temps">
+          <ScalarProperty Name="absence" ColumnName="absence" />
+          <ScalarProperty Name="couleur" ColumnName="couleur" />
+          <ScalarProperty Name="nom" ColumnName="nom" />
+          <ScalarProperty Name="id_type_temps" ColumnName="id_type_temps" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="utilisateur">
+      <EntityTypeMapping TypeName="crm_heliantisModel.utilisateur">
+        <MappingFragment StoreEntitySet="utilisateur">
+          <ScalarProperty Name="mot_passe" ColumnName="mot_passe" />
+          <ScalarProperty Name="identifiant" ColumnName="identifiant" />
+          <ScalarProperty Name="id_utilisateur" ColumnName="id_utilisateur" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="VuePlanningGlobal">
+      <EntityTypeMapping TypeName="crm_heliantisModel.VuePlanningGlobal">
+        <MappingFragment StoreEntitySet="VuePlanningGlobal">
+          <ScalarProperty Name="typetemps" ColumnName="typetemps" />
+          <ScalarProperty Name="id_type_temps" ColumnName="id_type_temps" />
+          <ScalarProperty Name="idemploye" ColumnName="idemploye" />
+          <ScalarProperty Name="reference" ColumnName="reference" />
+          <ScalarProperty Name="nomclient" ColumnName="nomclient" />
+          <ScalarProperty Name="nomprojet" ColumnName="nomprojet" />
+          <ScalarProperty Name="commentaires" ColumnName="commentaires" />
+          <ScalarProperty Name="date_fin" ColumnName="date_fin" />
+          <ScalarProperty Name="date_debut" ColumnName="date_debut" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="spVuePlanningGlobal" FunctionName="crm_heliantisModel.Store.spVuePlanningGlobal" />
+  </EntityContainerMapping>
+</Mapping>

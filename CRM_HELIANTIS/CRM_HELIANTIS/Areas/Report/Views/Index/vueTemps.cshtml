@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Récapitulatifs des temps";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    
+}
+
+@using CRM_HELIANTIS.Classes;
+<div class="header">
+    <h2>Temps pour </h2>
+     @if ((ViewBag.employeList != null)&&(Html.isAuthorized("can_print_time_employe")))
+     {
+         @Html.DropDownList("employeList")
+     }
+        <select id="month" name="month">
+            <option value="1">Janvier</option>
+            <option value="2">Février</option>
+            <option value="3">Mars</option>
+            <option value="4">Avril</option>
+            <option value="5">Mai</option>
+            <option value="6">Juin</option>
+            <option value="7">Juillet</option>
+            <option value="8">Août</option>
+            <option value="9">Septembre</option>
+            <option value="10">Octobre</option>
+            <option value="11">Novembre</option>
+            <option value="12">Décembre</option>
+        </select>
+        <select id="year" name="year">
+            <option value="2011">2011</option>
+            <option value="2012">2012</option>
+            <option value="2013">2013</option>
+            <option value="2014">2014</option>
+        </select>
+        <span id="validate">Afficher</span>
+        <span id="printPdf">Pdf</span>
+        <span id="printXls">Excel</span>
+        @if ((ViewBag.employeList != null) && (Html.isAuthorized("can_print_time_employe")))
+        {
+          <span id="printTousPdf">Tous en PDF</span>
+            <span id="printTousXls">Tous pour Excel</span>
+        }
+    </div>
+<div class="content">
+   
+    <div id="tableau">
+        @Html.Action("voirTempsPartial", new { year = ViewBag.year, month = ViewBag.month, idEmploye = Html.getCurrentUtilisateur().id_employe, exportation="html" })
+    </div>
+</div>
+<script type="text/javascript">
+    var idEmployeSelect = @Html.getCurrentUtilisateur().id_employe
+    $('select[name="month"] option[value="@ViewBag.month"]').attr('selected', true);
+    $('select[name="year"] option[value="@ViewBag.year"]').attr('selected', true);
+    
+
+    $('#validate').button({
+        icons: {
+                primary: "ui-icon-search"
+            }
+        });
+    $('#printPdf').button({
+        icons: {
+                primary: "ui-icon-print"
+            }
+        });
+        $('#printXls').button({
+            icons: {
+                primary: "ui-icon-calculator"
+            }
+        });
+        
+       $('#validate').click(function () {
+        $.ajax({
+            url: 'voirTempsPartial',
+            data: {
+                year: $('#year option:selected').val(),
+                month: $('#month option:selected').val(),
+                idEmploye : idEmployeSelect,
+                exportation :"html"
+            },
+            success: function (data) {
+                $('#tableau').html(data);
+
+            }
+
+        });
+
+    });
+
+    
+    $('#printPdf').click(function(){
+        window.location.href="voirTempsPartial?year="+$('#year option:selected').val()+"&month="+$('#month option:selected').val()+"&idEmploye="+idEmployeSelect+"&exportation=PDF";
+    });
+
+     $('#printXls').click(function(){
+        window.location.href="voirTempsPartial?year="+$('#year option:selected').val()+"&month="+$('#month option:selected').val()+"&idEmploye="+idEmployeSelect+"&exportation=XLS";
+    });
+    @if (Html.isAuthorized("can_print_time_employe"))
+    {
+    <text>
+     $('#employeList').change(function(){
+        idEmployeSelect=$('#employeList option:selected').val();
+    });
+
+    $('#printTousPdf').button({
+        icons: {
+                primary: "ui-icon-print"
+            }
+        });
+        $('#printTousXls').button({
+            icons: {
+                primary: "ui-icon-calculator"
+            }
+        });
+        $('#printTousPdf').click(function(){
+        window.location.href="imprimerTempsEmployes?year="+$('#year option:selected').val()+"&month="+$('#month option:selected').val()+"&exportation=PDF";
+    });
+     $('#printTousXls').click(function(){
+        window.location.href="imprimerTempsEmployes?year="+$('#year option:selected').val()+"&month="+$('#month option:selected').val()+"&exportation=XLS";
+    });
+    
+     </text>
+        }
+    
+   
+</script>

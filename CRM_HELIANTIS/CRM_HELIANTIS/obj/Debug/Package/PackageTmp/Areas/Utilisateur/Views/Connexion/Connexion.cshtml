@@ -1,0 +1,60 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.title = "Connexion";
+}
+
+<div class="content">
+    <div id="formConnexion">
+        <div id="logoConnexion"><img src="@Url.Content("~/Content/css/images/tactilev2_grand.png")"/></div>
+        
+        @if (ViewBag.message != null)
+        {
+            <div class="ui-state-error ui-corner-all" style="padding: 0 .7em;">
+                <p>
+                    <span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span>
+                    @ViewBag.message</p>
+            </div>
+        }
+        <form name="connexion"  action="@Url.Action("seconnecter")" method="post">
+        <div>
+            <label>
+                Identifiant</label><input type="text" name="identifiant" /></div>
+        <div>
+            <label>
+                Mot de passe</label><input type="password" name="password"/></div>
+        <div>
+            <input id="btnValidConnexion" type="submit" value="valider" /></div>
+        </form>
+        <div id="perdu">Mot de passe perdu ?</div>
+        <div id="formPerdu">
+        <label>Veuillez saisir votre email</label>
+        <input id="emailPerdu" type="text"/><span id="envoiPerdu">Envoyer</span>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $('#btnValidConnexion').button();
+    $('#formPerdu').hide();
+    $('#perdu').click(function () {
+        $('#formPerdu').slideToggle();
+    })
+    $('#envoiPerdu').button({
+        text:false,
+        icons: {
+            primary: 'ui-icon-arrowthick-1-e'
+        }
+    });
+    $('#envoiPerdu').click(function () {
+        $.ajax({
+        type:'POST',
+            url: 'Connexion/MotPassePerdu',
+            data:{
+                email: $("#emailPerdu").val()
+            },
+            success: function (data) {
+                $.sticky(data.message);
+                $('#formPerdu').slideUp();
+            }
+        })
+    });
+</script>
