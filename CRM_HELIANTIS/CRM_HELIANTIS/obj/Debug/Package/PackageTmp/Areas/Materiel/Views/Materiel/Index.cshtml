@@ -2,6 +2,10 @@
     ViewBag.Title = "Gestion des ressources matérielles";
     Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
+@section breadcrumb{
+    Administration > Ressources matérielles
+}
+
 @using CRM_HELIANTIS.Classes;
 <script src="@Url.Content("~/Scripts/dataTables.js")"></script>
 <script src="@Url.Content("~/Scripts/timepicker.js")"></script>

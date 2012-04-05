@@ -2,6 +2,11 @@
     ViewBag.Title = "Liste des clients";
     Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
+
+@section breadcrumb{
+    Administration > Projets
+}
+
 @using CRM_HELIANTIS.Classes;
 <script src="@Url.Content("~/Scripts/dataTables.js")"></script>
 

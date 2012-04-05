@@ -2,7 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head> 
 
+
+<!--[if lt IE 9 ]>
 <meta http-equiv="X-UA-Compatible" content="IE=7" />
+<![endif]-->
+
+<!--
+<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
+-->
 
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
 @using CRM_HELIANTIS.Global;
@@ -229,7 +236,9 @@
 		
 		<!-- Begin content -->
 		<div id="content_wrapper">
-		
+		    <div class="breadcrumb">
+@RenderSection("breadcrumb", required:false)
+</div>
 			<!-- Begin one column box -->
 			<div class="onecolumn">
 				@RenderBody()
@@ -257,7 +266,7 @@
 </div>
 <!-- -------------------------------------->
 <div id="chargement">
-<div id="textloading">Chargement </div>
+    <div id="textloading">Chargement </div>
 <div id="loading">
 <span id="circleG">
 <div id="circleG_1" class="circleG">

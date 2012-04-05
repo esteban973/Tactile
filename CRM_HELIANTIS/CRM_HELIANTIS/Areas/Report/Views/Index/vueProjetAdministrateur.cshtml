@@ -4,6 +4,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     
 }
+
+@section breadcrumb{
+    Récapitulatifs > Temps pour le projet
+}
+
 <div class="header">
      <h2>Temps pour le projet </h2>
      
@@ -16,8 +21,8 @@
     <option value="employeTousGlobal">Temps global du projet</option>
     
     </select>
-    <input type="checkbox" id="dateEnabled"/>
-        <select id="month" name="month" disabled=disabled>
+    <input type="checkbox" id="dateEnabled" checked="checked"/>
+        <select id="month" name="month">
             <option value="1">Janvier</option>
             <option value="2">Février</option>
             <option value="3">Mars</option>
@@ -32,7 +37,7 @@
             <option value="12">Décembre</option>
         </select>
 
-        <select id="year" name="year" disabled>
+        <select id="year" name="year">
             <option value="2011">2011</option>
             <option value="2012">2012</option>
             <option value="2013">2013</option>

@@ -1,4 +1,4 @@
-﻿@model CRM_HELIANTIS.Areas.Reservation.Models.DupliquerView
+﻿@model CRM_HELIANTIS.Areas.Materiel.Models.DupliquerView
 
 
 <form id="formulaireDuplication">
@@ -34,7 +34,7 @@
 <script type="text/javascript">
     $('#dateFin').datepicker({ minDate: "@Model.dateFin.ToString().Substring(0, 10)" });
     $('span', '.bouton').button();
-
+    $("#formulaireDuplication").validationEngine({ promptPosition: "topRight", scroll: false, validationEventTrigger: "" });
     //envoi de la requête en ajax
     $('#validate').click(function () {
         viderErreurs();

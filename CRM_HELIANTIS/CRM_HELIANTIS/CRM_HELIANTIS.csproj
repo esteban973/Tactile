@@ -235,6 +235,12 @@
     <Content Include="Content\images\icon_warning.png" />
     <Content Include="Content\images\logo.png" />
     <Content Include="Content\images\tipsy.gif" />
+    <Content Include="Content\video\expressInstall.swf" />
+    <Content Include="Content\video\FirstFrame.png" />
+    <Content Include="Content\video\swfobject.js" />
+    <Content Include="Content\video\tactile.html" />
+    <Content Include="Content\video\tactile.mp4" />
+    <Content Include="Content\video\tactile_controller.swf" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\browser.js" />
     <Content Include="Scripts\chosen-sprite.png" />
@@ -364,14 +370,23 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>DataModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Views\Home\Aide.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Report\Report\fraisEmploye.rdlc" />
-    <Content Include="Areas\Report\Report\tempsEmploye.rdlc" />
+    <Content Include="Areas\Report\Report\fraisEmploye.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Report\Report\tempsEmploye.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Areas\Report\Report\tempsGlobalEmploye.rdlc" />
-    <EmbeddedResource Include="Areas\Report\Report\vueTempsProjet.rdlc" />
+    <Content Include="Areas\Report\Report\tempsGlobalEmploye.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Areas\Report\Report\vueTempsProjet.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

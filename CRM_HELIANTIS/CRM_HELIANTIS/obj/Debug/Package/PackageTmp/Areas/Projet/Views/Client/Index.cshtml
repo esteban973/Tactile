@@ -2,6 +2,10 @@
     ViewBag.Title = "Liste des clients";
     Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
+@section breadcrumb{
+    Administration > Clients
+}
+
 @using CRM_HELIANTIS.Classes;
 <script src="@Url.Content("~/Scripts/dataTables.js")"></script>
 
@@ -92,7 +96,7 @@
             { "mDataProp": "id" }, { "mDataProp": "reference" }, { "mDataProp": "nom" }, { "mDataProp": "bouton", "bSortable": false }
         ],
             "fnInitComplete": function (oSettings, json) {
-               constructBouton();
+               //constructBouton();
             },
            "fnDrawCallback": function () {
                constructBouton();

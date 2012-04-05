@@ -27,6 +27,12 @@ namespace CRM_HELIANTIS
                 new { controller = "Home", action = "Index" } // Parameter defaults
             );
 
+            routes.MapRoute(
+                "Aide", // Route name
+                "Aide", // URL with parameters
+                new { controller = "Home", action = "Aide" } // Parameter defaults
+            );
+
         }
 
         protected void Application_Start()

@@ -1237,3 +1237,11 @@ opacity:0.3}
         overflow-x:hidden;
         overflow-y : auto;
         }
+        
+/***breadcrum**/
+
+.breadcrumb
+{
+    font-size :90%;
+    margin:0 0 10px 20px;
+}

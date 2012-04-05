@@ -18,5 +18,10 @@ namespace CRM_HELIANTIS.Controllers
             else return RedirectToAction("Index", "Connexion", new { area = "Utilisateur" });
         }
 
+        public ActionResult Aide()
+        {
+            return View();
+        }
+
     }
 }

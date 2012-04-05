@@ -25,7 +25,8 @@
         <div>
             <input id="btnValidConnexion" type="submit" value="valider" /></div>
         </form>
-        <div id="perdu">Mot de passe perdu ?</div>
+        
+        <div id="perdu"> @Html.RouteLink("Besoin d'aide ?","Aide", "http",null, null, new {action ="aide", controller="Home"},null)<span style="color:#4D7BCA;display:inline-block;margin-left:20px;" id="mdp">Mot de passe perdu ?</span></div>
         <div id="formPerdu">
         <label>Veuillez saisir votre email</label>
         <input id="emailPerdu" type="text"/><span id="envoiPerdu">Envoyer</span>
@@ -35,7 +36,7 @@
 <script type="text/javascript">
     $('#btnValidConnexion').button();
     $('#formPerdu').hide();
-    $('#perdu').click(function () {
+    $('#mdp').click(function () {
         $('#formPerdu').slideToggle();
     })
     $('#envoiPerdu').button({

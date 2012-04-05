@@ -13,8 +13,7 @@ namespace CRM_HELIANTIS.Areas.Materiel.Controllers
 {
     public class ReservationController : BaseController
     {
-        //
-        // GET: /Reservation/Reservation/
+        
 
         public ActionResult Index()
         {

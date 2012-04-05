@@ -4,6 +4,12 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int i = 0;
 }
+
+@section breadcrumb{
+    Administration > Gestion des rôles
+}
+
+
 <div class="header">
     <h2>Gestion des rôles</h2></div>
     <form action="@Url.Action("roleUpdate")" method="post">

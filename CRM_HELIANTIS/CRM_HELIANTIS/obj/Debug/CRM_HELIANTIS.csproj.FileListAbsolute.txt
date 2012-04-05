@@ -13,6 +13,10 @@ C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIA
 C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.xml
 C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.Mvc.pdb
 C:\Users\s-lanjard\Documents\Visual Studio 2010\Projects\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.Mvc.xml
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\Areas\Report\Report\fraisEmploye.rdlc
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\Areas\Report\Report\tempsEmploye.rdlc
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\Areas\Report\Report\tempsGlobalEmploye.rdlc
+D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\Areas\Report\Report\vueTempsProjet.rdlc
 D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\CRM_HELIANTIS.dll
 D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\CRM_HELIANTIS.pdb
 D:\WORK_ESTEBAN\crm_heliantis\CRM_HELIANTIS\CRM_HELIANTIS\bin\ActionMailer.Net.dll

@@ -2,6 +2,12 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
+
+@section breadcrumb{
+    Administration > Utilisateurs
+}
+
+
 @using CRM_HELIANTIS.Classes;
 <script src="@Url.Content("~/Scripts/dataTables.js")"></script>
 <script src="@Url.Content("~/Scripts/timepicker.js")"></script>

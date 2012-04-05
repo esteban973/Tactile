@@ -4,12 +4,24 @@
     
 }
 
+@section breadcrumb {
+
+@if (ViewBag.employeList != null){
+    <text>Récapitulatifs > Temps pour un employé</text>
+}else{
+    <text>Récapitulatifs > Mes temps</text>
+}
+}
+
+
 @using CRM_HELIANTIS.Classes;
 <div class="header">
     <h2>Temps pour </h2>
-     @if ((ViewBag.employeList != null)&&(Html.isAuthorized("can_print_time_employe")))
+     @if ((ViewBag.employeList != null) && (Html.isAuthorized("can_print_time_employe")))
      {
          @Html.DropDownList("employeList")
+ 
+      
      }
         <select id="month" name="month">
             <option value="1">Janvier</option>
@@ -43,7 +55,7 @@
 <div class="content">
    
     <div id="tableau">
-        @Html.Action("voirTempsPartial", new { year = ViewBag.year, month = ViewBag.month, idEmploye = Html.getCurrentUtilisateur().id_employe, exportation="html" })
+        @Html.Action("voirTempsPartial", new { year = ViewBag.year, month = ViewBag.month, idEmploye = Html.getCurrentUtilisateur().id_employe, exportation = "html" })
     </div>
 </div>
 <script type="text/javascript">

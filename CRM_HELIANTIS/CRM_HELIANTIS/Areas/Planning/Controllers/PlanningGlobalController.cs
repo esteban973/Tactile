@@ -31,8 +31,8 @@ namespace CRM_HELIANTIS.Areas.Planning.Controllers
             // l'affichage des employés peut être conditionné en fonction du service
             // si l'entier cat est renseigné on limite la liste des employés à seulement le groupe correspondant
             List<employe> listEmp;
-            if (cat.HasValue) listEmp = cnx.employe.Where(e => e.id_groupe == cat && e.z_actif == true).ToList();
-            else listEmp = cnx.employe.Where(e => e.z_actif == true).ToList();
+            if (cat.HasValue) listEmp = cnx.employe.Where(e => e.id_groupe == cat && e.z_actif == true).OrderBy(e=>e.nom).ToList();
+            else listEmp = cnx.employe.Where(e => e.z_actif == true).OrderBy(e => e.nom).ToList();
             
             foreach (var emp in listEmp)
             {
